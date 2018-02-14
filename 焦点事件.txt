@@ -1,0 +1,7 @@
+focus事件：Element节点获得焦点后触发，该事件不会冒泡。
+
+blur事件：Element节点失去焦点后触发，该事件不会冒泡。
+
+focusin事件：Element节点将要获得焦点时触发，发生在focus事件之前。该事件会冒泡。Firefox不支持该事件。
+
+focusout事件：Element节点将要失去焦点时触发，发生在blur事件之前。该事件会冒泡。Firefox不支持该事件。

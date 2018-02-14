@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<select name="" id="example" size="10" multiple="multiple">
+			<option value="">111</option>
+			<option value="">222</option>
+			<option value="">333</option>
+			<option value="">111</option>
+			<option value="">222</option>
+			<option value="">333</option>
+			<option value="">111</option>
+			<option value="">222</option>
+			<option value="">333</option>
+		</select>
+		<script type="text/javascript">
+			/*<select>元素有一个options属性，返回一个类似数组的对象，包含了所有的<option>元素。*/
+			example.options[1].textContent; //222
+
+			example.options.length = 5; //length的属性可以设置  也就变成可以随便改写选项卡的数量
+
+			example.options[3] = null; //直接删除第四个选项卡，后面的option对象会自动递补这个位置
+
+			/*用户选中取消一个下拉选项时，触发Select对象的change事件，从而自动执行onchange监听函数。*/
+			example.onchange = () => console.log(example.selectedIndex);
+
+			/*Select对象的selectedIndex属性，返回用户选中的第一个下拉选项的位置（从0开始）
+			 如果返回-1，则表示用户没有选中任何选项。该属性可读写。*/
+
+			/******************************************************************************/
+
+			let item = new Option('Hello World', 'myValue', true, true);
+			example[example.options.length] = item;
+
+			/*
+	<option>元素用于在下拉列表（<select>）中生成下拉选项。每个下拉选项就是一个Option对象，它有以下属性。
+
+	selected：返回一个布尔值，表示用户是否选中该选项。
+	text：返回该下拉选项的显示的文本。该属性可读写，可用来显示向用户显示的文本。
+	value：返回该下拉选项的值，即向服务器发送的那个值。该属性可读写。
+	defaultSelected：返回一个布尔值，表示这个下拉选项是否默认选中。
+	浏览器提供Option构造函数，用来生成下拉列表的选项对象。
+	利用这个函数，可以用脚本生成下拉选项，然后放入Select.options对象里面，从而自动生成下拉列表。
+
+	var item = new Option(
+	  'Hello World',  // 显示的文本，即 text 属性
+	  'myValue',  // 向服务器发送的值，即 value 属性
+	  false,    // 是否为默认选项，即 defaultSelected 属性
+	  false   // 是否已经选中，即 selected 属性
+	);
+*/
+
+			/*
+			 * 自我总结 API
+			 * 
+			 * select元素：
+			 * 				size：设置option元素 的容量，存储个数
+			 * 				multiple：是否可以多选option
+			 * 				options：返回一个类似数组的对象 里面包括的是 select里面所有的option标签
+			 * 				读写性：可以设置 长度 ，直接删除某个option 
+			 * 				onchange：选择其他option元素时  触发该事件
+			 * 				selectedIndex：返回选中options 中的索引
+			 * 
+			 * option元素：
+			 * 				selected：用户是否选中该选项
+			 * 				text：返回该下拉选项的显示的文本。该属性可读写，可用来显示向用户显示的文本。
+							value：返回该下拉选项的值，即向服务器发送的那个值。该属性可读写。
+							defaultSelected：返回一个布尔值，表示这个下拉选项是否默认选中。
+							
+							var item = new Option(
+							  'Hello World',  // 显示的文本，即 text 属性
+							  'myValue',  // 向服务器发送的值，即 value 属性
+							  false,    // 是否为默认选项，即 defaultSelected 属性
+							  false   // 是否已经选中，即 selected 属性
+							);
+			 * 
+			 */
+		</script>
+	</body>
+
+</html>

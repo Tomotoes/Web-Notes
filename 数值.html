@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//有句话 你可能没听过
+			//JavaScript内部 	所有数字都是 以64位浮点数形式 存储，即使整数也是如此。所有 1与1.0相等
+			//这就是说 JavaScript 语言的底层根本没有整数，所有数字都是小数（64位浮点数）。容易造成混淆的是，某些运算只有整数才能完成，此时 JavaScript 会自动把64位浮点数，转成32位整数，然后再进行运算
+
+			//精度最多只能到53个二进制位，这意味着，绝对值小于2的53次方的整数，即-(253-1)到253-1
+			
+			//Number.MAX_SAFE_INTEGER：表示能够精确表示的最大整数，即9007199254740991。
+			//Number.MIN_SAFE_INTEGER：表示能够精确表示的最小整数，即-9007199254740991。
+
+			//当然我们可以手动 求出最大值 和最小值
+			console.log(Number.MAX_VALUE); //1.7976931348623157e+308
+
+			console.log(Number.MIN_VALUE); //5e-324
+
+			//下面介绍 NaN
+			//NaN是 JavaScript 的特殊值，表示“非数字”（Not a Number），主要出现在将字符串解析成数字出错的场合
+
+			//需要注意的是，NaN不是一种独立的数据类型，而是一种特殊数值，它的数据类型依然属于Number，使用typeof运算符可以看得很清楚。
+			console.log(typeof NaN);
+
+			//NaN不等于任何值，包括它本身。
+			console.log(NaN === NaN); //false
+
+			//isNaN方法可以用来判断一个值是否为NaN。
+			console.log(isNaN(123)) //false
+			console.log(isNaN('ABC')) //true
+			console.log(isNaN(Number('ABC'))) //true
+
+			//判断NaN更可靠的方法是，利用NaN是JavaScript之中唯一不等于自身的值这个特点，进行判断。
+			function myIsNaN(value) {
+				return value !== value;
+			}
+			myIsNaN(NaN) //true
+
+			//下面介绍Infinity
+			//Infinity表示“无穷”，用来表示两种场景。一种是一个正的数值太大，或一个负的数值太小
+			//另一种是非0数值除以0，得到Infinity。
+			console.log(5 / 0) //Infinity
+
+			//Infinity大于一切数值（除了NaN），-Infinity小于一切数值（除了NaN）。
+			//Infinity与NaN比较，总是返回false。
+			console.log(Infinity === NaN); //false
+			console.log(Infinity < NaN); //false
+			console.log(Infinity > NaN); //false
+
+			//isFinite函数返回一个布尔值，检查某个值是不是正常数值，而不是Infinity。
+			isFinite(Infinity) // false
+			isFinite(-1) // true
+			isFinite(true) // true
+			isFinite(NaN) // false
+
+			//parseInt方法用于将字符串转为整数。
+			console.log(parseInt(80)); //80
+			console.log(parseInt('1.23')); //1
+			parseInt('+1') // 1
+
+			//parseInt方法还可以接受第二个参数（2到36之间），表示被解析的值的进制，返回该值对应的十进制数。默认情况下，parseInt的第二个参数为10，即默认是十进制转十进制。
+
+			console.log(parseInt(50, 8));
+
+			//parseFloat方法会自动过滤字符串前导的空格。
+			parseFloat('\t\v\r12.34\n ') // 12.34
+			
+			//toFixed方法用于将一个数转为指定位数的小数，返回这个小数对应的字符串。
+			(10).toFixed(2) // "10.00"
+			10.005.toFixed(2) // "10.01"
+
+			//toExponential方法用于将一个数转为科学计数法形式。
+			(10).toExponential() // "1e+1"
+			(10).toExponential(1) // "1.0e+1"
+			(10).toExponential(2) // "1.00e+1"
+
+			(1234).toExponential() // "1.234e+3"
+			(1234).toExponential(1) // "1.2e+3"
+			(1234).toExponential(2) // "1.23e+3"
+
+			//toPrecision方法用于将一个数转为指定位数的有效数字。
+			(12.34).toPrecision(1) // "1e+1"
+			(12.34).toPrecision(2) // "12"
+			(12.34).toPrecision(3) // "12.3"
+			(12.34).toPrecision(4) // "12.34"
+			(12.34).toPrecision(5) // "12.340"
+		</script>
+	</body>
+
+</html>

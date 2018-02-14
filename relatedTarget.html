@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="outer" style="height:50px;width:50px;border-width:1px solid black;">
+			<div id="inner" style="height:25px;width:25px;border:1px solid black;"></div>
+		</div>
+		<script type="text/javascript">
+			var inner = document.getElementById("inner");
+
+			inner.addEventListener("mouseover", function() {
+				console.log('进入' + event.target.id + " 离开" + event.relatedTarget.id);
+			});
+			inner.addEventListener("mouseenter", function() {
+				console.log('进入' + event.target.id + " 离开" + event.relatedTarget.id);
+			});
+			inner.addEventListener("mouseout", function() {
+				console.log('离开' + event.target.id + " 进入" + event.relatedTarget.id);
+			});
+			inner.addEventListener("mouseleave", function() {
+				console.log('离开' + event.target.id + " 进入" + event.relatedTarget.id);
+			});
+		</script>
+	</body>
+
+</html>

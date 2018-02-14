@@ -1,0 +1,37 @@
+File API提供File对象，它是FileList对象的成员，
+包含了文件的一些元信息，比如文件名、上次改动时间、文件大小和文件类型。
+
+var selected_file = document.getElementById('input').files[0];
+
+var fileName = selected_file.name;
+var fileSize = selected_file.size;
+var fileType = selected_file.type;
+
+
+File对象的属性值如下。
+
+name：文件名，该属性只读。
+size：文件大小，单位为字节，该属性只读。
+type：文件的MIME类型，如果分辨不出类型，则为空字符串，该属性只读。
+lastModified：文件的上次修改时间，格式为时间戳。
+lastModifiedDate：文件的上次修改时间，格式为Date对象实例。
+
+
+$('#upload-file').files[0]
+// {
+//   lastModified: 1449370355682,
+//   lastModifiedDate: Sun Dec 06 2015 10:52:35 GMT+0800 (CST),
+//   name: "HTTP 2 is here Goodbye SPDY Not quite yet.png",
+//   size: 17044,
+//   type: "image/png"
+// }
+
+
+transform-origin 
+默认是 center center
+
+transform-origin: center 400px;  外围旋转！！
+ 
+scaleY?? 只改变高度
+
+子元素旋转 父元素同步位移 便是椭圆！

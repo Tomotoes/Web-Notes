@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function Ctor() {
+				this.Name = 'majin';
+			}
+			Ctor.prototype.Sex = '男';
+			let C = new Ctor();
+
+			function Dctr() {
+				this.Age = '18';
+			}
+			Dctr.prototype.Class = '19';
+
+			let D = new Dctr();
+			console.log(D.Class);//true
+			
+			let R = Object.setPrototypeOf(D, C);
+
+			console.log(D.Sex);//true
+			console.log(D.Name);//true
+			
+			console.log(D.Age);//true
+			console.log(D.Class);//false  因为修改了 D的原型对象 所以D构造函数的原型对象是找不到了
+			
+			
+			console.log(R.Sex);//true
+			console.log(R.Name);//true
+			
+			console.log(R.Age);//true
+			console.log(R.Class);//false
+			
+			//C完全正常
+			console.log(C.Sex);//true
+			console.log(C.Name);//true
+			
+			console.log(C.Age);//false
+			console.log(C.Class);//false
+			
+			console.clear()
+			
+			//事实证明 D完全等于R
+			console.log(D===R);//true
+			
+			//事实证明 D的原型对象 就是A
+			console.log(Object.getPrototypeOf(D)===C);//true
+			
+			console.log(C.isPrototypeOf(R));//true
+			//判断 当前对象是否 为另一个对象的原型 
+			//也就是 说  判断 C是否是R的原型  答案显而易见
+		</script>
+	</body>
+
+</html>

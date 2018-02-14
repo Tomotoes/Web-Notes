@@ -1,0 +1,192 @@
+<!--
+	先记录一下 自己犯了一个很愚蠢的错误
+	
+	先为每个元素绑定了事件 打印 i 而i为循环变量  绑定事件后 i已经为4
+	这个时候执行事件 ，i为4 
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var Search = document.getElementById("Search");
+				var Question = document.getElementById("Question");
+				var SArray = document.getElementById("Things").getElementsByTagName('input');
+				var SearchKey = 0;
+				for(var i = 0; i < SArray.length; i++) {
+					SArray[i].index = i;
+					SArray[i].onchange = function() {
+						SearchKey = this.index;
+						if(this.checked) {
+							for(var j = 0; j < SArray.length; ++j) {
+								if(j != SearchKey && SArray[j].checked) {
+									SArray[j].checked = false;
+									break;
+								}
+							}
+						}
+					}
+				};
+				Search.onclick = function() {
+					if(Question.value != "") {
+						var Href;
+						switch(SearchKey) {
+							case 0:
+								Href = 'https://www.baidu.com/s?wd='
+								break;
+							case 1:
+								Href = 'https://www.google.com.hk/search?newwindow=1&safe=strict&q=';
+								break;
+							case 2:
+								Href = 'http://cn.bing.com/search?q=';
+								break;
+							case 3:
+								Href = 'https://www.sogou.com/web?query='
+								break;
+						}
+						window.location.href = Href + Question.value;
+					}
+				};
+			};
+		</script>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+				font-family: "微软雅黑";
+			}
+			
+			#Main {
+				left: 27%;
+				top: 18%;
+				position: relative;
+			}
+			
+			#Question {
+				top: 235px;
+				width: 500px;
+				height: 50px;
+				font-size: 20px;
+				border-radius: 50px;
+				border: solid 2px #ccc;
+				outline: none;
+				margin-right: 30px;
+				position: absolute;
+			}
+			
+			#Search {
+				top: 235px;
+				left: 530px;
+				width: 150px;
+				height: 50px;
+				font-size: 20px;
+				background-color: #ccc;
+				border-radius: 20px;
+				outline: none;
+				border: solid 1px #fff;
+				position: absolute;
+			}
+			
+			#Search:hover {
+				animation: Searrr 0.8s ease-out;
+			}
+			
+			@keyframes Searrr {
+				from {
+					background-color: #ccc;
+					color: #000;
+				}
+				to {
+					background-color: #999;
+					color: #fff;
+				}
+			}
+			
+			img {
+				width: 200px;
+				height: 180px;
+				left: 135px;
+				top: 50px;
+				position: absolute;
+				border-radius: 100%;
+			}
+			
+			#Things input[type=checkbox] {
+				content: "\2713";
+				text-shadow: 1px 1px 1px rgba(0, 0, 0,0.2);
+				font-size: 15px;
+				color: #f3f3f3;
+				text-align: center;
+				line-height: 15px;
+			}
+			
+			input[type=text]:focus{
+				font-weight: bold;
+			}
+			
+			img:hover {
+				animation: Animation 2s ease forwards;
+			}
+			
+			@keyframes Animation {
+				0% {
+					transform: rotate(0deg) translate(0px, 0px) skew(0deg, 0deg);
+				}
+				25% {
+					transform: rotate(2.5deg)translate(2.5px, 2.5px) skew(2.5deg, 2.5deg);
+				}
+				50% {
+					transform: rotate(5deg) translate(5px, 5px) skew(5deg, 5deg);
+				}
+				75% {
+					transform: rotate(2.5deg) translate(2.5px, 2.5px) skew(2.5deg, 2.5deg);
+				}
+				100% {
+					transform: rotate(0deg) translate(0px, 0px) skew(0deg, 0deg);
+				}
+			}
+			
+			#Things {
+				top: 315px;
+				left: -20px;
+				position: absolute;
+			}
+			
+			#Things input {
+				margin-left: 50px;
+				width: 30px;
+				height: 30px;
+				box-shadow: 5px 5px 5px #ccc;
+			}
+			
+			#Things input[type=checkbox]:hover{
+				
+				box-shadow: 6px 6px 6px #999;
+				transform: scale(1.2);
+				transform: rotate(45deg);
+				transition: all 1s;
+				content: 'x';
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="Main">
+			<img src="img/b.jpg" alt="" /><br />
+			<input type="text" id="Question" value="" placeholder="请输入您要搜索的内容" />
+			<input type="button" id="Search" value="开始搜索" />
+			<div id="Things">
+				<input type="checkbox" checked="checked" />百度
+				<input type="checkbox" />Google
+				<input type="checkbox" />Bing
+				<input type="checkbox" />搜狗
+			</div>
+		</div>
+	</body>
+
+</html>

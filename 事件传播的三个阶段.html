@@ -1,0 +1,75 @@
+<!--
+当一个事件发生以后 ， 它会在不同的 DOM节点 之间传播（propagation）
+
+这种传播分为三个阶段，这种三阶段的传播模型，会使得一个事件在多个节点上触发。
+
+捕获阶段（capture phase）  ：从 window对象 传导到 目标节点
+
+目标阶段（target phase）    ：从目标节点上触发
+
+冒泡阶段（bubbling phase）：从目标节点传导回window对象 
+
+
+页面对象的层级顺序：window -> document -> html(document.documentElement) -> body(document.dody)
+
+也就是说，如果<body>元素中有一个<div>元素，点击该元素。事件的传播顺序，
+
+在捕获阶段依次为window、document、html、body、div，
+
+在冒泡阶段依次为div、body、html、document、window。
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div>
+			<p>Click Me</p>
+		</div>
+		<script type="text/javascript">
+			var phases = {
+				1: 'capture',
+				2: 'target',
+				3: 'bubble'
+			};
+
+			var div = document.querySelector('div');
+			var p = document.querySelector('p');
+
+			div.addEventListener('click', callback, true);
+			p.addEventListener('click', callback, true);
+			div.addEventListener('click', callback, false);
+			p.addEventListener('click', callback, false);
+
+			function callback(event) {
+				var tag = event.currentTarget.tagName;
+				var phase = phases[event.eventPhase];
+				console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
+			}
+
+			// 点击以后的结果
+			// Tag: 'DIV'. EventPhase: 'capture'
+			// Tag: 'P'. EventPhase: 'target'
+			// Tag: 'P'. EventPhase: 'target'
+			// Tag: 'DIV'. EventPhase: 'bubble'
+
+			//click事件触发了四次：<p>节点的捕获阶段和冒泡阶段各1次 <div>节点的捕获阶段和冒泡阶段各1次。
+
+			//捕获阶段：事件从<div>向<p>传播时，触发<div>的click事件；
+			//目标阶段：事件从<div>到达<p>时，触发<p>的click事件；
+			//目标阶段：事件离开<p>时，触发<p>的click事件；
+			//冒泡阶段：事件从<p>传回<div>时，再次触发<div>的click事件。
+
+			//注意，用户点击网页的时候，浏览器总是假定click事件的目标节点，
+			//就是点击位置的嵌套最深的那个节点（嵌套在<div>节点的<p>节点）。
+			//所以，<p>节点的捕获阶段和冒泡阶段，都会显示为target阶段。
+		</script>
+	</body>
+
+</html>

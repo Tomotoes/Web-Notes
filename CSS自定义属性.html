@@ -1,0 +1,76 @@
+<!--
+	CSS3开始支持自定义属性
+	它引入--符号来声明一个变量
+	有时候 CSS3自定义属性 又被成为CSS变量
+	
+	使用方法 是 var(--xxx)
+	
+	很有意思的是 var 这个关键词 还是 JS中 声明变量的 关键字
+	
+	var函数 还提供了一个默认值。如果 你不能确定 自定义属性 是否被定义，可以使用这个方式提供一个值作为后备。
+	color: var(--jiade-co, red);
+	
+	var --majin-height = 500px;
+	var --majin-height = red;
+	
+	使用 var(-majin-height)
+	
+	CSS3自定义属性 正是 CSS变量也
+	
+	下面有一个 很好的例子 说明了这一点
+	
+	
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				width: 100px;
+				height: 100px;
+				border: solid red 1px;
+				--majin-color: blue;
+				--majin-height: 400px;
+			}
+			
+			#header {
+				background-color: var(--majin-color);
+				color: var(--jiade-co, red);
+				height: var(--majin-height);
+				width: calc(var(--majin-height)+500px);
+			}
+			
+			p {
+				--majin-p: inherit;
+			}
+			
+			em {
+				color: var(--majin-p);
+			}
+			/*我们来看一下 自定义属性的妙用，就好像是 函数的参数一样*/
+			.test {
+				--box-shadow-color: yellow;
+				box-shadow: 0 0 30px var(--box-shadow-color);
+			}
+			
+			.test:hover {
+				--box-shadow-color: orange;
+				/* Instead of: box-shadow: 0 0 30px orange; */
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">XXXXXXXXXX
+			<p>Thisis p</p>
+		</div>
+		<em>This is EM</em>
+		<input type="text" class="test" value="" />
+	</body>
+
+</html>

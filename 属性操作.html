@@ -1,0 +1,109 @@
+<!--
+HTML元素包括标签名和若干个键值对，这个键值对就称为“属性”（attribute）。
+
+<a id="test" href="http://www.example.com"> 链接 </a>
+上面代码中，a元素包括两个属性：id属性和href属性。
+
+在DOM中，属性本身是一个对象（Attr对象）。
+
+HTML元素对象有一个attributes属性，返回一个类似数组的动态对象，成员是该元素标签的所有属性节点对象，属性的实时变化都会反映在这个节点对象上。
+
+属性节点对象有name和value属性，对应该属性的属性名和属性值
+
+HTML元素的属性名是大小写不敏感的，但是JavaScript对象的属性名是大小写敏感的。转换规则是，转为JavaScript属性名时，一律采用小写。如果属性名包括多个单词，则采用骆驼拼写法，即从第二个单词开始，每个单词的首字母采用大写，比如onClick。
+
+有些HTML属性名是JavaScript的保留字，转为JavaScript属性时，必须改名。主要是以下两个。
+
+for属性改为htmlFor
+class属性改为className
+另外，HTML属性值一般都是字符串，但是JavaScript属性会自动转换类型。比如，将字符串true转为布尔值，将onClick的值转为一个函数，将style属性的值转为一个CSSStyleDeclaration对象。
+
+
+元素节点提供四个方法，用来操作属性。
+
+getAttribute()
+setAttribute()
+hasAttribute()
+removeAttribute()
+其中，前两个读写属性的方法，与前一部分HTML标签对象的属性读写，有三点差异。
+
+（1）适用性
+
+getAttribute()和setAttribute()对所有属性（包括用户自定义的属性）都适用；HTML标签对象的属性，只适用于标准属性。
+
+（2）返回值
+
+getAttribute()只返回字符串，不会返回其他类型的值。HTML标签对象的属性会返回各种类型的值，包括字符串、数值、布尔值或对象。
+
+（3）属性名
+
+这些方法只接受属性的标准名称，不用改写保留字，比如for和class都可以直接使用。另外，这些方法对于属性名是大小写不敏感的。
+
+说一下 自定义属性的命名规范 
+
+1.必须以 data-开头
+2.data-xxx  xxx中间不能出现符号，大写字母
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			div {
+				width: 200px;
+				height: 200px;
+				border: solid 1px red;
+			}
+			
+			#header {
+				background-color: yellow;
+			}
+			
+			#head {
+				background-color: blue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header" tabindex="1" data-self="self"></div>
+		<script type="text/javascript">
+			//【@.1】属性节点对象有name和value属性，对应该属性的属性名和属性值
+			if(header.hasAttributes()) {
+				var ArrayAtr = header.attributes;
+				var Con = '';
+//				for(var i = 0; i < ArrayAtr.length; ++i) {
+//					Con += ArrayAtr[i].name + ' : ' + ArrayAtr[i].value + '\n';
+//				}
+				for(var x of ArrayAtr) {
+					Con += x.name + ' : ' + x.value + '\n';
+				}
+				console.log(Con);
+			}
+
+			//修改 HTML中 的标准属性
+			header.id = 'head';
+
+			console.log(head.getAttribute('id'))
+
+			head.setAttribute('id', 'header');
+
+			//header.removeAttribute('data-self')
+			delete header.dataset.self
+			//注意这条代码 很有趣 ，
+			//第一 前面的delete命令,有点类似于SQL语句
+			//第二 self没有data前缀 
+			//第三 出现了 自定义属性的专门管理人员 dataset
+
+			if(!header.hasAttribute('data-self')) {
+				//header.dataset.self='majin'
+				header.setAttribute('data-self', 'majin')
+			}
+		</script>
+	</body>
+
+</html>

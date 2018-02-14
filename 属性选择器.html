@@ -1,0 +1,44 @@
+<!--
+	刚开始了解 ~这个属性选择器 
+	第一感觉和 * 没什么差别
+	
+	但是差别却很大
+	假如我有一个类 xxx www xxx 由三个类组成
+	
+	这个时候 ~ 匹配的就是包含其中一个类的作用
+	class~=xxx
+	
+	而 * 匹配的是 其中是否 包含字符的作用
+	*=x
+	
+	然后 *的权重 要比 ~大
+	
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			div[class~="xxx"] {
+				width: 10px;
+				height: 10px;
+				background-color: red;
+			}
+			
+			div[class*='w x'] {
+				width: 100px;
+				height: 100px;
+				background-color: #000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="www xxx"></div>
+	</body>
+
+</html>

@@ -1,0 +1,26 @@
+<div id="header">
+	this is header!
+</div>
+<script>
+	(function() {
+		var d = document.currentScript.ownerDocument;
+		let img = new Image();
+		img.src = 'img/b.jpg';
+		d.body.appendChild(img);
+		
+		
+		// 以下代码位于被加载（import）的外部网页
+
+		// importDoc指向被加载的DOM
+		var importDoc = document.currentScript.ownerDocument;
+
+		// mainDoc指向主文档的DOM
+		var mainDoc = document;
+
+		// 将子页面的样式表添加主文档
+		var styles = importDoc.querySelector('link[rel="stylesheet"]');
+		mainDoc.head.appendChild(styles.cloneNode(true));
+		/*上面代码将所加载的外部网页的样式表，添加进当前网页。*/
+
+	})()
+</script>

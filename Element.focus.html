@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<input type="text" id="Txt1" value="" />
+		<input type="button" id="Btn1" value="For Text Get Focus" />
+		<script type="text/javascript">
+			Btn1.onclick = function() {
+				Txt1.focus();
+				confirm(document.activeElement.attributes[0].nodeValue)
+				confirm(document.activeElement.type)
+				confirm(document.activeElement.getAttribute('type'))
+			}
+		</script>
+	</body>
+
+</html>

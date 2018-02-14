@@ -1,0 +1,37 @@
+CustomEvent()
+Event构造函数只能指定事件名，不能在事件上绑定数据。如果需要在触发事件的同时，传入指定的数据，需要使用CustomEvent构造函数生成自定义的事件对象。
+
+var event = new CustomEvent('build', { 'detail': 'hello' });
+function eventHandler(e) {
+  console.log(e.detail);
+}
+上面代码中，CustomEvent构造函数的第一个参数是事件名称，第二个参数是一个对象，该对象的detail属性会绑定在事件对象之上。
+
+下面是另一个例子。
+var myEvent = new CustomEvent("myevent", {
+  detail: {
+    foo: "bar"
+  },
+  bubbles: true,
+  cancelable: false
+});
+
+el.addEventListener('myevent', function(event) {
+  console.log('Hello ' + event.detail.foo);
+});
+
+el.dispatchEvent(myEvent);
+IE不支持这个方法，可以用下面的垫片函数模拟。
+
+(function () {
+  function CustomEvent ( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+   }
+
+  CustomEvent.prototype = window.Event.prototype;
+
+  window.CustomEvent = CustomEvent;
+})();

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//Object.assign() 方法用于将所有可枚举的属性的值从一个或多个源对象复制到目标对象。
+			//Object.assign 会跳过那些值为 null 或 undefined 的源对象。
+			//Object.assign 不会拷贝原型对象中的属性
+			//它将返回目标对象。
+
+			//Object.assign(target, ...sources)
+			var o1 = {
+				a: 1
+			};
+			var o2 = {
+				b: 2
+			};
+			var o3 = {
+				c: 3
+			};
+
+			var obj = Object.assign(o1, o2, o3);
+			console.log(obj); // { a: 1, b: 2, c: 3 }
+			console.log(o1); // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变。
+
+			//拷贝可枚举属性   将其他参数的属性拷贝到第一个参数 并且返回新的对象
+
+			function Ctor() {
+				this.Name = 'majin';
+			}
+			Ctor.prototype.Sex = '男';
+			let C = new Ctor();
+
+			function Dctr() {
+				this.Age = '18';
+			}
+			Dctr.prototype.Class = '19';
+
+			let D = new Dctr();
+
+			Object.assign(D, C);
+
+			console.log(D.Name);//true
+			console.log(D.Sex);//false
+			console.log(D.Age);//true
+			console.log(D.Class);//true
+		</script>
+	</body>
+
+</html>

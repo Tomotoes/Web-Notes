@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 2000px;
+				height: 800px;
+			}
+			
+			input {
+				height: 20px;
+				/*box-shadow: 2px 2px 5px wheat;*/
+				border: solid 1px;
+				border-radius: 10px;
+				outline: none;
+			}
+			
+			input[type='text'] {
+				top: 300px;
+			}
+			
+			input {
+				margin-bottom: 20px;
+			}
+			
+			input[type='button'] {
+				height: 30px;
+				width: 80px;
+				margin: 0 40px;
+				letter-spacing: 2px;
+				box-shadow: 2px 2px 2px #ccc;
+			}
+			
+			input[type='button']:hover {
+				transform: scale(1.2);
+			}
+			
+			input[type='password'] {
+				top: 250px;
+			}
+			
+			#header {
+				box-sizing: border-box;
+				padding: 60px 60px;
+				width: 300px;
+				height: 200px;
+				top: 30%;
+				left: 40%;
+				position: absolute;
+				border-radius: 30px;
+				--color-bs: black;
+				border: solid 0.5px;
+				background-color: floralwhite;
+				box-shadow: 2px 2px 5px gray;
+			}
+			
+			#header:hover {
+				box-shadow: 2px 2px 20px gray;
+			}
+		</style>
+		<script src="js/Cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				let BtnLoad = document.getElementById("BtnLoad");
+				let NameText = document.getElementById("NameText");
+				let PwdText = document.getElementById("PwdText");
+				if(getCookie('UserName') != '') {
+					NameText.value = getCookie('UserName');
+					PwdText.value = getCookie('UserPwd');
+				}
+				
+				BtnLoad.addEventListener('click', function() {
+					setCookie('UserName',NameText.value,365);
+					setCookie('UserPwd',PwdText.value,365);
+				});
+			}
+
+		</script>
+	</head>
+
+	<body>
+		<div id="header">
+			<input type="text" id="NameText" value="" placeholder="用户名" />
+			<br />
+			<input type="password" id="PwdText" value="" placeholder="密码" />
+			<br />
+			<input type="button" id="BtnLoad" value="登录" />
+
+		</div>
+
+	</body>
+
+</html>

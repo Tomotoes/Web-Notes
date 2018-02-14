@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*
+			 * 引言
+			 * 
+			 * 还记的 DocumentFragment初始化的两种方法吗？
+			 * 
+			 * let DFrag1 = document.createDocumentFragment()
+			 * let DFrag2 = new DocumentFragment()
+			 * 
+			 * 还记的 阮老师介绍element节点时说的话吗？
+			 * 元素节点的nodeType属性都是1，但是不同HTML标签生成的元素节点是不一样的。JavaScript内部使用不同的构造函数，生成不同的Element节点，比如<a>标签的节点对象由HTMLAnchorElement()构造函数生成，<button>标签的节点对象由HTMLButtonElement()构造函数生成。因此，元素节点不是一种对象，而是一组对象。
+			 */
+			
+			//哎 不行
+			//		let a=new HTMLAnchorElement();
+			//		let a=new Anchor()
+
+			let a = document.createElement("a")
+			a.href = 'http://www.baidu.com'
+			a.innerText = "点击跳转百度"
+			document.body.appendChild(a)
+
+			let Img = new Image();
+			Img.src = 'img/Small.jpg'
+//			document.body.appendChild(Img)
+			document.body.insertAdjacentElement('beforeBegin',Img)
+			
+			Img.remove()
+			
+			let Text=document.createElement("input")
+			Text.type='text'
+			
+			document.body.insertAdjacentElement('afterBegin',Text)
+			
+			Text.focus()
+			
+			Text.style.outlineColor='red'
+			
+			console.log(document.getElementsByTagName('a')[0].Text)//Undefined
+		</script>
+	</body>
+
+</html>

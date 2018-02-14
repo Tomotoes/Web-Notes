@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				height: 300px;
+				width: 300px;
+				padding: 20px;
+				border: solid 5px #ccc;
+				/*
+			 * ok，现在我们来计算一下 这个模型的尺寸
+			 * height：300(height)+(20(padding)+5(border))*2=350
+			 * width:300(width)+(20(padding)+5(border))*2=350
+			 * 
+			 * 这意味着，如果我们设置一个 宽度为300px，而实际呈现的盒子宽度可能会大于300px（除非没有边框和内间距）。CSS设置的宽度高度 仅仅是内容区的尺寸，而非盒子的尺寸
+			 * 这导致的结果是 当我们希望页面呈现的盒子的宽度是200px的时候，我们需要减去它的左右边框和左右补白，然后设置为对应的CSS宽度。
+			 * 
+			 * 幸运的是，我们有更好的方法达到我们想要的目的
+			*/
+				box-sizing: border-box;
+				/*我们想要一个宽度为300px的盒子。当再设置它的左右边框和左右补白后，它的内容区会自动调整。*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">This is Content</div>
+	</body>
+
+</html>

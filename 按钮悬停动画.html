@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			
+			.box {
+				color: white;
+				width: 200px;
+				height: 50px;
+				background: #424242;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin: 10px;
+				cursor: pointer;
+			}
+			
+			.fade:hover {
+				animation: wiggle 1s ease;
+				animation-iteration-count: 1;
+			}
+			
+			@keyframes wiggle {
+				20% {
+					transform: translateX(4px);
+				}
+				40% {
+					transform: translateX(-4px);
+				}
+				60% {
+					transform: translateX(2px);
+				}
+				80% {
+					transform: translateX(-1px);
+				}
+				100% {
+					transform: translateX(0);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class='box fade'>
+			<p>FADE HERE</p>
+		</div>
+	</body>
+
+</html>

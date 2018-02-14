@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--
+			a.download  是提供下载文件的功能，目前只有 Chrome，Firefox支持
+			a.href应该指向文件的地址 或者 URL，
+			如果没有a.download属性，那么将只会打开文件 而不是下载文件
+			另外 a.download的值  就是下载文件的文件名    注意 不要搞错类型
+		-->
+		<script type="text/javascript">
+			
+			var blob = new Blob(["Hello World"]);
+
+			var a = document.createElement("a");
+
+			//a.href = window.URL.createObjectURL(blob);//为此blod文件 建立一个URL
+
+			a.href = 'img/b.jpg';
+
+			a.download = "majin.jpg"; //这个download就是下载文件的文件名
+			
+			//并且值得注意的是  如果没有 a.download  就不会下载文件  而是打开文件
+			
+			//只有 Firefox 和 Chrome 支持 download 属性。
+
+			a.textContent = "Download Hello World!";
+
+			window.URL.revokeObjectURL(blob);
+
+			document.body.appendChild(a);
+		</script>
+	</body>
+
+</html>

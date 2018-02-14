@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			console.time('Array initialize');
+
+			var array = new Array(1000000);
+			for(var i = array.length - 1; i >= 0; i--) {
+				array[i] = new Object();
+			};
+
+			for(var i = 0; i < 5; i++) {
+				console.log(i);
+				if(i === 2) debugger;
+			}
+			console.timeEnd('Array initialize');
+			// Array initialize: 1914.481ms
+			
+			var err=new Error('出错了')
+			err.message
+			throw new Error('出错了!');
+		</script>
+	</body>
+
+</html>

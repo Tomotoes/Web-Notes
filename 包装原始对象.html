@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//Object的原生方法 ：valueOf(),toString()	远远没有那么简单
+			//就比如下面的代码 如果没有 valueOf() 怎么能做到
+
+			//另外还有一点要说 在自己写代码的时候  用的是 Lambda表达式
+			//可Lambda表达式 的this指向是 全局对象[object Window] 
+			//所以 我们在Lambda表达式中 用this时 要格外小心。
+			String.prototype.Der = () => this.toString();
+			console.log('ABC'.Der() === this.toString());
+
+			String.prototype.double = function() {
+				return this.valueOf() + this.valueOf();
+			};
+			console.log('ABC'.double());
+
+			Number.prototype.double = function() {
+				return this.valueOf() + this.valueOf();
+			}
+			console.log((123).double());
+			//上面代码在123外面必须要加上圆括号，否则后面的点运算符（.）会被解释成小数点。
+
+			//下面的代码 也很酷
+			Number.prototype.iterate = function() {
+				var result = [];
+				for(var i = 0; i <= this; i++) {
+					result.push(i);
+				}
+				return result;
+			};
+
+			(8).iterate();
+			// [0, 1, 2, 3, 4, 5, 6, 7, 8]
+			
+			console.log((8).iterate());
+		</script>
+	</body>
+
+</html>

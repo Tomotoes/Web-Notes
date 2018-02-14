@@ -1,0 +1,66 @@
+属性
+	bubbles
+	cancelable
+	eventPhase
+	currentTarget
+	target
+	type
+	detail
+	timeStamp
+	isTrusted
+	defaultPrevented
+	
+方法
+	preventDefault
+	stopPropagation
+	stopImmediatePropagation
+
+事件发生以后，会生成一个事件对象，作为参数传给监听函数。
+浏览器原生提供一个Event对象，所有的事件都是这个对象的实例，或者说继承了Event.prototype对象。
+	
+Event对象本身就是一个构造函数，可以用来生成新的实例。
+
+Event构造函数接受两个参数。
+第一个参数是字符串，表示事件的名称；
+第二个参数是一个对象，表示事件对象的配置。
+
+该参数可以有以下两个属性。
+bubbles：布尔值，可选，默认为false，表示事件对象是否冒泡。
+cancelable：布尔值，可选，默认为false，表示事件是否可以被取消。
+	
+Event构造函数生成的事件，默认是不冒泡的。
+Event构造函数生成的事件，默认是不可以取消的。
+	
+	
+eventPhase属性返回一个整数值，表示事件目前所处的节点。
+0，事件目前没有发生。
+1，事件目前处于捕获阶段，即处于从祖先节点向目标节点的传播过程中。
+该过程是从Window对象到Document节点，再到HTMLHtmlElement节点，直到目标节点的父节点为止。
+2，事件到达目标节点，即target属性指向的那个节点。
+3，事件处于冒泡阶段，即处于从目标节点向祖先节点的反向传播过程中。
+该过程是从父节点一直到Window对象。只有bubbles属性为true时，这个阶段才可能发生。
+	
+currentTarget属性返回事件当前所在的节点，即正在执行的监听函数所绑定的那个节点。
+	
+target属性返回触发事件的那个节点，即事件最初发生的节点。
+在IE6—IE8之中，该属性的名字不是target，而是srcElement
+ var target = e.target || e.srcElement;
+	
+type属性返回一个字符串，表示事件类型，大小写敏感。
+	
+detail属性返回一个数值，表示事件的某种信息。具体含义与事件类型有关，对于鼠标事件，表示鼠标按键在某个位置按下的次数，比如对于dblclick事件，detail属性的值总是2。
+	
+timeStamp属性返回一个毫秒时间戳，表示事件发生的时间。
+	
+isTrusted属性返回一个布尔值，表示该事件是否为真实用户触发。
+	
+preventDefault方法取消浏览器对当前事件的默认行为，比如点击链接后，浏览器跳转到指定页面，或者按一下空格键，页面向下滚动一段距离。该方法生效的前提是，事件的cancelable属性为true，如果为false，则调用该方法没有任何效果。
+	
+如果监听函数最后返回布尔值false（即return false），浏览器也不会触发默认行为，与preventDefault方法有等同效果。
+
+defaultPrevented属性返回一个布尔值，表示该事件是否调用过preventDefault方法。
+
+stopPropagation方法阻止事件在DOM中继续传播，防止再触发定义在别的节点上的监听函数，但是不包括在当前节点上新定义的事件监听函数。
+	
+stopImmediatePropagation方法阻止同一个事件的其他监听函数被调用。
+如果同一个节点对于同一个事件指定了多个监听函数，这些函数会根据添加的顺序依次调用。只要其中有一个监听函数调用了stopImmediatePropagation方法，其他的监听函数就不会再执行了。

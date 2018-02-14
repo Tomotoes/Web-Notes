@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<video id="webcam"></video>
+		<script type="text/javascript">
+			window.name = 'Majin';
+			console.log(window.name);
+			console.log(window.location === document.location);
+			console.log(navigator.geolocation);
+			window.moveTo(100, 200);
+			console.log(history.length);
+			console.log(navigator.userAgent);
+			console.log(navigator.plugins);
+			console.log(navigator.platform);
+			Notification.requestPermission(function(status) {
+				if(status === "granted") {
+					var n = new Notification("Hi!");
+				} else {
+					alert("Hi!");
+				}
+			});
+
+			function onSuccess(stream) {
+				var video = document.getElementById('webcam');
+				if(window.URL) {
+					video.src = window.URL.createObjectURL(stream);
+				} else {
+					video.src = stream;
+				}
+
+				video.autoplay = true;
+				// 或者 video.play();
+			}
+
+			if(navigator.getUserMedia) {
+				navigator.getUserMedia({
+					video: true
+				}, onSuccess);
+			} else {
+				document.getElementById('webcam').src = 'somevideo.mp4';
+			}
+		</script>
+	</body>
+
+</html>

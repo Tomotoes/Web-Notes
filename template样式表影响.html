@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">This is Header</div>
+		<template>
+			<style type="text/css">
+				#header {
+					color: green;
+				}
+			</style>
+		</template>
+		<template>
+			<content></content>
+		</template>
+		<script type="text/javascript">
+//			document.body.appendChild(document.querySelectorAll("template")[0].content.cloneNode(true));
+			let header = document.getElementById("header");
+			let Shadow = header.createShadowRoot();
+			let StyleSheet = document.createElement("style");
+			StyleSheet.innerHTML = "#header{color:yellow;}";
+			Shadow.appendChild(StyleSheet);
+			Shadow.appendChild(document.querySelectorAll("template")[1].content);
+			/*事实证明 样式表可以影响 template*/
+
+			/* template 和 shadowroot*/
+			/* template可以被 样式表影响  */
+		</script>
+	</body>
+
+</html>

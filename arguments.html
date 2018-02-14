@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//arguments 是一个类似数组的对象, 对应于传递给函数的参数。
+			//arguments对象是所有函数中可用的局部变量。你可以使用arguments对象在函数中引用函数的参数。
+
+			//arguments对象不是一个 Array 。它类似于数组，但除了 长度之外没有任何数组属性。
+
+			//但是它可以被转换为一个真正的数组：：
+			//let args = Array.from(arguments);
+			//let args = [...arguments];
+
+			function Foo() {
+				console.log(arguments.length);
+				for(var x of arguments) {
+					console.log(x);
+				}
+			}
+			Foo(1, 2, 3, 4)
+			Foo('majin', 'liulin')
+			Foo('', undefined)
+			Foo(null)
+
+			//下面来一个MDN的例子 ：定义一个创建HTML列表的方法
+
+			function list(type) {
+				//此时 type便是 u 因为 这里只定义了一个参数 其他 参数没有被接受
+				var result = "<" + type + "l><li>"; //<ul><li>
+
+				//转换成数组				
+				var args = Array.prototype.slice.call(arguments, 1);
+				//var args=['One','Two','Three']
+
+				result += args.join("</li><li>"); //使用数组 连接符的方法
+				//<ul><li> += One</li><li>Two</li><li>Three
+
+				result += "</li></" + type + "l>"; // end list
+				//<ul><li>One</li><li>Two</li><li>Three += </li></ul>
+
+				return result;
+			}
+			var listHTML = list("u", "One", "Two", "Three");
+
+			/* listHTML is:
+
+			"<ul><li>One</li><li>Two</li><li>Three</li></ul>"
+
+			*/
+			console.log(listHTML);
+		</script>
+	</body>
+
+</html>

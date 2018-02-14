@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<form action="" method="post">
+			<input type="submit" value="" />
+		</form>
+		<script type="text/javascript">
+			/*FormData类型可以用于构造表单数据。*/
+
+			let formData = new FormData();
+
+			formData.append('username', '张三');
+			formData.append('email', '1755811882@qq.com');
+
+			let oAjax = new XMLHttpRequest();
+			oAjax.open('POST', Url, true);
+			oAjax.send(formData);
+
+			/*
+		 上面的代码构造了一个formData对象，然后使用send方法发送。这与点击下面表单的submit按钮是一样的。
+
+		<form id='registration' name='registration' action='/register'>
+		    <input type='text' name='username' value='张三'>
+		    <input type='email' name='email' value='1755811882@qq.com'>
+		    <input type='submit' onclick='return sendForm(this.form);'>
+		</form>
+		 */
+
+			/*FormData也可以将现有表单构造生成。*/
+			let formElement = document.querySelectorAll("form")[0];
+			oAjax.open('POST', Url, true);
+
+			oAjax.send(new FormData(formElement));
+
+			/*FormData对象也能用来模拟File控件，进行文件上传。*/
+			function uploadFiles(url, files) {
+				var formData = new FormData();
+
+				for(var i = 0, file; file = files[i]; ++i) {
+					formData.append(file.name, file); // 可加入第三个参数，表示文件名
+				}
+
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', url, true);
+				xhr.onload = function(e) { ...
+				};
+
+				xhr.send(formData); // multipart/form-data
+			}
+
+			document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+				uploadFiles('/server', this.files);
+			}, false);
+
+			/*FormData对象的append方法，除了可以添加文件，还能添加二进制对象（Blob）或字符串。*/
+			
+			// Files
+			formData.append(name, file, filename);
+
+			// Blobs
+			formData.append(name, blob, filename);
+
+			// Strings
+			formData.append(name, value);
+		</script>
+	</body>
+
+</html>

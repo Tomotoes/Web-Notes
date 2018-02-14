@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<ul>
+			<li>Click me</li>
+		</ul>
+		<script type="text/javascript">
+			let li = document.querySelectorAll("li")[0];
+			let ul = document.querySelectorAll("ul")[0];
+
+			li.addEventListener('click', callback)
+			ul.addEventListener('click', callback)
+			document.body.addEventListener('click', callback)
+			
+			li.addEventListener('click', callback,true)
+			ul.addEventListener('click', callback,true)
+			document.body.addEventListener('click', callback,true)
+
+			let phases = {
+				1: 'capture',
+				2: 'target',
+				3: 'bubble'
+			};
+
+			function callback(event) {
+				let tag = event.currentTarget.tagName;
+				let phase = phases[event.eventPhase];
+
+				console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
+			}
+			
+			
+			/*
+			 * Tag: 'BODY'. EventPhase: 'capture'
+			 * Tag: 'UL'. EventPhase: 'capture'
+			 * 
+			 * Tag: 'LI'. EventPhase: 'target'
+			 * Tag: 'LI'. EventPhase: 'target'
+			 * 
+			 * Tag: 'UL'. EventPhase: 'bubble'
+			 * Tag: 'BODY'. EventPhase: 'bubble'
+			 */
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!--
+	table 里面有 tbody，thead，tfoot
+	其中 如果我们不写 tbody标签 	
+	浏览器都会自己添加！
+	并且值得注意 tbody可以有多个 
+	但是 thead tfoot 只能有一个
+	
+	然后 我们DOM在对 Table标签做操作的时候
+	可以使用 tBodies 就是 tbody的数组
+	然后 rows 就是在特定区域下的  单元行的集合
+	然后 cells 就是在特定tr下的 单元格的集合
+	
+	另外最关键的一点就是 每一个单元格 和 table都没有直接的关系 
+	它们都是 tbody 的子节点
+	
+	我们还要知道 可以利用 search方法 来进行模糊查询！
+	
+	DOM：
+		不是数组
+		tBodies		tbody的集合
+		rows		tr的集合
+		cells		td的集合
+		caption		表头属性
+			
+		table.createTHead();			在table里面增加一个 thead
+		table.createTBody();			在table里面增加一个 tbody
+		table.createTFoot();			在table里面增加一个 tbody	
+		table.createCaption();			在table里面增加一个 caption			
+		
+		xxxxx.insertRow(position);		在特定区域下增加一行
+		tr.insertCell(position);		在特定行下增加一个单元格
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			table,
+			td {
+				border: solid 1px red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table>
+			<tr>
+				<td>A</td>
+				<td>B</td>
+				<td>C</td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			let Table = document.querySelectorAll("table")[0];
+			let Bo = Table.createTBody();
+			Table.createTHead();
+			Table.createTFoot();
+			let Tr = Bo.insertRow(0);
+			let r = Bo.insertRow(0).textContent = 'TR';
+			Tr.insertCell(0).appendChild(new Text('Majin'))
+			Tr.insertCell(0).appendChild(new Text('liulin'))
+			Tr.insertCell(1).appendChild(new Text('Middle'))
+			Tr.insertCell(2).textContent = 'Last';
+
+			let Bod = Table.tBodies[1];
+
+			let Rows = Array.prototype.slice.call(Bod.rows);
+
+			console.log(Rows instanceof Array);
+
+			//			Rows.forEach(e => {
+			//				let Cells = Array.prototype.slice.call(e.cells);
+			//				Cells.forEach(i => {
+			//					i.style.background = 'red';
+			//				})
+			//			})
+
+			Rows.forEach(e => {
+				let Cells = Array.prototype.slice.call(e.cells);
+				Cells.forEach(i => {
+					if(i.innerText.search('i') != -1) {
+						i.style.background = 'yellow';
+					}
+				})
+			})
+			
+			Table.createCaption();
+			Table.caption.appendChild(document.createTextNode('A DOM-Generated Table'));
+		</script>
+	</body>
+
+</html>

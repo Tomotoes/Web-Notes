@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<h1>
+				<div id="d1"></div>
+				<div id="d2"></div>
+				<div id="d3"></div>
+			</h1>
+		</div>
+		<img src="" alt="" />
+		<script type="text/javascript">
+			//Element.closest方法返回当前元素节点的最接近的父元素（或者当前节点本身），条件是必须匹配给定的CSS选择器。如果不满足匹配，则返回null。
+			console.dirxml(d2.closest('div')) //居然是它本身，没毛病。。
+
+			console.dirxml(d2.closest(':not(div)')) //body
+
+			console.dirxml(d2.closest('#header')) //#header
+
+			console.dirxml(d2.closest('div div')) //d2
+
+			console.dirxml(d2.closest('img')) //因为 img不是其父元素 所以返回 null
+
+			//刚才加了个 h1爹
+			console.dirxml(d3.closest(':not(div)'))//h1
+		</script>
+	</body>
+
+</html>

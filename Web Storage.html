@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--这个API的作用是，使得网页可以在浏览器端储存数据。
+	它分成两类：sessionStorage和localStorage。-->
+
+		<!--sessionStorage保存的数据用于浏览器的一次会话，当会话结束，数据被清空；
+	localStorage保存的数据长期存在，下一次访问该网站的时候，网页可以直接读取以前保存的数据。-->
+
+		<!--目前，每个域名的存储上限视浏览器而定，Chrome是2.5MB，Firefox和Opera是5MB，IE是10MB。-->
+
+		<script type="text/javascript">
+			//存数据
+			sessionStorage.setItem("key", "value");
+			localStorage.setItem("key", "value");
+
+			//取数据
+			let session = sessionStorage.getItem("key");
+			let local = localStorage.getItem("key");
+
+			//删除数据
+			sessionStorage.removeItem("key");
+
+			//清除所有数据
+			localStorage.clear();
+			
+			localStorage.setItem('key','value');
+			
+			//遍历操作 	key(n)读取键名的方法 
+			for(let i = 0; i < localStorage.length; ++i) {
+				console.log(localStorage.key(i));
+			}
+			
+			localStorage.setItem('Key','Value');
+			
+			//storage事件
+			//当存储的数据发生变化时,会触发 storage事件。
+			window.addEventListener('storage',OnStorage);
+			function OnStorage () {
+				console.log(event.newValue);
+			}
+		</script>
+	</body>
+
+</html>

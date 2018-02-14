@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--
+		Promise.race方法同样是将多个Promise实例，包装成一个新的Promise实例。
+
+		var p = Promise.race([p1, p2, p3]);
+		上面代码中，只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。
+		那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。
+
+		Promise.race方法的参数与Promise.all方法一样，如果不是 Promise 实例，
+		就会先调用下面讲到的Promise.resolve方法，将参数转为 Promise 实例，再进一步处理。
+	-->
+		<script type="text/javascript">
+			let p1 = new Promise((resolve, rejected) => resolve(1)).then(value => console.log(value));
+			let p2 = new Promise((resolve, rejected) => resolve(1)).then(value => console.log(value));
+
+			let p3 = new Promise((resolve, rejected) => rejected('rejected'));
+
+			Promise.race([p1, p2, p3]).then((resolve, reject) => console.log('fulfilled')).catch((value) => console.log(value))
+
+			/*如果作为参数的 Promise 实例，自己定义了catch方法，那么它一旦被rejected，
+			    并不会触发Promise.all()的catch方法。*/
+		</script>
+	</body>
+
+</html>

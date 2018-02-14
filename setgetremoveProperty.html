@@ -1,0 +1,35 @@
+<!--
+记住这三个方法 都是在 style对象的！！！
+
+setProperty(propertyName,value)：设置某个CSS属性。
+getPropertyValue(propertyName)：读取某个CSS属性。
+removeProperty(propertyName)：删除某个CSS属性。
+
+这三个方法的第一个参数，都是CSS属性名，且不用改写连词线
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+		<script type="text/javascript">
+			d1.style.setProperty('width', '200px');
+			d1.style.setProperty('height', '200px');
+			d1.style.setProperty('background-color', 'red');
+			d1.style.setProperty('border-color', 'blue');
+			d1.style.setProperty('border-style', 'solid');
+
+			alert(d1.style.getPropertyValue('background-color'));
+
+			d1.style.removeProperty('background-color');
+		</script>
+	</body>
+
+</html>

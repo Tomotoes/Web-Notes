@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//终极定义：任何类型的数据都可以放进数组
+			let Arrrrr = [{
+					a: 1
+				},
+				[1, 2, 3],
+				function() {
+					return true;
+				}
+			];
+
+			arr[0] // Object {a: 1}
+			arr[1] // [1, 2, 3]
+			arr[2] // function (){return true;}
+
+			//多维数组
+			var a = [ [1, 2], [3, 4] ];
+			a[0][1] // 2
+			a[1][1] // 4
+
+			//新建了一个数组
+			let Array_Self = new Array(2);
+
+			//将4个元素 增加到数组
+			[1, 2, 3, 4].forEach(e => {
+				Array_Self.push(e)
+			})
+
+			console.groupCollapsed("循环输出数组")
+			Array_Self.forEach(e => {
+				console.log(e)
+			}) //1，2，3，4
+			console.groupEnd()
+
+			console.groupCollapsed("基础部分")
+
+			console.log(Array_Self.length) //居然是6
+
+			console.assert(Array.isArray(Array_Self), "Array_Self不是数组")
+			console.assert(2 in Array_Self, "2不在数组里")
+
+			console.log(Array_Self.valueOf()) //不加这个valueOf()方法也能输出 本身，undefined*2+1234
+
+			console.log(Array_Self.toString()) //,,1,2,3,4
+
+			console.groupEnd()
+
+			console.group("数组的增删")
+
+			Array_Self.push(true)
+			console.log(Array_Self) //undefined × 2, 1, 2, 3, 4, true
+
+			Array_Self.pop()
+			console.log(Array_Self) //undefined × 2, 1, 2, 3, 4]
+
+			Array_Self.shift()
+			console.log(Array_Self) //[undefined × 1, 1, 2, 3, 4]
+
+			Array_Self.unshift("Start")
+			console.log(Array_Self) //["Start", undefined × 1, 1, 2, 3, 4]
+
+			Array_Self.push([5, 6, 7]) //[undefined × 2, 1, 2, 3, 4, Array(3)]
+			console.log(Array_Self)
+
+			Array_Self.push("Majin")
+			console.log(Array_Self) //[undefined × 2, 1, 2, 3, 4, Array(3), "Majin"]
+
+			console.log("%c总结一下，这个Array_Self的类型 就是object 容乃一切元素", "color:red;font-size:20px;")
+
+			console.log("%cpop是删除最后一个元素 shift是删除第一个元素 push将元素添加到最后一个元素的位置 unshift是将元素添加到一个元素的位置", "color:red;font-size:20px;")
+
+			let Array_Xelf = [8, 9, 5]
+
+			//合并数组的写法
+			Array_Self.push.apply(Array_Self, Array_Xelf)
+
+			console.log(Array_Self) //[undefined × 2, 1, 2, 3, 4, Array(3), "Majin", 8, 9, 5]
+
+			Array_Self.pop()
+			console.log(Array_Self)
+			console.groupEnd()
+
+			console.groupCollapsed("Join方法")
+
+			{
+				let Array_Self = [1, 2, 3, 4, 5, , 6]
+
+				//Join方法 便是 元素之间的分隔符
+				Array_Self = Array_Self.join('|')
+
+				console.log(Array_Self) //1|2|3|4|5||6
+				//如果数组 成员 是 undefined 或者 null会 自动转成 空字符
+			}
+
+			console.groupEnd()
+
+			console.clear();
+
+			//在学一天数组的方法！！因为 它真的是太有用了！！
+
+			console.groupCollapsed('数组长度只能往小设置，并且无法恢复')
+			//1.有关数组 length的设置
+			let Ms = [1, 2, 3, 4, 56, 7, 8, 9, 95, 2];
+
+			console.log(Ms.length); //10
+
+			Ms.length = 5;
+			//如果设置 数组长度的话 只能往小了设置 并且 小的这一部分元素 都会从内存中消失，永远不会存在
+
+			Ms.forEach(e => {
+				console.log(e);
+			})
+
+			Ms.length = 10;
+
+			console.log('%c' + Ms[8], 'color:red;');
+
+			Ms.forEach(e => {
+				console.log(e);
+			})
+
+			console.groupEnd()
+
+			//Array.prototype  能设置一些原有的属性 也能增加属性
+
+			console.groupCollapsed('Array.prototype可以设置可以添加')
+
+			//展示设置
+			//			Array.prototype.forEach = function() {
+			//				console.log('A');
+			//			}
+			Ms.forEach(e => {
+				console.log(e); //它居然是 输出A。。。。。 哈哈哈哈哈
+			})
+
+			//展示增加
+			Array.prototype.Majin = function() {
+				console.log('Liu liu is Small Pangzi!');
+			}
+			Ms.Majin()
+			//我太喜欢动态语言了 可以随便设置！ 太自由了 
+
+			console.groupEnd()
+
+			//判断数组的方法
+			console.groupCollapsed("isArray 判断数组")
+			console.log(Array.isArray(Ms));
+			console.groupEnd()
+
+			console.groupCollapsed('数组的连接 contact')
+
+			let Arr1 = [1, 2, 3];
+			let Arr = [4, 5, 6];
+
+			Arr1.concat(Arr).forEach(e => {
+				console.log(e);
+			})
+			console.groupEnd()
+
+			console.groupCollapsed("数组的增删的万能钥匙 splice(start,count,add)")
+
+			//删除
+
+			Arr1.splice(0, 1); //从 0索引处 开始删除一个元素
+
+			Arr1.forEach(e => {
+				console.log(e); //2,3
+			})
+
+			//增加
+
+			Arr1.splice(0, 0, 1); //从 0索引处 开始删除0个元素 并增加1个元素 1
+			Arr1.forEach(e => {
+				console.log(e); //1，2,3
+			})
+
+			//替换
+			Arr1.splice(1, 1, 5) //从 1索引处 删除一个元素 并增加5
+			Arr1.forEach(e => {
+				console.log(e); //1,5,3
+			})
+
+			console.groupEnd()
+
+			console.groupCollapsed('数组的复制 slice(start,end)不包括end')
+
+			Arr1.slice(0).forEach(e => { //从 索引0处 复制到结尾 并返回
+				console.log(e); //1，5，3
+			})
+
+			Arr1.slice(0, 1).forEach(e => { //从 索引0处 复制到 索引1处 但不包括索引 1
+				console.log(e); //1
+			})
+
+			console.groupEnd()
+
+			console.groupCollapsed("indexOf返回索引 不存在返回-1")
+
+			console.log(Arr1.indexOf(1)); //0
+
+			console.log(Arr1.indexOf(-5));
+
+			console.groupEnd()
+
+			console.groupCollapsed("判断是否存在 于数组 in")
+
+			console.log(1 in Arr1);
+			console.log(4 in Arr1);
+
+			console.groupEnd()
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<ul>
+			<li>点击我 同时触发ul爸爸！</li>
+		</ul>
+		<script type="text/javascript">
+			//由于事件会在冒泡阶段向上传播到父节点，因此可以把子节点的监听函数定义在父节点上，
+			//由父节点的监听函数统一处理多个子元素的事件。这种方法叫做事件的代理（delegation）。
+
+			let li = document.querySelector("li");
+			li.addEventListener('click', () => {});
+
+			let ul = document.querySelectorAll("ul")[0];
+
+			ul.addEventListener('click', function(event) {
+				if(event.target.tagName.toLowerCase() === 'li') {
+					console.log('事件监听函数成功！');
+				}
+			})
+			//上面代码的click事件的监听函数定义在<ul>节点，
+			//但是实际上，它处理的是子节点<li>的click事件。
+			//这样做的好处是，只要定义一个监听函数，就能处理多个子节点的事件，
+			//而且以后再添加子节点，监听函数依然有效。
+
+			//如果希望事件到某个节点为止，不再传播，可以使用事件的 stopPropagation 方法
+			ul.addEventListener('click', event => event.stopPropagation())
+
+			//但是，stopPropagation方法只会阻止当前监听函数的传播，
+			//不会阻止<p>节点上的其他click事件的监听函数。
+			//如果想要不再触发那些监听函数，可以使用stopImmediatePropagation方法。
+
+			ul.addEventListener('click', event => event.stopImmediatePropagation())
+
+			p.addEventListener('click', function(event) {
+				event.stopImmediatePropagation();
+			});
+
+			p.addEventListener('click', function(event) {
+				// 不会被触发
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				width: 200px;
+				height: 200px;
+				left: 200px;
+				top: 200px;
+				background: radial-gradient(red, green);
+				position:relative;
+			}
+			
+			#child {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				margin: 20px;
+				background: radial-gradient(blue, yellow);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">
+			<div id="child"></div>
+		</div>
+
+		<script type="text/javascript">
+			//先不告诉你 自己看这个单词 看一会 offsetParent
+			//这个单词的意思 就是 得到 目前节点的设置了相对定位的父节点
+			console.log(child.offsetParent);//#header
+			
+			console.log(document.styleSheets[0].cssRules[0].style.position)//relative
+		//在当前网页文档(document)
+		//获得网页中所有的样式表(styleSheets),进入第一个样式表(styleSheets[0])
+		//获得网页中所有的样式表中的第一个样式表的 所有规则(cssRules)，进入第一个规则(cssRules[0])
+		//在当前规则中进入内部样式操作(cssRules[0].style)
+		//在内部样式中得到 position属性的值cssRules[0].style.position
+			
+			//移出样式
+//			document.styleSheets[0].cssRules[0].style.removeProperty('position')
+			document.styleSheets[0].cssRules[0].style.position=''
+			
+			console.log(child.offsetParent);//body
+			
+			console.log(document.styleSheets[0].cssRules[0].style.position)//''
+			
+			document.styleSheets[0].cssRules[0].style.position='relative'
+			
+			console.log(child.offsetParent);//#header
+			console.log(document.styleSheets[0].cssRules[0].style.position)//''
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style type="text/css">
+		div{
+			width:100px;
+			height: 100px;
+			border: solid red 1px;
+		}
+		#id1{
+			float: left;/*设置浮动格式，如果没有此格式，默认垂直排列*/
+		}
+		#id2{
+			float: left;
+		}
+		#id3{
+			clear: left;/*清除左浮动格式，才能落到下一行*/
+			float:left;
+		}
+		#id4{
+			float:left;
+			color: saddlebrown;
+		}
+	</style>
+	<script>
+		function Click(){
+			alert("asdasd");
+			setTimeout(function(){window.close(); alert("qweqwe");},2000);
+		}
+	
+		
+	</script>
+</head>
+
+<body>
+	<div id="id1">1</div>
+	<div id="id2">2</div>
+	<div id="id3">3</div>
+	<div id="id4">4</div>
+	<input type="button" onClick="Click()" value="asd"/>
+</body>
+</html>

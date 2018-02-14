@@ -1,0 +1,114 @@
+<!--
+NodeIterator 对象，可以对 DOM 树进行深度优先的搜索。
+
+创建 NodeIterator 对象，需要使用 document 对象的 createNodeIterator() 方法，该方法接收四个参数：
+
+root，搜索开始的节点
+whatToShow，一个数值代码，表示哪些节点需要搜索
+filter，NodeFilter 对象，决定忽略哪些节点
+entityReferenceExpansion，布尔值，表示是否需要扩展实体引用
+whatToShow 参数：
+
+NodeFilter.SHOW_ALL，显示所有节点
+NodeFilter.SHOW_ELEMENT，元素节点
+NodeFilter.SHOW_ATTRIBUTE，属性节点
+NodeFilter.SHOW_TEXT，文本节点
+NodeFilter.SHOW_CDATA_SECTION，![CDATA] 节点
+NodeFilter.SHOW_ENTITY_REFERENCE，实体引用节点（&quot）
+NodeFilter.SHOW_ENTITY，实体元素节点（<!ENTITY foo "foo">）
+NodeFilter.SHOW_PROCESSING_INSTRUCTION，PI 节点
+NodeFilter.SHOW_COMMENT，XML 注释节点
+NodeFilter.SHOW_DOCUMENT，文档顶层节点
+NodeFilter.SHOW_DOCUMENT_TYPE，DTD 节点
+NodeFilter.SHOW_DOCUMENT_FRAGMNT
+NodeFilter.SHOW_NOTATION
+TreeWalker 对象包含了 NodeIterator 所有的功能，并增加了一些遍历方法：
+
+parentNode()
+firstChild()
+lastChild()
+nextSibling()
+previousSibling()
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				top: 200px;
+				left: 200px;
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				background: radial-gradient(#000, #999);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">
+			<p>This is p<em>This is Em</em></p>
+			<div></div>
+		</div>
+		<script type="text/javascript">
+			for(let i = 0; i < header.childNodes.length; ++i) {
+				console.log(header.childNodes[i].nodeName)
+			} //#text P #text
+			/*
+			 * 因为 p和div 中间有个换行符 所以第一个打印的是 文本节点 也就是 #text
+			 * 
+			 * 然后打印出 P标签,因为em标签 是 p标签的孩子 所以不包括打印
+			 * 
+			 * 然后又一个换行符 打印 #text
+			 */
+
+			for(let i = 0; i < header.childNodes.length; ++i) {
+				console.log(header.childNodes[i].nodeValue)
+				//一个空行 null 一个空行
+			}
+
+			/*ok，终于找到你了  children 是一个只包含 节点的集合*/
+			for(let i = 0; i < header.children.length; ++i) {
+				console.log(header.children[i].tagName)
+				//P DIV
+			}
+
+			header.onclick = function() {
+				document.location.assign('http://www.google.com')
+				/*从服务器 加载该网页*/
+			}
+
+			/*ok，刚才我 费了一番力气 才找到了 关于Element节点类型的集合  children*/
+
+			/*有没有更好的办法呢？？？* /
+			
+			/**/
+			let ElementIterator = document.createNodeIterator(document.body, NodeFilter.SHOW_ELEMENT)
+			/*上面代码返回body元素的遍历器。createNodeIterator方法的第一个参数为遍历器的根节点，第二个参数为所要遍历的节点类型，这里指定为元素节点。其他类型还有所有节点（NodeFilter.SHOW_ALL）、文本节点（NodeFilter.SHOW_TEXT）、评论节点（NodeFilter.SHOW_COMMENT）等。
+
+			所谓“遍历器”，在这里指可以用nextNode方法和previousNode方法依次遍历根节点的所有子节点。*/
+
+			let Elements = []
+			let currentElement
+			while(currentElement = ElementIterator.nextNode()) {
+				Elements.push(currentElement)
+				console.log("%c" + currentElement.tagName, 'color:red;')
+				//BODY DIV P EM DIV SCRIPT
+			}
+			/*上面代码使用遍历器的nextNode方法，将根节点的所有子节点，按照从头部到尾部的顺序，读入一个数组。nextNode方法先返回遍历器的内部指针所在的节点，然后会将指针移向下一个节点。所有成员遍历完成后，返回null。previousNode方法则是先将指针移向上一个节点，然后返回该节点。*/
+
+			let ElementIterator1 = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT)
+			let currentElement1
+			while(currentElement1 = ElementIterator1.nextNode()) {
+				console.log("%c" + currentElement1.tagName, 'color:yellow;')
+
+			} //document.createTreeWalker方法返回一个DOM的子树遍历器。它与createNodeIterator方法的区别在于，后者只遍历子节点，而它遍历整个子树。
+		</script>
+	</body>
+
+</html>

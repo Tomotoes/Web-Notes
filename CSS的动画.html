@@ -1,0 +1,165 @@
+<!--
+-webkit-transform: rotate(1turn);旋转360   1turn 就是一直旋转的意思
+
+如果事件设置了 1s  rotate(1turn)  意思就是 在 1s内 要旋转一圈
+
+0%可以用from代表，100%可以用to代表，因此上面的代码等同于下面的形式。
+
+（1）linear：匀速
+（2）ease-in：加速
+（3）ease-out：减速
+（4）ease：逐渐放慢
+（5）cubic-bezier函数：自定义速度模式
+
+steps函数可以实现分步过渡。例子 字符一个个蹦出来
+div:hover {
+  animation: 1s rainbow infinite steps(10);
+}
+
+animation-play-state:paused / running
+动画暂停 结束
+
+加入infinite关键字，可以让动画无限次播放。
+
+CSS的过渡效果（transition）结束后，触发transitionEnd事件。
+
+transitionEnd的事件对象具有以下属性。
+
+propertyName：发生transition效果的CSS属性名。
+elapsedTime：transition效果持续的秒数，不含transition-delay的时间。
+pseudoElement：如果transition效果发生在伪元素，会返回该伪元素的名称，以“::”开头。如果不发生在伪元素上，则返回一个空字符串。
+实际使用transitionend事件时，可能需要添加浏览器前缀。
+
+el.addEventListener('webkitTransitionEnd', function () {
+    el.style.transition = 'none';
+});
+animationstart事件：动画开始时触发。
+
+animationend事件：动画结束时触发。
+
+animationiteration事件：开始新一轮动画循环时触发。如果animation-iteration-count属性等于1，该事件不触发，即只播放一轮的CSS动画，不会触发animationiteration事件。
+
+div.addEventListener('animationiteration', function() {
+  console.log('完成一次动画');
+});
+这三个事件的事件对象，都有animationName属性（返回产生过渡效果的CSS属性名）和elapsedTime属性（动画已经运行的秒数）。对于animationstart事件，elapsedTime属性等于0，除非animation-delay属性等于负值。
+
+animation-play-state属性可以控制动画的状态（暂停/播放），该属性需求加上浏览器前缀。
+
+element.style.webkitAnimationPlayState = "paused";
+element.style.webkitAnimationPlayState = "running";
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			img {
+				height: 200px;
+				width: 200px;
+				position: absolute;
+				top: 20%;
+				left: 40%;
+			}
+			
+			img:hover {
+				height: 400px;
+				width: 400px;
+			}
+			
+			img {
+				/*解释一下：transition 可以单独为某个变化的属性 设置 就像是 1s height*/
+				/*也可以设置多个 1s height，0.2s width*/
+				/*当然 这些都不是最重要的 最牛的是 延迟时间 也就是 下面的这个例子*/
+				/*在1s加载完height后 停顿0.5s 再去加载width 看起来会很炫酷*/
+				transition: 1s height, 0.5s 1s width;
+				/*当然 延时属性是下面这个*/
+				/*delay的真正意义在于，它指定了动画发生的顺序，使得多个不同的transition可以连在一起，形成复杂效果。*/
+				transition-delay: 0.5s;
+				transition-timing-function: linear;
+				/*动画的持续时间*/
+				transition-duration: 1s;
+				/*动画设置的属性*/
+				transition-property: height;
+				transition: all 2s cubic-bezier(0, 1.91, 1, -0.22);
+			}
+			
+			div {
+				position: absolute;
+				color: #fff;
+				text-align: center;
+				line-height: 200px;
+				font-size: 25px;
+				top: 100px;
+				left: 100px;
+				height: 200px;
+				width: 200px;
+				background-color: red;
+			}
+			
+			#d2 {
+				top: 500px;
+				left: 500px;
+			}
+			/*#d1:hover {
+				-webkit-animation: 5s OneTurn steps(10) infinite;
+				animation: 5s OneTurn linear infinite;
+			}*/
+			/*	/*	/*	/*
+			div {
+				-webkit-animation: oneTurn 1s linear infinite;
+				-webkit-animation-play-state: paused;
+				animation: oneTurn 1s linear infinite;
+				animation-play-state: paused;
+			}
+			
+			div:hover {
+				-webkit-animation-play-state: running;
+				animation-play-state: running;
+			}
+			
+			@-webkit-keyframes OneTurn {
+				to {
+					-webkit-transform: rotate(1turn);
+					transform: rotate(1turn);
+				}
+			}
+			@keyframes OneTurn {
+				to {
+					-webkit-transform: rotate(1turn);
+					transform: rotate(1turn);
+				}
+			}*/
+			
+			#d2:hover {
+				animation: ColorChange 5s linear infinite alternate-reverse;
+				/*动画名称 动画持续时间 动画速度方式 动画播放次数 动画交替方式*/
+			}
+			
+			@keyframes ColorChange {
+				to,
+				from {
+					background-color: red
+				}
+				25%,
+				75% {
+					background-color: blue;
+				}
+				50% {
+					background-color: yellow;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<img src="img/Small.jpg" />
+		<div id="d1">刘琳</div>
+		<div id="d2"></div>
+	</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*URL对象用于生成指向File对象或Blob对象的URL。*/
+
+			var objecturl = window.URL.createObjectURL(blob);
+
+			/*
+	上面的代码会对二进制数据生成一个URL，类似于“blob:http%3A//test.com/666e6730-f45c-47c1-8012-ccc706f17191”。
+	
+	 这个URL可以放置于任何通常可以放置URL的地方，比如img标签的src属性。
+	 需要注意的是，即使是同样的二进制数据，每调用一次URL.createObjectURL方法，就会得到一个不一样的URL。
+
+	这个URL的存在时间，等同于网页的存在时间，一旦网页刷新或卸载，这个URL就失效。
+	除此之外，也可以手动调用URL.revokeObjectURL方法，使URL失效。
+
+	window.URL.revokeObjectURL(objectURL);
+	
+	下面是一个利用URL对象，在网页插入图片的例子。*/
+			var img = document.createElement("img");
+
+			img.src = window.URL.createObjectURL(files[0]);
+
+			img.height = 60;
+
+			img.onload = function(e) {
+				window.URL.revokeObjectURL(this.src);//图片加载成功之后 清除url 还是用this清除 sao
+			}
+
+			body.appendChild(img);
+
+			var info = document.createElement("span");
+
+			info.innerHTML = files[i].name + ": " + files[i].size + " bytes";
+
+			document.querySelector('body').appendChild(info);
+
+			/*还有一个本机视频预览的例子。*/
+
+			var video = document.getElementById('video');
+			
+			var obj_url = window.URL.createObjectURL(blob);
+			
+			video.src = obj_url;
+			
+			video.play()//让视频自动播放
+			
+			window.URL.revokeObjectURL(obj_url);
+		</script>
+	</body>
+
+</html>

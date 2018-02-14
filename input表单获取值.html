@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<input type="text" id="InText" value="" />
+		<button onclick="Output()">Output</button>
+		<script type="text/javascript">
+			//表单中的值  使用 value属性 获取！
+			//而innerText，textContent 全是 标签中间的数据
+			function Output() {
+				console.log(InText.value);
+			}
+		</script>
+	</body>
+
+</html>

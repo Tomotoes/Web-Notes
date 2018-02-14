@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。-->
+		<script type="text/javascript">
+			//定义构造函数
+			function C() { }
+			function D() { }
+
+			let o = new C();
+
+			//true
+			console.log(Object.getPrototypeOf(o) === C.prototype);
+			console.log(o instanceof C);
+			
+			console.log(o instanceof D);//false
+			
+			console.log(Object.prototype.isPrototypeOf(o));//true
+			console.log(o instanceof Object)//true
+			
+			C.prototype={}
+			
+			let o2 = new C();
+			
+			console.log(o2 instanceof C);//true
+			
+			console.log(o instanceof C);
+			//false C.prototype指向了一个空对象,这个空对象不在o的原型链上.
+			
+			D.prototype=new C();//继承
+			
+			let o3 = new D();
+			
+			//true
+			console.log(o3 instanceof D);
+			console.log(o3 instanceof C);
+			
+			
+		</script>
+	</body>
+
+</html>

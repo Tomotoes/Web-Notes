@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				display: flex;
+				display: -webkit-flex;
+				justify-content: center;
+				-webkit-justify-content: center;
+				height: 720px;
+				width: 1530px;
+				--color-One: #222;
+				--color-Two: #000;
+				background: radial-gradient(var(--color-One), var(--color-Two));
+			}
+			
+			.ball {
+				width: 100px;
+				height: 100px;
+				cursor: pointer;
+				border-radius: 50%;
+				--color-First: white;
+				--color-Second: black;
+				--color-Third: #fff;
+				box-shadow: 5px 5px 100px var(--color-Third);
+				background: radial-gradient(var(--color-First), var(--color-Second));
+				animation: bounce 1s cubic-bezier(.5, 0.05, 1, .5) alternate infinite;
+				/*
+				  animation-direction: alternate; 往返动作
+  				  animation-iteration-count: infinite; 无限次运行
+  				*/
+			}
+			
+			@keyframes bounce {
+				to {
+					transform: translateY(800px);
+				}
+			}
+			
+			.ball:hover {
+				/*经过这次实验 我明白 原来 只能改变一个元素的样式 其他的样式根本不行*/
+				--color-First: #999;
+				--color-Second: white;
+				--color-Third: orange;
+				transform: scale(1.2);
+				animation-play-state: paused;
+				transition: all 1s;
+			}
+			
+			.ball {
+				letter-spacing: 2px;
+				text-align: center;
+				line-height: 100px;
+				color: #fff;
+				text-shadow: 2px 2px 5px red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">
+			<div class="ball"></div>
+		</div>
+		<script type="text/javascript">
+			let Ball = document.querySelector('.ball');
+			Ball.addEventListener('mousemove', function() {
+				Ball.textContent = '刘琳~';
+				header.style.background = 'radial-gradient(#001, #000)'
+			})
+			Ball.addEventListener('mouseout', function() {
+				Ball.textContent = '';
+				header.style.background = 'radial-gradient(#222, #000)'
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			b {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			let Xfoo = Object.create(HTMLElement.prototype);
+			Xfoo.createdCallback = function() {
+				this.innerHTML = "<b>I'm an x-foo-with-markup!</b>"
+			}
+			let Xcpp = document.registerElement('x-majin', {
+				prototype: Xfoo,
+				extends: "a"
+				/*<a is="x-majin"><b>I'm an x-foo-with-markup!</b></a>*/
+			});
+
+			document.body.appendChild(new Xcpp());
+
+			//当我们创建一个 ShadowRoot时 会把原有的内容全部覆盖 也就是上面代码的 <b>xxxx</b>
+
+			let Shadow = document.querySelectorAll("a")[0].createShadowRoot();
+
+			Shadow.innerHTML = "<b>This is Shadow</b>";
+
+			let StyleShadow = document.createElement("style");
+
+			StyleShadow.innerHTML = "b{color:yellow;}";
+
+			Shadow.appendChild(StyleShadow);
+
+			let Anch = document.querySelectorAll("a")[0];
+			window.getComputedStyle(Anch).display; //居然是 inline 读不出来
+
+			//很奇怪 shadowroot 通过DOM 读取不到
+			Anch.childNodes[0].nodeName;//B
+
+			alert();
+		</script>
+	</body>
+
+</html>

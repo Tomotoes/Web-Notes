@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let SupperButton = document.registerElement("majin-button",{
+			prototype:Object.create(HTMLButtonElement.prototype,{
+				createdCallback:{
+					value:function CreatedCallback () {
+						this.addEventListener("click",()=>{
+							alert(1);
+						})
+					}
+				}
+			}),extends:'button'
+		})
+		document.body.appendChild(new SupperButton());
+		document.querySelectorAll("button")[0].textContent="CLick";
+		/*import  指向被加载的文档
+		 document.currentScript.ownerDocument*/
+	</script>
+</body>
+</html>

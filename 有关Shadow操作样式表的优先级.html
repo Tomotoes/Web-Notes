@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#InBtn {
+				color:yellow ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<button id="InBtn" style="color:red">Hello World</button>
+		
+		<template>
+			<style type="text/css">
+				:host{
+					color:green !important;
+				}
+			</style>
+		</template>
+		
+		
+		<script type="text/javascript">
+			var host = document.querySelector('button');
+			var root = host.createShadowRoot();
+			root.textContent = '你好';
+			root.appendChild(document.querySelectorAll("template")[0].content.cloneNode(true))
+//			document.head.appendChild(document.querySelectorAll("template")[0].content)
+			
+			/*也就是说 createShadowRoot根本对外部元素不起作用 */
+			
+			/*
+			hahah，终于出了个结论  
+			排名第一的是 head里面的样式表中的  !important
+			然后就是 shadow中的 !importan
+			 
+			 */
+		</script>
+	</body>
+
+</html>

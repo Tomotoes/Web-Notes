@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function cat() {
+
+			}
+			cat.prototype = {
+				food: 'fish',
+				say: function() {
+					console.log("I love " + this.food);
+				}
+			}
+			let blackCat = new cat;
+			blackCat.say();
+
+			let whiteCat = {
+				food: 'bone'
+			};
+			blackCat.say.call(whiteCat);
+
+			//把whiteCat这只猫 放到了 blackCat的say方法中
+			//或者说 whiteCat 借用了 blackCat的方法 并把当前的环境 改成了 white！
+			//即当前上下文 也就是 this 是 whiteCat！
+
+			//语法    宿主.宿主器官.call(寄生者,器官的养料1，器官的养料2，器官的养料3，...)
+			//语法    宿主.宿主器官.apple(寄生者,器官的所有养料)
+
+			//寄生者 强行 进入了宿主的某个器官 ，并把器官的支配权强行夺来，
+			//另外 寄生者与宿主一些的共有的特征  将进行全部替换  都变为寄生者的特征，然后进行操作
+
+			//宿主 就是  需要调用的对象
+			//宿主器官 就是 需要调用的对象的上下文环境
+			//寄生者 就是 调用对象的对象
+			//器官养料就是 需要调用的对象的上下文环境 需要的参数
+
+			//寄生者 强行 进入了宿主的某个器官 ，并把器官的支配权强行夺来，
+			//调用对象的对象 改变了 调用对象 的上下文  把当前的this 改变成了 自己的this！！！
+
+			//另外 寄生者与宿主一些的共有的特征  将进行全部替换  都变为寄生者的特征，然后进行操作
+			//这就很好理解了 this都改变了 还有啥好说的
+
+			//所以，可以看出 call和apply 是为了动态改变上下文(this)而存在的！
+
+			console.log(Math.max.call(null, 1, 2, 3)); //3
+
+			console.log(Math.max.apply(null, [1, 2, 3])); //3
+
+			function SayLove() {
+				console.log(this);
+			}
+
+			console.log(typeof SayLove); //function
+
+			SayLove.call(); //window
+
+			SayLove.call('Love') //string
+
+			console.clear()
+
+			//有关继承
+			function Class1() {
+				this.name = function() {
+					console.log('我是Class1的内部方法');
+				}
+				this.Sex = '男';
+			}
+			Class1.prototype.Color = 'yellow'
+
+			function Class2() {
+				Class1.call(this) //执行后 当前的this指向了 Class1 也可以说 Class2继承了 Class1
+			}
+
+			let c = new Class2();
+			c.name();
+			console.log(c.Sex);
+			console.log(c.Color); //undefined 事实证明 原型并没有继承
+
+			let d = new Class1();
+			console.log(d.Color); //yellow
+			function Add() {
+				return arguments[1] + arguments[0];
+			}
+
+			function Reduce() {
+				return arguments[0] - arguments[1];
+			}
+
+			console.log(Add.call(Reduce, 1, 2)) //3
+			console.log(Add.apply(Reduce, [1, 2])) //3
+
+			function Animal() {
+				this.name = 'Animal';
+				this.Showname = function() {
+					console.log(this.name);
+				}
+			}
+
+			function Dog() {
+				this.name = 'Dog'
+			}
+
+			let dog = new Dog();
+			let An = new Animal();
+
+			An.Showname.call(dog); //Dog
+
+			//继承的深入
+			function Parent1(name) {
+				this.name = name
+				this.Show = function() {
+					console.log(this.name);
+				}
+			}
+
+			function Child1(name) {
+				Parent1.call(this, name)
+				//使用 Parent1对象 代替this对象 那么Ch就能调用 Parent1的所有属性和方法
+			}
+			let Ch = new Child1('Majin');
+			Ch.Show()
+
+					
+		</script>
+	</body>
+
+</html>

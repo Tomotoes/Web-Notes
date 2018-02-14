@@ -1,0 +1,56 @@
+<!--
+	Question:我们怎么获取 每个li呢？
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var UI1 = document.getElementById("ui1");
+				
+				//我们可以看到 getElement的方法 不仅可用于 document，也可以用于 某个元素
+				
+				var Li_Array1 = UI1.getElementsByTagName('li');
+				
+				for (var i =0;i<Li_Array1.length;++i) {
+					Li_Array1[i].style.color="red";
+				};
+				
+				var UI2=document.getElementById("ui2");
+				
+				var Li_Array2=UI2.getElementsByTagName('li');
+				
+				// 有一点 我很奇怪 下面这个循环的格式 i 代表的是 循环的索引
+				// 按照c# 的foreach 。。。 确实麻烦。。
+				
+				for (var i in Li_Array2) {
+					Li_Array2[i].style.color='green';
+				};
+			};
+		</script>
+		<style type="text/css">
+			ul {
+				list-style-type: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ul id="ui1">
+			<li>111</li>
+			<li>222</li>
+			<li>333</li>
+		</ul>
+		<ul id="ui2">
+			<li>444</li>
+			<li>555</li>
+			<li>666</li>
+		</ul>
+	</body>
+
+</html>

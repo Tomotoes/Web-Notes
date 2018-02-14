@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#fream {
+				width: 50px;
+				height: 72px;
+				border: 1px solid transparent;
+				background: url(https://s.cdpn.io/79/sprite-steps.png) no-repeat left top;
+				animation: frame-animation 1s steps(10) infinite;
+			}
+			
+			@keyframes frame-animation {
+				0% {
+					background-position: 0px 0;
+				}
+				100% {
+					background-position: -500px 0;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="fream"></div>
+	</body>
+
+</html>

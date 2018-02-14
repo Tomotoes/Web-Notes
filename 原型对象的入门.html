@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//Super中定义属性name
+			function Super(name) {
+				this.name = name;
+				this.color = ['red', 'green'];
+			}
+			//Super的原型中定义方法
+			Super.prototype.sayname = function() {
+				console.log(this.name);
+			}
+
+			function Sub(name, age) {
+				//通过构造函数的方式继承Super的属性
+				Super.call(this, name);
+				//定义自己的属性
+				this.age = age;
+			}
+			//通过原型链的方式继承方法
+			Sub.prototype = new Super();
+			//Sub.prototype.constructor = Sub;
+
+			var ins1 = new Sub('ins1', 18);
+
+			ins1.sayname();
+			console.log(ins1.color);
+
+			let Suo = new Super('majin');
+			console.log(Suo.color);
+
+			ins1.color.push('asdsad');
+			console.log(ins1.color);
+			console.log(Suo.color);
+
+			function F() {
+
+			}
+			var f = new F();
+			//Object.getPrototypeOf(f) === F.prototype
+			console.log(f.__proto__ === F.prototype); //true
+			//__proto__ 指向该实例的构造函数的原型对象
+
+			function getDefiningObject(obj, propKey) {
+				while(obj && !{}.hasOwnProperty.call(obj, propKey)) {
+					obj = Object.getPrototypeOf(obj);
+				}
+				return obj;
+			}
+
+			console.log(Object.getPrototypeOf(Object.prototype) === null); //true
+			//Oject的原型对象 的原型对象就是 null
+
+			//console.log(Object.getPrototypeOf(null)); //null就是老大
+			//TypeError: Cannot convert undefined or null to object
+
+			function PPP1() {
+				this.color = ['yellow']
+			}
+			PPP1.prototype.o = () => console.log('我是PPP1的原型对象');
+
+			function CCC1() {
+				this.sex = '女'
+			}
+			CCC1.prototype = new PPP1();
+			//CCC1.prototype=PPP1.prototype;
+
+			//CCC1.prototype.constructor=CCC1;
+
+			console.log(CCC1.prototype.constructor.toString()); //居然是 PPP1
+			//CCC1的原型对象变成了 PPP1的一个实例  而PPP1的实例的构造函数 当然就是PPP1
+			//CCC1的原型对象 压根没有构造函数的属性
+			//上面代码中的构造函数属性 是从 CCC1的原型对象的原型对象中找到的
+
+			console.log(new PPP1().constructor.toString());
+
+			console.log(CCC1.prototype.__proto__ === PPP1.prototype); //true
+
+			CCC1.prototype.o();
+			let C = new CCC1();
+			C.o();
+			console.log(C.__proto__ === CCC1.prototype);
+			//C这个实例 本身没有o方法 所以 C去它的原型对象中寻找 C.__proto__
+			//而 CCC1.prototype这个原型对象本身没有 o方法 
+			//所以去 这个原型对象的原型对象中寻找！
+
+			//也就是说 C可以调用它原型对象的原型对象的方法
+
+			console.log(C.color);
+
+			let D = new CCC1();
+			D.color.push('green');
+			console.log(C.color);
+
+			//也就是说 实例可以调用原型对象中的属性和方法
+			//但是原型对象 不能调用 实例的属性和方法
+
+			function QWE() {}
+			QWE.prototype.color = [1, 2, 3]
+			let Q = new QWE();
+			let W = new QWE();
+			Q.color.push(4)
+			console.log(W.color);
+			//当color 为原型对象时 Q，W 都在引用这个地址  ，所以 Q修改color  W.color也会变
+
+			//父类构造函数
+			function Super() {
+				this.color = ['red', 'black', 'blue'];
+			}
+			//子类构造函数
+			function Sub() {
+				//调用父类构造函数实现继承  			这是精髓所在！ 
+				Super.call(this);
+			}
+			Sub.prototype = new Super()
+			//新建一个子类的实例
+			var ins1 = new Sub();
+			ins1.color.push('green');
+			ins1.color; //'red,belck,blue,green'
+
+			//在实例ins2上重新执行Super构造函数，重新初始化对象，ins2拥有自己的color属性
+			var ins2 = new Sub();
+			ins2.color; //'red,belck,blue'
+			console.log(ins1.color);
+			console.log(ins2.color);
+			console.log(ins1.prototype === ins2.prototype);
+
+			//原型对象等于一个构造函数  没有意义
+
+			function Q1() {
+				this.Q = 'QQQ';
+				QQ = 'QQQQQQ'
+			}
+
+			function E1() {
+				this.E = 'EEE';
+			}
+			E1.prototype.Method = new Q1();
+			let eee = new E1();
+			console.log(eee.E)
+			console.log(eee.Method.Q)
+
+			console.log(eee.prototype); //undefined
+			console.log(Object.getPrototypeOf(eee) === eee.__proto__); //true
+
+			let T = 1;
+			console.log(Object.getPrototypeOf(T)); //Number
+		</script>
+	</body>
+
+</html>

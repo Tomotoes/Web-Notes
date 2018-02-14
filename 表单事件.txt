@@ -1,0 +1,5 @@
+1.input事件
+2.select事件
+3.change事件
+4.reset事件
+5.submit事件

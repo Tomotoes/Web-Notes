@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			document.oncontextmenu = function() {
+				event.returnValue = false;
+				return false;
+				event.preventDefault();
+				
+				//事件的返回值 
+				//也就相当于 return false;
+				//也就是 event.preventDefault();
+			}
+		</script>
+	</body>
+
+</html>

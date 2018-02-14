@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//禁止删除方法
+			//	var o = Object.defineProperty({}, 'p', {
+			//		value: 123,
+			//		configurable: false
+			//	});
+			//
+			//	o.p // 123
+			//	delete o.p // false
+			//			
+
+			//delete 我知道的 能删除 数组元素  删除属性  其他都不可以
+
+			//可以删除 数组元素  会形成空位 undefined 不会影响length属性
+			let Ar = [1, 2, 3, 4]
+			delete Ar[1]
+			Ar.forEach(e => {
+				console.log(e); //1,3,4
+			})
+
+			console.log(delete Ar); //无法删除 变量 返回false
+
+			let Q = {
+				a: 'A',
+				b: function() {
+					console.log(this.a);
+				},
+				c: 'C'
+			};
+
+			console.log(delete Q); //无法删除变量
+
+			Q.b()
+
+			delete Q.a;
+
+			Q.b() //可以删除属性 目前为 undefined
+			//
+			//			function Funa() {
+			//
+			//			}
+
+			console.log(delete Funa); //false 函数无法删除
+			
+		</script>
+	</body>
+
+</html>

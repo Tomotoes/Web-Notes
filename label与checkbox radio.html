@@ -1,0 +1,35 @@
+<!--
+	记录一下 checkbox，radio 与label 怎么共用，
+	
+	<input type="radio" value="Radio" id="Radio" />
+	<label for="Radio">RADIO</label>
+	
+	<input type="checkbox" name="" id="check1" value="" />
+	<label for="check1">CHECKBOX</label>
+	
+	请仔细观察，checkbox 与 radio 都需要设置 id属性
+	而 label 需要设置 for属性 而for属性的值正是 其id值，相互辉映
+	
+	作用：当点击 label ：checkbox radio 都会选择上
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<form action="" method="post">
+			<input type="radio" value="Radio" id="Radio" />
+			<label for="Radio">RADIO</label>
+			<input type="checkbox" name="" id="check1" value="" />
+			<label for="check1">CHECKBOX</label>
+			<input type="reset" value="Reset" />
+		</form>
+	</body>
+
+</html>

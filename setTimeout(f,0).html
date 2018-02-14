@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<input type="button" id="" value="" />
+		<input type="text" id="Ob" value="" />
+		<script type="text/javascript">
+			
+			//我们要记住 更改 事件顺序,效果顺序的 这个小技巧----setTimeout(f,0)
+			
+			//如果指定时间为0，即setTimeout(f, 0)，那么会立刻执行吗？
+			//必须要等到当前脚本的同步任务和“任务队列”中已有的事件，全部处理完以后，才会执行。
+			
+			//setTimeout的真正作用是，在“消息队列”的现有消息的后面再添加一个消息，
+
+			//setTimeout(f, 0)必须要等到当前脚本的所有同步任务结束后才会执行。
+
+			//也就是说，setTimeout(f, 0)的作用是，尽可能早地执行指定的任务 并不是会立刻就执行这个任务。
+
+			setTimeout(function() {
+				console.log('你好！');
+			}, 0);
+			//上面代码的含义是， 尽可能早地显示“ 你好！”。
+
+			setTimeout(function() {
+				console.log("Timeout");
+			}, 0);
+
+			function a(x) {
+				console.log("a() 开始运行");
+				b(x);
+				console.log("a() 结束运行");
+			}
+
+			function b(y) {
+				console.log("b() 开始运行");
+				console.log("传入的值为" + y);
+				console.log("b() 结束运行");
+			}
+
+			console.log("当前任务开始");
+			a(42);
+			console.log("当前任务结束");
+
+			// 当前任务开始
+			// a() 开始运行
+			// b() 开始运行
+			// 传入的值为42
+			// b() 结束运行
+			// a() 结束运行
+			// 当前任务结束
+			// Timeout
+
+			//setTimeout(f, 0)有几个非常重要的用途。它的一大应用是，可以调整事件的发生顺序。
+			var input = document.getElementsByTagName('input[type=button]')[0];
+
+			input.onclick = function A() {
+				setTimeout(function B() {
+					input.value += ' input';
+				}, 0)
+			};
+
+			document.body.onclick = function C() {
+				input.value += ' body'
+			};
+			//上面代码在点击按钮后，先触发回调函数A，然后触发函数C。在函数A中，setTimeout将函数B推迟到下一轮Loop执行，这样就起到了，先触发父元素的回调函数C的目的了。
+
+			document.getElementById('Ob').onkeypress = function() {
+				var self = this;
+				setTimeout(function() {
+					self.value = self.value.toUpperCase();
+				}, 0);
+			}
+		</script>
+	</body>
+
+</html>

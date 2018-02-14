@@ -1,0 +1,49 @@
+<!--
+	开篇点题
+	我们以后要用 cssRules！！！！！！！！！！！！！！！！！！
+	我们以后要用 cssRules！！！！！！！！！！！！！！！！！！
+	我们以后要用 cssRules！！！！！！！！！！！！！！！！！！
+	我们以后要用 cssRules！！！！！！！！！！！！！！！！！！
+	我们以后要用 cssRules！！！！！！！！！！！！！！！！！！
+	我们以后要用 cssRules！！！！！！！！！！！！！！！！！！
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				background: radial-gradient(#222, #000);
+				height: 900px;
+				width: 1500px;
+				position: absolute;
+			}
+			
+			p,
+			em {
+				color: coral;
+				position: absolute;
+				z-index: 999;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>sad</p>
+		<em>asdsda</em>
+		<div id="header"></div>
+		<script type="text/javascript">
+			
+			console.log(document.styleSheets[0].rules.length);//在火狐下运行直接报错！
+			
+			console.log(document.styleSheets[0].cssRules.length);
+			//所以我们以后就用 cssRules吧！！！
+			
+		</script>
+	</body>
+
+</html>

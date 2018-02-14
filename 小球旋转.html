@@ -1,0 +1,118 @@
+<!--
+	做了这个例子 获益匪浅
+	
+	总结一下知识点，
+	
+	1.先是自定义属性的运用 不用多说
+	
+	2.border-radius:50% 竟可以 自动圆化成 圆
+	
+	3.transform:scale() 是放大
+	
+	4.当 script 标签写在 body标签里面时，会有很奇妙的现象
+	  我们不用在苦逼的去获取document.getElementById了，
+	 我们可以直接使用其id 其id代表的就是该元素，是的  你没有听错！
+	 
+	5.说一下 JS中CSS属性名字规范的问题
+	  在JS中 CSS属性中的一切‘-’全部去掉，并且 在‘-’之后的属性的第一个字母必须大写
+	  而且 如果是JS中的关键字 比如 float 在使用时 需要加上 css,也就是 cssFloat
+	  
+	6.var 变量的作用域
+	  在下面的代码中 我在第一个 script标签中 使用了 var Buttons = dgxxx
+	  而在 第二个 script便签中 该变量 Buttons 还可以继续使用
+	  
+	7.所谓的还原方法
+	  history.go()
+	
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			button {
+				--majin-color: #ccc;
+				box-shadow: 4px 4px 4px var(--majin-color);
+				border: #000;
+				border-radius: 10px;
+				margin-right: 15px;
+				font-size: 20px;
+				outline: none;
+				margin-top: 20px;
+			}
+			
+			button:hover {
+				--majin-color: #999;
+				cursor: pointer;
+				background-color: #AAAAAA;
+				color: #000000;
+				transform: scale(1.1);
+				transition: all 0.1s linear;
+			}
+			
+			#YuanQuan {
+				width: 340px;
+				height: 340px;
+				border: solid 1px #fff;
+				border-radius: 50%;
+				top: 120px;
+				left: 40px;
+				position: absolute;
+			}
+			
+			#YuanQiu {
+				width: 50px;
+				height: 50px;
+				background-color: aquamarine;
+				border-radius: 50%;
+				left: 0px;
+				top: 55px;
+				position: relative;
+			}
+			
+			@keyframes ShunZZ {
+				to {
+					transform: rotate(360deg);
+				}
+			}
+			
+			@keyframes ShunYY {
+				to {
+					transform: rotate(-360deg);
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<button id="Btn1">顺时针旋转</button>
+		<button id="Btn2">逆时针旋转</button>
+		<button>暂停</button>
+		<button>还原</button>
+		<div id="YuanQuan">
+			<div id="YuanQiu"></div>
+		</div>
+		<script type="text/javascript">
+			Btn1.onclick = function() {
+				YuanQuan.style.animation = 'ShunZZ 4s infinite linear';
+			}
+			Btn2.onclick = function() {
+				YuanQuan.style.animation = 'ShunYY 4s infinite linear'
+			}
+			var Buttons = document.getElementsByTagName('button');
+			Buttons[2].onclick = function() {
+				YuanQuan.style.animationPlayState = 'paused';
+			}
+		</script>
+	</body>
+	<script type="text/javascript">
+		Buttons[3].onclick = function() {
+			history.go();
+		}
+	</script>
+
+</html>

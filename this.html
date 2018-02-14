@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function QuanT() {
+				console.log(this);
+			}
+			QuanT(); //Window
+
+			function NoT() {
+				this.p = 'P';
+				console.log(this === window);
+			}
+			NoT(); //true
+			let N = new NoT(); //false
+
+			//上面的代码说明  当使用构造函数时  this的指向将不是 全局window
+
+			//如果某个方法位于多层对象的内部，这时this只是指向当前一层的对象，而不会继承更上面的层。
+
+			//先说两句 看了一下 阮老师的说明
+			//很多例子 都是在说  当this的调用者改变时  this也会改变为 调用的那一阶层
+
+			let Ty = {
+				p: 'N',
+				M: function() {
+					console.log(this.p);
+				}
+			};
+
+			Ty.M(); //N
+
+			var p = 'Win'; //记住 这里要是用 var声明变量  使用let 将不会与 window挂钩
+			let TW = Ty.M;
+
+			//等价于
+			//let TW = function() {
+			//	  console.log(this.p);
+			//}
+
+			TW(); //Win
+
+			//使用一个变量固定this的值，然后内层函数调用这个变量，是非常常见的做法，请务必掌握。
+			var o = {
+				f1: function() {
+					console.log(this);
+					var that = this;
+					var f2 = function() {
+						console.log(that);
+					}();
+				}
+			}
+
+			o.f1()
+
+			//JavaScript 提供了严格模式，也可以硬性避免这种问题。在严格模式下，如果函数内部的this指向顶层对象，就会报错。
+
+			var counter = {
+				count: 0
+			};
+			counter.inc = function() {
+				'use strict';
+				this.count++
+			};
+			var f = counter.inc;
+			//f() // TypeError: Cannot read property 'count' of undefined
+
+			let Ar = [1, , 3, 4];
+
+			function Log(e) {
+				console.log(e);
+			}
+			Ar.forEach(Log); //1,3,4
+
+			Array.apply(null, Ar).forEach(Log) //1,undefined,3,4
+
+			console.log(undefined++ === NaN);
+
+			var add = function(x, y) {
+				return x * this.m + y * this.n;
+			}
+
+			var obj = {
+				m: 2,
+				n: 2
+			};
+
+			var newAdd = add.bind(obj, 5);
+			//等价于
+
+			//var newAdd = function(y) {
+			//	return 5 * this.m + y * this.n;
+			//}
+
+			console.log(newAdd(0)) //10  这个时候再给 y赋值。。
+
+			//如果bind方法的第一个参数是null或undefined，等于将this绑定到全局对象，函数运行时this指向顶层对象（在浏览器中为window）
+
+			if(!('bind' in Function.prototype)) { //如果函数属性中没有 bind
+
+				Function.prototype.bind = function() { //在函数的原生对象中添加
+
+					var fn = this; //找到宿主
+
+					var context = arguments[0]; //找到寄生者
+
+					var args = Array.prototype.slice.call(arguments, 1); //将宿主养料转换为数组
+
+					return function() { //然后一个方法 这个方法里面封装着 进攻方法
+						return fn.apply(context, args);
+					}
+				}
+			}
+
+
+			//bind的妙用
+			var obj = {
+				times: [1, 2, 3],
+				print: function() {
+					this.times.forEach(function(n) {
+						console.log(this===window);
+					}.bind(this));//这个时候 我们可以绑定 this  即this便不会指向全局对象 window
+				}
+			};
+
+			obj.print()//3个true
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!--
+	通过实验，我们可以知晓
+	html 并不是识别 id的唯一性,所有元素 均可以有css样式
+	
+	而js识别id的特性是，匹配到第一个符合id的元素 即可
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var x = document.getElementById("xxx");
+				x.onclick = function() {
+					alert(1);
+				};
+			};
+		</script>
+		<style type="text/css">
+			#xxx {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p id="xxx">xxx</p>
+		<em id="xxx">xxx</em>
+	</body>
+
+</html>

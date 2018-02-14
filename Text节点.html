@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="header">This is Header <em> This Header</em>This is Bottom</div>
+		<script type="text/javascript">
+			//Text节点代表Element节点和Attribute节点的文本内容。
+
+			//创建Text节点
+			let TextNode1 = document.createTextNode('This is TextNode');
+			let TextNode2 = new Text('This is TextNode');
+
+			//data属性
+			//data属性等同于nodeValue属性，用来设置或读取Text节点的内容。
+			console.log(header.firstChild.nodeValue); //This is Header 
+			console.log(header.firstChild.data); //This is Header 
+
+			//wholeText
+			//wholeText属性将当前Text节点与毗邻的Text节点，作为一个整体返回。
+			console.log(header.firstChild.wholeText); //This is Header 
+			//header.removeChild(header.childNodes[1]); //删除了Em节点
+			header.childNodes[1].remove();; //删除了Em节点
+
+			console.log(header.firstChild.wholeText); ////This is Header 
+			console.log(header.firstChild.data); //This is Header 
+
+			//length属性返回当前Text节点的文本长度。  //14
+			console.log(header.firstChild.wholeText.length - header.firstChild.data.length);
+
+			//Text节点的创建
+			//1).let TextNode = document.createTextNode('内容')
+			//2).let TextNode = new Text('内容')   浏览器原生方法
+
+			//Text节点的属性
+			//1).data				相等于 nodeValue
+			//2).wholeText			将当前节点和毗邻的文本节点 一起返回
+			//3.length				文本节点的长度
+
+			//Text节点的方法
+			//1).appendData()		在Text节点的尾部增加字符串 	 （内容）
+			//2).deleteData()		删除Text节点内部字符串 		 （位置，长度）
+			//3).insertData()		在Text节点指定位置插入字符串 （位置，内容）
+			//4).replaceData()		在Text节点替换内部文本		  （位置，删除长度，增加内容）
+
+			//5).subStringData()	在Text节点内部 获取字符串	  （位置，长度）
+
+			//6).splitText()		将Text节点一分为二，变成两个毗邻的Text节点   (分割位置)
+			//7).normalize()		将两个毗邻的Text节点合并				  (无参数)
+
+			//1.appendData
+			TextNode1.appendData('!!!');
+			console.log(TextNode1.data); //This is TextNode!!!
+
+			//2.deleteData
+			TextNode1.deleteData(16, 3);
+			console.log(TextNode1.data); //This is TextNode
+
+			//3.insertData
+			TextNode1.insertData(16, '!!!');
+			console.log(TextNode1.data); //This is TextNode!!!
+
+			//4.replaceData
+			TextNode1.replaceData(16, 3, '???')
+			console.log(TextNode1.data); //This is TextNode???
+
+			//5.subStringData
+			console.log(TextNode1.substringData(16, 3)); //???
+
+			//6.splitText
+			TextNode1.splitText(16);
+			console.log(TextNode1.data); //This is TextNode
+			console.log(TextNode1.wholeText); //This is TextNode
+
+			//7.normalize
+			TextNode1.normalize();
+		</script>
+	</body>
+
+</html>

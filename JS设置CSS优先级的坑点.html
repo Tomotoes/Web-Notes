@@ -1,0 +1,50 @@
+<!--
+	通过实验 我们可以知道 ToGreen 的优先级要比 ToRed 的大！
+	
+	在点击完ToRed后，我们通过F12 很清楚的观察到 div 多了一个类 叫做 Red
+	
+	在点击完ToGreen后，我们可以看到 div多了一个行间样式 style="background-color:green;"
+	
+	其结果不言而喻，因为 我们都知道 行间样式的优先级是最高级！
+	
+	所以 建议：在对元素进行设置时 如果用style的格式 那么就一直用下去。
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			function ToRed () {
+				var DIV=document.getElementById("head");
+				DIV.className='Red';
+			}
+			function ToGreen () {
+				var DIV=document.getElementById("head");
+				DIV.style.backgroundColor='green'
+			}
+		</script>
+		<style type="text/css">
+			.Red{
+				background-color: red;
+			}
+			#head{
+				height: 100px;
+				width: 100px;
+				border: solid 1px red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="head"></div>
+		<br /><br />
+		<button onclick="ToGreen()">ToGreen(style.background-color)</button>
+		<button onclick="ToRed()">ToRed(className)</button>
+
+	</body>
+
+</html>

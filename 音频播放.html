@@ -1,0 +1,31 @@
+<!--
+	我们可以看到音频播放有两种写法
+	1.audio>source
+	2.audio[src]
+	
+	第一种当 浏览器不支持 是一个source元素时，会播放第二个 source
+	
+	controls="controls"; 是说明 显示播放控件
+    autoplay="autoplay"; 是说明 自动播放
+    loop="loop"; 是说明 是循环播放
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<audio controls="controls" autoplay="autoplay" loop="loop">
+			<!--<source src="Video/1.mp3" type="audio/mp3" />
+			<source src="Video/2.ogg" type="audio/ogg" />-->
+		</audio>
+
+		<audio src="Video/1.mp3" controls="controls" autoplay="autoplay"></audio>
+	</body>
+
+</html>

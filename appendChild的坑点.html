@@ -1,0 +1,42 @@
+<!--
+	有一个坑点 我们一直没有发现
+	
+	当我们的元素 
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id='d1'>
+			<p>sadsad</p>
+			<p>qweqwe</p>
+		</div>
+		<div id='d2'>
+			<p>1231</p>
+			<p>4564</p>
+		</div>
+		<script type="text/javascript">
+			var Ul1 = document.querySelector('#d1')
+			var Ul2 = document.querySelector('#d2')
+			
+			var P=document.createElement("p")
+			P.innerHTML='<!--This is 注释-->'
+			Ul2.appendChild(P.cloneNode(true))
+			//增加了一个 没有复制子节点的文本节点
+			
+			Ul2.appendChild(Ul1.lastElementChild)
+			//ok,坑点来了 Question: 这是复制还是剪切??????? haha 是剪切 没有想到吧!
+			
+			Ul2.appendChild(document.createTextNode('majin'))
+			
+		</script>
+	</body>
+
+</html>

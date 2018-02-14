@@ -1,0 +1,52 @@
+<!--
+	行内样式（inline style）具有最高的优先级，改变行内样式，通常会立即反映出来。但是，网页元素最终的样式是综合各种规则计算出来的。因此，如果想得到元素现有的样式，只读取行内样式是不够的，我们需要得到浏览器最终计算出来的那个样式规则。
+	
+	window.getComputedStyle方法，就用来返回这个规则。它接受一个DOM节点对象作为参数，返回一个包含该节点最终样式信息的对象。所谓“最终样式信息”，指的是各种CSS规则叠加后的结果。
+	
+返回的CSS值都是绝对单位，比如，长度都是像素单位（返回值包括px后缀），颜色是rgb(#, #, #)
+	
+CSS规则的简写形式无效，比如，想读取margin属性的值，不能直接读，只能读marginLeft、marginTop等属性。
+
+如果一个元素不是绝对定位，top和left属性总是返回auto。
+
+该方法返回的样式对象的cssText属性无效，返回undefined。
+
+该方法返回的样式对象是只读的，如果想设置样式，应该使用元素节点的style属性。
+
+getComputedStyle方法还可以接受第二个参数，表示指定节点的伪元素（比如:before、:after、:first-line、:first-letter等）。
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#head {
+				width: 200px;
+				height: 200px;
+				background-color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="head"></div>
+	</body>
+	<script type="text/javascript">
+		var D = document.querySelector('#head');
+		
+		var BC = window.getComputedStyle(D).backgroundColor;
+		alert(BC);//rgb(255,0,0)
+		
+		var H=window.getComputedStyle(D).height;
+		alert(H)//200px
+		var HH=window.getComputedStyle(D).getPropertyValue('height');
+		alert(HH);//200px
+		
+		
+	</script>
+
+</html>

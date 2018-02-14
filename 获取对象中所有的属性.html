@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//获得对象的所有属性（ 不管是自身的还是继承的， 以及是否可枚举）， 可以使用下面的函数。
+
+			function inheritedPropertyNames(obj) {
+				var props = {};
+				while(obj) {
+					Object.getOwnPropertyNames(obj).forEach(function(p) {
+						props[p] = true;
+					});
+					obj = Object.getPrototypeOf(obj);
+				}
+				return Object.getOwnPropertyNames(props);
+			}
+			console.log(inheritedPropertyNames(Object));
+			
+			//突然明白了  JS中对属性的操作有两种形式 
+			//1.  点操作 .  
+			//2.  中括号操作 []
+			
+			//在我学习这个知识的时候  是通过视频
+			
+			//我的印象很清楚  也头一次知道了 属性还可以这么玩 但其中蕴藏的原理 却没有吸收到
+			
+			//当属性未知时  也就是说 当属性是一个参数时
+			//.点运算符 无法转义！ 只能通过 [] 中括号运算符！
+			
+			//所以 我们在应用  参数属性时  要及时记得使用 中括号！
+			
+		</script>
+	</body>
+
+</html>

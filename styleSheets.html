@@ -1,0 +1,114 @@
+<!--
+StyleSheet对象代表网页的一张样式表，它包括<link>节点加载的样式表和<style>节点内嵌的样式表。
+
+document对象的styleSheets属性，可以返回当前页面的所有StyleSheet对象（即所有样式表）。它是一个类似数组的对象。
+
+ 我们解释一下 document.styleSheet[0]代表的是 link节点
+document.styleSheet[1]代表的是 style节点			
+ 它有一个很关键的属性 cssRules 代表的是 规则的集合 {CSS选择器和声明}）
+ 我们可以到看 现在的style节点有两条规则 
+ 我们的 cssRules[1]代表的就是 第一条规则
+#header {
+    height: 200px;
+	width: 200px;
+	background-color: red;
+}
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="css/CSS.css" />
+		<style type="text/css">
+			#header {
+				height: 200px;
+				width: 200px;
+				background-color: red;
+			}
+			
+			#header {
+				border: solid blue 1px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header"></div>
+		<script type="text/javascript">
+			
+			console.log(document.styleSheets[0].href); //http://127.0.0.1:8020/WEB/css/CSS.css
+			console.log(document.styleSheets[0].ownerNode); //link 获取父节点
+
+			var HeaderStyles = document.styleSheets[1].cssRules; //获取第一个样式表的所有规则
+			alert(HeaderStyles[0].selectorText); //返回当前规则的选择器
+
+			alert(HeaderStyles[0].cssText); //cssText 返回第一条规则
+			//			#header {
+			//				height: 200px;
+			//				width: 200px;
+			//				background-color: red;
+			//			}
+
+			alert(HeaderStyles[0].style.cssText); //style 返回第一条规则的所有声明
+			//				height: 200px;
+			//				width: 200px;
+			//				background-color: red;
+
+
+			//当然 我们还可以设置 该样式
+			HeaderStyles[0].style.height = '500px';
+
+//【&】设置规则 注意 insert/removeRule 是和 cssRules 一个等级的
+//insertRule方法的第一个参数是表示CSS规则的字符串，第二个参数是该规则在cssRules对象的插入位置。deleteRule方法的参数是该条规则在cssRules对象中的位置。
+			document.styleSheets[1].insertRule("#header{border-width:5px;}", 2);
+
+			document.styleSheets[1].insertRule('#header{border-radius:100%;}', 3);
+
+			document.styleSheets[1].removeRule(3);
+			
+
+//【&】样式表 具有 disabled属性 
+//下面的例子 我们 增加了 一个样式表 为它设置了 背景颜色为红色然后 又使其 的disabled='disabled'
+			var NewSS = document.createElement('style');
+			NewSS.type = 'text/css';
+
+			NewSS.innerHTML = 'body{background-color:red;}'
+			NewSS.innerHTML += '#header{border-style:dashed;}';
+
+			document.head.appendChild(NewSS);
+			//不知道 为什么 新建的style节点 无法使用 insertRule API
+			//			NewSS.insertRule('#header{border-style:dashed;}', 0);
+
+			document.styleSheets[2].disabled = 'disabled';
+			
+
+//【&】增加外部样式表
+			var LinkEm = document.createElement("link");
+			LinkEm.rel = 'stylesheet';
+			LinkEm.setAttribute('href', 'css/CSS.css');
+			LinkEm.type = 'text/css';
+			document.head.appendChild(LinkEm);
+			
+
+//【&】设置CSS规则中的具体属性
+			var Properties = document.styleSheets[1].cssRules[0].style;
+
+			for(var i = 0; i < Properties.length; ++i) {
+				console.log(Properties[i]) //height width background-color
+			}
+
+			console.log(Properties.width);
+
+			Properties.removeProperty('height')
+
+			Properties.height = '30px'
+
+			Properties.cssText = ''; //清空所有样式
+		</script>
+	</body>
+
+</html>

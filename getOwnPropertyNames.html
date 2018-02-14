@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//事实证明 一个对象的所有可枚举的属性方法 是不包括 原生对象其中的属性的
+			function Ctor() {
+				this.Name = 'majin';
+
+			}
+			Ctor.prototype.Sex = '男';
+			let C = new Ctor();
+
+			function Dctr() {
+				this.Age = '18';
+				this.Show = function() {
+					return 'Show';
+				}
+			}
+			Dctr.prototype.Class = '19';
+
+			let D = new Dctr();
+
+			Object.getOwnPropertyNames(D).forEach(e => {
+				console.log(e);
+			})
+		</script>
+	</body>
+
+</html>

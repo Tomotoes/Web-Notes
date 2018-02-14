@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//创建孩子不用多说了吧，如果 你想知道有多少种创建元素孩子的办法，貌似还就这一种
+		let An=document.createElement("a")
+		
+		//URL支持javascript:协议，调用这个URL时，就会执行JavaScript代码。
+		
+		//浏览器的地址栏也可以执行javascipt:协议。将javascript:alert('Hello')放入地址栏，按回车键，就会跳出提示框。
+		An.href="javascript:alert('Hello');"
+		An.textContent='启动 URL协议'
+		
+		
+		//如果JavaScript代码返回一个字符串，浏览器就会新建一个文档，展示这个字符串的内容，原有文档的内容都会消失。
+		
+		An.href='javascript:new Date().toLocaleTimeString();'
+		
+		
+		//增加孩子的办法 现在我知道的 有三种
+		
+		//第一种 insertBefore 顾名思义  把孩子增加到某个节点的前面
+		//两个参数 第一个 要添加的孩子 ，第二个便是 位置，该方法会返回被插入的节点
+		//Question：如果想把节点 插入到前面怎么办？parentDiv.insertBefore(s1, s2.nextSibling);
+//		document.body.insertBefore(An,document.body.firstElementChild)
+		
+		//第二种 insertAdjacentElement 比insertBefore 更有趣，
+		//insertBefore 都是自己提供位置      而 insertAdjacentElement 是选位置
+		//ok说一下 其位置参数  
+		//beforeBegin 插入到该节点的前面
+		//afterEnd    插入到该节点的后面
+		//beforeEnd	    插入到该节点的子节点的最后
+		//afterBegin  插入到该节点的子节点的前面
+		
+		//document.body.insertAdjacentElement('afterBegin',An)
+		
+		//第三种 appendChild 将增加的节点 自动添加到最后
+		document.body.appendChild(An)
+		
+	</script>
+</body>
+</html>

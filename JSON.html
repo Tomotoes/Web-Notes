@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//JSON 对值的类型和格式有严格的规定。
+
+			//复合类型的值只能是数组或对象， 不能是函数、 正则表达式对象、 日期对象。
+			//简单类型的值只有四种： 字符串、 数值（ 必须以十进制表示）、 布尔值和null.
+			//字符串必须使用双引号表示， 不能使用单引号。
+			//对象的键名必须放在双引号里面。
+			//数组或对象最后一个成员的后面， 不能加逗号。
+
+			//JSON.stringify方法用于将一个值转为字符串。
+			//该字符串符合 JSON 格式，并且可以被JSON.parse方法还原。
+
+			//JSON(要转换的数据, 指定转换的属性, 转换后属性的前缀)
+			//如果有toJSON 会优先依赖它 
+			//JSON.parse方法 还原数据
+
+			let obj = {
+				name: 'majin',
+				sex: 'nan'
+			};
+			console.log(JSON.stringify(obj)) //{"name":"majin","sex":"nan"}
+
+			//JSON.stringify方法会忽略对象的不可遍历属性。
+
+			//JSON.stringify方法还可以接受一个数组，作为第二个参数，指定需要转成字符串的属性。
+			var oj = {
+				'prop1': 'value1',
+				'prop2': 'value2',
+				'prop3': 'value3'
+			};
+
+			var selectedProperties = ['prop1', 'prop2'];
+
+			JSON.stringify(oj, selectedProperties) //只转换 特定的属性
+			// "{"prop1":"value1","prop2":"value2"}"
+
+			//JSON.stringify还可以接受第三个参数，用于增加返回的JSON字符串的可读性。
+			//如果是数字，表示每个属性前面添加的空格（不超过10个）；
+			//如果是字符串（不超过10个字符），则该字符串会添加在每行前面。
+
+			JSON.stringify({
+				p1: 1,
+				p2: 2
+			}, null, 2);
+			/*
+			"{
+			  "p1": 1,
+			  "p2": 2
+			}"
+			*/
+
+			JSON.stringify({
+				p1: 1,
+				p2: 2
+			}, null, '|-');
+			/*
+			"{
+			|-"p1": 1,
+			|-"p2": 2
+			}"
+			*/
+
+			//如果对象有自定义的toJSON方法，那么JSON.stringify会使用这个方法的返回值作为参数
+			var user = {
+				firstName: '三',
+				lastName: '张',
+
+				get fullName() {
+					return this.lastName + this.firstName;
+				},
+
+				toJSON: function() {
+					var data = {
+						firstName: this.firstName,
+						lastName: this.lastName
+					};
+					return data;
+				}
+			};
+
+			JSON.stringify(user)
+			// "{"firstName":"三","lastName":"张"}"
+
+			//JSON.parse方法用于将JSON字符串转化成对象。
+			let o = JSON.parse('{"name":"XXX","Sex":"NN"}');
+			console.log(o.name);
+		</script>
+	</body>
+
+</html>

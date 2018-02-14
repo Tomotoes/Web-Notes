@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			/*数据库的版本 必须是大于0的正整数*/
+			/*如果打开的数据库不存在 则会新建数据库*/
+			/*如果省略第二个参数 则会新建数据库*/
+			let DB = indexedDB.open('NoSql', 5);
+
+			/*打开数据库的结果 有可能触发4种事件*/
+			/*success：打开成功事件*/
+			/*error：打开失败事件 */
+			/*upgradeneeded：第一次打开该数据库，或者数据库版本发生变化*/
+			/*blocked：上一次的数据库连接还未关闭。*/
+
+			/*首先 open方法返回的是一个对象（IDBOpenDBRequest）*/
+			/*回调函数接受事件对象event作为参数，它的target.result属性就指向打开的IndexedDB数据库。*/
+
+//			var Sql;
+			DB.onsuccess = e => {
+				console.log("success...");
+			};
+			DB.onupgradeneeded = e => {
+				console.log("upgradeneeded...");
+				var Sql = e.target.result;
+				
+			}
+			Sql.createObjectStore('FirstOS');
+			let t = Sql.transaction(["FirstOS"], "readwrite");
+			let store = t.objectStore("FirstOS");
+			let o = {
+				p: 123
+			};
+			let request = store.add(o, 1);
+			console.log(store.get(1));
+			/*
+			 * 说一下 自己对以上代码的理解
+			 * 
+			 * let DB = indexedDB.open('NoSql', 1);
+			 * 返回了一个 数据库的锁
+			 * 
+			 * DB.onsuccess = function()
+			 * 成功打开锁的事件
+			 * 
+			 * Sql = event.target.result;
+			 * 获得数据库
+			 * 
+			 * 另外值得注意的是 在数据库中 有很多对象仓库 也有很多事务
+			 */
+
+			/*Sql利用 createObjectStore方法 创建一个对象仓库*/
+			/*其中该方法有两个参数 第一个是数据库的名字
+			 createObjectStore方法还可以接受第二个对象参数，用来设置“对象仓库”的属性。
+			 keyPath属性表示，所存入对象的email属性用作每条记录的键名
+			 （由于键名不能重复，所以存入之前必须保证数据的email属性值都是不一样的），默认值为null
+			 autoIncrement属性表示，是否使用自动递增的整数作为键名
+			 （第一个数据为1，第二个数据为2，以此类推），默认为false。*/
+			
+			/*由于数据库全是异步操作 所以 老是错误
+			  今天练习了2个小时 错误不断 所以先扔一边 等哪一天用到的时候 再来收拾！*/
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let Array=[1,2,3,4,5,6,7,8,9];
+		
+		//forEach 让每一个元素 做一件事情
+		Array.forEach((Element,Index,Array)=>{
+			console.log(Element)
+		})
+		
+		//map 让每一个元素 通过某种计算产生一个新的数组 并返回 ，注意要加上 return关键字
+		let Array_Map=Array.map((Element,Index,Array)=>{
+			return Element=Index;
+		})
+		
+		Array_Map.forEach(e=>{
+			console.log(e)
+		})
+		
+		//filter(筛选出 数组中符合添加的元素 ，组成新数组 并返回，注意要加上 return关键字)
+		let Array_Filter=Array.filter((Element,Index,Array)=>{
+			return Element>5;
+		})
+		
+		Array_Filter.forEach(e=>{
+			console.log(e)
+		})
+		
+		//reduce(让数组中的前后项 做某种计算，并累计最终值 并返回，注意要加上 return 关键字)
+		let Reduce=Array.reduce((Prev,Next)=>{
+			return Prev+Next;
+		})
+		
+		console.log(Reduce)//45
+		
+		//every(检测数组中每一项是否符合条件)(全部满足才为true)
+		let Every=Array.every((Element,Index)=>{
+			return Element>0;
+		})
+		
+		console.log(Every)
+		
+		//some(检测数组中是否有某项符合条件)(只要一个满足即为true)
+		let Some=Array.some((Element,Index)=>{
+			return Element>8;
+		})
+		
+		console.log(Some)
+		
+		/*
+		 * ok，做个总结
+		 * 
+		 * forEach：让每个元素做一件事情
+		 * 
+		 * map：让每个元素做一件事情，可以返回一个新数组
+		 * 
+		 * filter：筛选出符合条件的元素，并组成一个数组 返回
+		 * 
+		 * reduce：让数组前后项做某项计算，计算值累加 返回
+		 * 
+		 * every：检测数组中的某一项 是否符合条件 全部符合才为true
+		 * 
+		 * some：检测数组中的某一项 是否符合条件 有一个符合就为true
+		 */
+	</script>
+</body>
+</html>

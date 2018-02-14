@@ -1,0 +1,58 @@
+<!--
+	我们了解一下 addEventListener ：为元素增加监听事件
+	
+	但有一点很有趣，事件的名字 不包括 onxxx  比如 onclick  要写成 click
+	
+	另外推荐写成 封装函数
+	
+	这样 在removeEventListener 时 很关键
+	
+	事件操作的时候 写的是 函数名 
+	
+	addEventListener方法接受三个参数。
+
+	type：事件名称，大小写敏感。
+	listener：监听函数。事件发生时，会调用该监听函数。
+	useCapture：布尔值，表示监听函数是否在捕获阶段（capture）触发（参见后文《事件的传播》部分），默认为false（监听函数只在冒泡阶段被触发）。老式浏览器规定该参数必写，较新版本的浏览器允许该参数可选。为了保持兼容，建议总是写上该参数。
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			function Alert() {
+				alert(1)
+			}
+			window.onload = function() {
+				var A = document.getElementById("head");
+
+				A.addEventListener('click', Alert);
+
+				A.addEventListener('mousemove', function(e) {
+					A.style.transform = 'translateX(' +
+						e.clientX +
+						'px )' + 'translateY(' +
+						e.clientY + 'px)';
+				})
+
+				A.removeEventListener('click', Alert);
+			};
+		</script>
+		<style type="text/css">
+			div {
+				background-color: red;
+				height: 200px;
+				width: 200px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="head"></div>
+	</body>
+
+</html>

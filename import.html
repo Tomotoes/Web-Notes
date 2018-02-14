@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<link rel="import" href="importText.html"/>
+</head>
+<body>
+	<script type="text/javascript">
+		/*犯了一个贼傻的问题  下面代码的选择器中 import 不应该加引号*/
+		let importHTML = document.querySelectorAll("link[rel=import]")[0].import;
+		/*import属性  指向加载的文档
+		 document.currentScript.ownerDocument 指向被加载的文档  一般用在加载的文档中*/
+		
+		alert(importHTML.nodeName);//#document
+		alert(importHTML.getElementById('header').textContent);//注意不能使用全局属性
+	</script>
+</body>
+</html>

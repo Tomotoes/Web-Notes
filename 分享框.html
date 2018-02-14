@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>分享框</title>
+	<style>
+		#div1{width: 150px; height: 200px; background: green; position: absolute; left:-150px;}
+		#div1 span{position: absolute; width: 20px;height:60px;right: -20px;top:70px;background: blue;line-height: 20px;}
+	</style>
+	<script>
+		    window.onload=function(){
+			var DIV=document.getElementById('div1');
+			DIV.onmouseover =function(){ StartMove(10,0);};
+				
+			DIV.onmouseout = function(){ StartMove(-10,-150);};
+			
+		};
+		var timer=null;
+		
+		function StartMove(speed,Target){
+			var DIV=document.getElementById('div1');
+			clearInterval(timer);
+			
+			timer=setInterval(function(){
+											
+				if(DIV.offsetLeft==Target){
+					clearInterval(timer);
+				}
+				else{
+					DIV.style.left=DIV.offsetLeft+speed+'px';
+				}
+			},30);
+			
+		};
+	</script>
+</head>
+
+<body>
+	<div id="div1">
+	<span>分享到</span>
+	</div>
+</body>
+</html>

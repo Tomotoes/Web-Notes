@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//我来解释一下 这个牛逼的代码
+			//假设我们有一个函数
+			console.time()
+
+			function log() {
+				//console.log.apply(console, arguments);//927.115966796875ms
+				console.log.apply(null, arguments); // 140.753173828125ms
+			}
+			//
+			log(new Array(9999999), new Array(9999999), new Array(9999999), new Array(9999999), new Array(9999999))
+			console.timeEnd()
+			//把log中的arguments 变成了 console.log中的arguments，然后执行 便是全部输出
+			//应该是这样 第一个参数 只是改变 this的指向 无论是 null还是 console 都没有影响
+		</script>
+	</body>
+
+</html>

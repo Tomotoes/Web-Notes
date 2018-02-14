@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//css改写的规则是将横杠从CSS属性名中去除，然后将横杠后的第一个字母大写
+			//-webkit-background-clip => WebkitBackgroundClip
+			function isPropertySupported(property) {
+				if(property in document.body.style) return true;
+				var prefixes = ['Moz', 'Webkit', 'O', 'ms', 'Khtml'];
+//				var prefProperty = property.charAt(0).toUpperCase() + property.substr(1);
+				//property.charAt(0).toUpperCase() => B
+				//property.substr(1) =>ackground-clip
+				var prefProperty;
+				for(var x=0;x<property.length;++x){
+					if(property[x]=='-'){
+						property[x+1].toUpperCase();
+						continue;
+					}
+					prefProperty+=property[x];
+				}
+				
+				for(var i = 0; i < prefixes.length; i++) {
+					if((prefixes[i] + prefProperty) in document.body.style) return true;
+				}
+
+				return false;
+			}
+			console.log(isPropertySupported('background-clip'))
+		</script>
+	</body>
+
+</html>

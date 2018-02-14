@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//console对象的所有方法，都可以被覆盖。因此，可以按照自己的需要，定义console.log方法。
+
+			let Console_Array = ['log', 'error', 'warn'];
+			Console_Array.forEach(method => {
+				console[method] = console[method].bind(
+					console, 'majin'
+				)
+			})
+
+			console.error('This is My Console')
+			//majin This is My Console
+
+			console.log('I Love You')
+			//majin I Love You
+
+			console.info("This is My Console") //无效果
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--
+		FileReader API用于读取文件，即把文件内容读入内存。它的参数是File对象或Blob对象。
+		
+		readAsBinaryString(Blob|File)：返回二进制字符串，该字符串每个字节包含一个0到255之间的整数。
+		readAsText(Blob|File, opt_encoding)：返回文本字符串。默认情况下，文本编码格式是’UTF-8’。
+		readAsDataURL(Blob|File)：返回一个基于Base64编码的data-uri对象。
+		readAsArrayBuffer(Blob|File)：返回一个ArrayBuffer对象。
+		
+		readAsText方法用于读取文本文件，它的第一个参数是File或Blob对象，
+		第二个参数是前一个参数的编码方法，如果省略就默认为UTF-8编码。
+		该方法是异步方法，一般监听onload事件，用来确定文件是否加载结束，
+		方法是判断FileReader实例的result属性是否有值。event.target.result
+		其他三种读取方法，用法与readAsText方法类似。
+		
+		readAsDataURL方法返回一个data URL，它的作用基本上是将文件数据进行Base64编码。
+		你可以将返回值设为图像的src属性。
+		
+		readAsBinaryString方法可以读取任意类型的文件，而不仅仅是文本文件，返回文件的原始的二进制内容。
+		这个方法与XMLHttpRequest.sendAsBinary方法结合使用，就可以使用JavaScript上传任意文件到服务器。
+		
+		readAsArrayBuffer方法读取文件，返回一个类型化数组（ArrayBuffer），
+		即固定长度的二进制缓存数据。在文件操作时（比如将JPEG图像转为PNG图像），这个方法非常方便。
+		
+		
+		除了以上四种不同的读取文件方法，FileReader API还有一个abort方法，用于中止文件上传。
+
+		var reader = new FileReader();
+		reader.abort();
+		FileReader对象采用异步方式读取文件，可以为一系列事件指定回调函数。
+		
+		onabort方法：读取中断或调用reader.abort()方法时触发。
+		onerror方法：读取出错时触发。
+		onload方法：读取成功后触发。
+		onloadend方法：读取完成后触发，不管是否成功。触发顺序排在 onload 或 onerror 后面。
+		onloadstart方法：读取将要开始时触发。
+		onprogress方法：读取过程中周期性触发。
+	-->
+		<input type="file" name="" id="" value="" multiple="multiple" />
+		<progress class="percent"></progress>
+		<script type="text/javascript">
+			let inFile = document.querySelectorAll("input")[0];
+
+			inFile.addEventListener('change', () => { //选中文件会触发 onchange事件
+
+				let Reader = new FileReader(); //构造 FileReader对象
+
+				Reader.readAsDataURL(inFile.files[0]); //读取文件 也就是选中的照片
+
+				Reader.onload = () => { //读取文件成功的回调函数
+					let img = document.createElement("img");
+
+					img.src = event.target.result; //记住此属性 非常重要 event.target.result 
+
+					document.body.appendChild(img);
+				}
+
+				/*
+				let img = document.createElement("img");
+				img.src = window.URL.createObjectURL(inFile.files[0]);
+				document.body.appendChild(img);
+				*/
+
+			})
+
+			let Reader1 = new FileReader();
+			Reader1.readAsText(new Blob(['Majin']));
+			Reader1.onload = () => alert(event.target.result)
+
+			/*
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				document.createElement('img').src = e.target.result;
+			};
+			reader.readAsDataURL(f);
+
+			document.querySelector('input[name=picture]').onchange = function(e) 			{
+				readFile(e.target.files[0]);
+			}
+
+			function readFile(file) {
+
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					applyDataUrlToCanvas(reader.result);
+				};
+
+				reader.readAsDataURL(file);
+			}
+						
+			*/
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!--
+	可能你会好奇 这个classList 有什么用
+	
+	在不久的将来，元素的 特效要 增加一个类才符合标准呢！
+	
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div class="One Two Three" id="header"></div>
+		<script type="text/javascript">
+			
+			//classList属性则返回一个类似数组的对象，当前元素节点的每个class就是这个对象的一个成员。
+			header.classList.forEach(function(e) {
+				console.log("%c" + e, "color:red;")
+				//One Two Three
+			})
+			
+			console.log(header.className) //One Two Three
+
+
+//【结论】
+
+//从上面代码可以看出，className属性返回一个空格分隔的字符串，而classList属性指向一个类似数组的对象，该对象的length属性（只读）返回当前元素的class数量。
+
+			//	classList对象有下列方法。
+
+			//	myDiv.classList.add('myCssClass');
+			//	myDiv.classList.add('foo', 'bar');
+			//	myDiv.classList.remove('myCssClass');
+			//	myDiv.classList.toggle('myCssClass'); // 如果myCssClass不存在就加入，否则移除
+			//	myDiv.classList.contains('myCssClass'); // 返回 true 或者 false
+			//	myDiv.classList.item(0); // 返回第一个Class，也可以用索引[]
+			//	myDiv.classList.toString();
+
+
+//【实战】
+
+			//1.增加
+			
+			//header.classList.add('NewClass')
+
+			header.className += ' NewClass' //注意这里要有一个空格
+			
+			header.classList.add('majin', 'liulin') //一下 增加了两个类
+
+			//2.删除
+			header.classList.remove('One')
+
+			//header.className=header.className.replace(/^Two$/, '')并没有成功
+	
+			header.classList.remove('majin', 'liulin') //一下 删除了两个类
+			
+			//3.读取
+			console.log(header.classList[1]) //第二个类的名字
+
+			console.log(header.classList.item(1)) //第二个类的名字
+			
+			//4.包含
+			console.log(header.classList.contains('Two')) //true
+			
+			//5.toggle方法	如果不存在就加入，否则移除			
+			header.classList.toggle('Two') //移出了
+
+			header.classList.toggle('Two') //增加了
+
+//toggle方法可以接受一个布尔值 作为第二个参数 如果为true，则添加该属性；如果为false，则去除该属性
+
+			header.classList.toggle('CLSSSS', true) //增加了该类
+
+			header.classList.toggle('CLSSSS', false) //删除了该类
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			#d1 {
+				width: 300px;
+				height: 200px;
+				border: solid 1px red;
+				/*线性渐变*/
+				background: -webkit-gradient(linear, left top, left bottom, from(blue), to(red), color-stop(0.4, #fff), color-stop(0.7, #0f0));
+				/*圆性渐变*/
+				background: -webkit-gradient(radial, center center, 0, center center, 200, from(blue), to(red));
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+	</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function M1() {
+				this.hello = 'hello';
+			}
+
+			function M2() {
+				this.world = 'world';
+			}
+
+			function S() {
+				M1.call(this);
+				M2.call(this);
+			}
+
+			// 继承 M1
+			S.prototype = Object.create(M1.prototype);
+			// 继承链上加入 M2
+			Object.assign(S.prototype, M2.prototype);
+
+			// 指定构造函数
+			S.prototype.constructor = S;
+
+			var s = new S();
+			s.hello // 'hello：'
+			s.world // 'world'
+		</script>
+	</body>
+
+</html>

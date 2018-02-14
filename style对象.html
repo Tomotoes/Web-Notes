@@ -1,0 +1,36 @@
+<!--
+	事实证明，我们可以获取某个元素的style属性 然后对齐操作的效率是很高的
+	
+	上面代码中，style属性的值是一个对象（简称style对象）。
+	这个对象所包含的属性与CSS规则一一对应，但是名字需要改写，
+	
+	比如background-color写成backgroundColor。
+	改写的规则是将横杠从CSS属性名中去除，然后将横杠后的第一个字母大写。
+	
+	如果CSS属性名是JavaScript保留字，则规则名之前需要加上字符串css，
+	比如float写成cssFloat。
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var Style = document.getElementById("header").style;
+				Style.height = '200px';
+				Style.width = '200px';
+				Style.border = 'solid 1px red';
+			};
+			
+		</script>
+	</head>
+
+	<body>
+		<div id="header"></div>
+	</body>
+
+</html>

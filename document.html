@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				height: 100px;
+				width: 100px;
+				background-color: red;
+				position: absolute;
+				top: 100px;
+				left: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">From Point</div>
+		<img src="img/a.jpg" />
+		<img src="img/a.jpg" />
+		<input type="button" id="" onclick='Reload()' value="Reload" />
+		<input type="button" id="" onclick='ToTop()' value="ToTop" />
+		<p id="Q">This is No Edit</p>
+		<script type="text/javascript">
+			console.log(document.firstchild)
+			console.log(document.defaultView === window) //true
+			console.log(document.body === document.querySelector('body')) //true
+			console.log(document.head === document.querySelector('head')) //true
+			console.log(document.activeElement) //body
+			console.log(document.images) //img*2
+			console.log(document.scripts) //script
+
+			function Reload() {
+				document.location.reload()
+			}
+
+			function ToTop() {
+				document.location = '#top'
+			}
+
+			Q.contentEditable = 'true'
+
+			document.open()
+			document.write('hello')
+			document.write('world')
+			document.close()
+
+			document.open()
+			document.write('<p>Th is  PPP</p>')//可以识别 标签
+			document.writeln('This PPP')
+			document.close()
+
+			var element = document.elementFromPoint(100, 100)//
+
+			console.log(element.textContent)
+
+			var Name = document.createAttribute('name')
+			Name.value = 'majin'
+			element.setAttributeNode(Name)
+			console.log(element.getAttribute('name'))
+
+			//var docFragment = document.createDocumentFragment();
+			var docFragment = new DocumentFragment();
+			[1, 2, 3, 4].forEach(function(e) {
+				var li = document.createElement('li')
+				li.textContent = e;
+				docFragment.appendChild(li)
+			})
+
+			document.body.appendChild(docFragment.cloneNode(true))
+			//注意，DocumentFragment节点本身不能被插入当前文档。当它作为appendChild()、insertBefore()、replaceChild()等方法的参数时，是它的所有子节点插入当前文档，而不是它自身。一旦DocumentFragment节点被添加进当前文档，它自身就变成了空节点（textContent属性为空字符串），可以被再次使用。如果想要保存DocumentFragment节点的内容，可以使用cloneNode方法。
+
+			console.log(document.lastModified) //08/26/2017 17:43:07
+
+			var div = document.createElement("div")
+			div.appendChild(document.createTextNode('<span> This is Span</span>'))
+			console.log(div.innerHTML) //&lt;span&gt; This is Span&lt;/span&gt;
+			console.log(document.hasFocus()) //false
+
+			var Age = prompt('您的年龄？', 25)
+			console.log(Age)
+			var okay = confirm('Please confirm this message.');
+			true / false
+			prompt(okay)
+			confirm(window.name)
+			alert(navigator.onLine)
+			console.log(
+				'%cThis text is styled!',
+				'color: red; background: yellow; font-size: 24px;'
+			)
+			confirm(document.readyState)//loading
+			prompt(header.tagName)
+			header.remove();
+			prompt(header.match('#header'))
+				
+		</script>
+	</body>
+	<script type="text/javascript">
+		window.onunload = function() {
+			return confirm('您确定要离开此页面嘛？')
+		}
+	</script>
+
+</html>

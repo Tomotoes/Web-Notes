@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button value="创建进度条" onclick="Create()">创建进度条</button>
+</body>
+<script>
+    function Create() {
+        var x = document.createElement("progress");
+        x.setAttribute("value", "10");
+        x.setAttribute("max", "100");
+        document.body.appendChild(x);
+    }
+</script>
+
+</html>

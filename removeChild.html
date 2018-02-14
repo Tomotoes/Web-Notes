@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<div id="header">
+		<div id="bottom"></div>
+	</div>
+	<script type="text/javascript">
+		let botom = header.removeChild(bottom)
+		console.log(botom.id)
+//		Node.removeChild方法接受一个子节点作为参数，用于从当前节点移除该子节点。它返回被移除的子节点。注意，这个方法是在父节点上调用的，不是在被移除的节点上调用的。被移除的节点依然存在于内存之中，但不再是DOM的一部分。所以，一个节点移除以后，依然可以使用它，比如插入到另一个节点下面。
+	</script>
+</body>
+</html>

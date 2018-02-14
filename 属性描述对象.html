@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//JavaScript提供了一个内部数据结构，用来描述一个对象的属性的行为，控制它的行为。
+			//这被称为“属性描述对象”（attributes object）。
+			//每个属性都有自己对应的属性描述对象，保存该属性的一些元信息。
+
+			//{
+			//value: 123,  存放该属性的属性值，默认为undefined。
+
+			//writable: false, 存放一个布尔值，表示属性值（value）是否可改变，默认为true。
+
+			//enumerable: true, 存放一个布尔值，表示该属性是否可枚举
+
+			//configurable: true, 存放一个布尔值，表示“可配置性 ,控制了属性描述对象的可写性。
+			//当configurable为false的时候，value、writable、enumerable和configurable都不能被修改
+
+			//get: undefined,  存放一个函数，表示该属性的取值函数（getter），默认为undefined。
+
+			//set: undefined   存放一个函数，表示该属性的存值函数（setter），默认为undefined。
+			//} 
+
+			//Object.getOwnPropertyDescriptor方法可以读出对象自身属性的属性描述对象。
+
+			let o = {
+				p: 'a'
+			};
+			console.log(Object.getOwnPropertyDescriptor(o, 'p'))
+			//{value: "a", writable: true, enumerable: true, configurable: true}
+
+			//Object.defineProperty方法允许通过定义属性描述对象，
+			//来定义或修改一个属性，然后返回修改后的对象。它的格式如下。
+
+			//Object.defineProperty(object, propertyName, attributesObject)
+
+			//上面代码中，Object.defineProperty方法接受三个参数，
+			//第一个是属性所在的对象，第二个是属性名（它应该是一个字符串），第三个是属性的描述对象。
+
+			var W = Object.defineProperty({}, 'p', {
+				value: 123,
+				writable: false,
+				enumerable: true,
+				configurable: false
+			});
+
+			W.p // 123
+			//W.p = 246;// 因为writable为false，所以无法改变该属性的值
+
+			//需要注意的是，Object.defineProperty方法和后面的Object.defineProperties方法，都有性能损耗，会拖慢执行速度，不宜大量使用。
+
+			//如果一次性定义或修改多个属性，可以使用Object.defineProperties方法。
+			var E = Object.defineProperties({}, {
+				p1: {
+					value: 123,
+					enumerable: true
+				},
+				p2: {
+					value: 'abc',
+					enumerable: true
+				},
+				p3: {
+					get: function() {
+						return this.p1 + this.p2
+					},
+					enumerable: true,
+					configurable: true
+				}
+			});
+
+			//Object.getOwnPropertyNames方法返回直接定义在某个对象上面的全部属性的名称，而不管该属性是否可枚举。
+			//对象实例的propertyIsEnumerable方法用来判断一个属性是否可枚举。
+
+			var Q = {
+				get p() {
+					return 'getter';
+				},
+				set p(value) {
+					console.log('setter: ' + value);
+				}
+			};
+			console.log(Q.p); //getter
+			Q.p = 123; //当设置 Q.p时 自动执行csl代码 setter: 123
+
+			//JS一切都可设置！
+
+			var D = {
+				$n: 5,
+				get next() {
+					return this.$n++
+				},
+				set next(n) {
+					if(n >= this.$n) this.$n = n;
+					else throw '新的值必须大于当前值';
+				}
+			};
+
+			D.next // 5
+			D.next = 10;
+			D.next // 10
+
+		//	D.next = 5; //Uncaught 新的值必须大于当前值
+
+			//拷贝对象
+			var extend = function(to, from) {
+				for(var property in from) {
+					var descriptor = Object.getOwnPropertyDescriptor(from, property);
+
+					if(descriptor && (!descriptor.writable ||
+							!descriptor.configurable ||
+							!descriptor.enumerable ||
+							descriptor.get ||
+							descriptor.set)) {
+						Object.defineProperty(to, property, descriptor);
+					} else {
+						to[property] = from[property];
+					}
+				}
+			}
+			
+			//JavaScript提供了三种方法，精确控制一个对象的读写状态，防止对象被改变。
+			//最弱一层的保护是Object.preventExtensions，
+			//其次是Object.seal，
+			//最强的Object.freeze。
+			
+			//Object.preventExtensions方法可以使得一个对象无法再添加新的属性。 可以使用delete
+			
+			//Object.isExtensible方法用于检查一个对象是否使用了Object.preventExtensions方法。也就是说，检查是否可以为一个对象添加属性。
+			
+			//Object.seal方法使得一个对象既无法添加新属性，也无法删除旧属性。
+			//Object.seal实质是把属性描述对象的configurable属性设为false，因此属性描述对象不再能改变
+			
+			//Object.isSealed方法用于检查一个对象是否使用了Object.seal方法。
+			
+			//Object.freeze方法可以使得一个对象无法添加新属性、无法删除旧属性、也无法改变属性的值，使得这个对象实际上变成了常量。
+			
+			//Object.isFrozen方法用于检查一个对象是否使用了Object.freeze()方法。
+			
+			let AD = {Name:'sad'};
+			
+			Object.defineProperty(AD,'Show',{
+				value:'Show!',
+				writable:false,
+				enumerable:false,
+				configurable:true
+			});
+			console.log(AD.Show);//Show!
+			
+			for(let x in AD){
+				console.log(x+' '+AD[x]);
+			}
+			//其中Show属性 无法读取
+			
+			console.log(Object.getOwnPropertyNames(AD));//["Name", "Show"]
+			
+			console.log('是否可以枚举'+AD.propertyIsEnumerable('Show'));//false
+		</script>
+	</body>
+
+</html>

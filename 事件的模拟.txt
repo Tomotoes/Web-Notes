@@ -1,0 +1,43 @@
+有时，需要在脚本中模拟触发某种类型的事件，这时就必须使用这种事件的构造函数。
+
+下面是一个通过MouseEvent构造函数，模拟触发click鼠标事件的例子。
+
+function simulateClick() {
+  var event = new MouseEvent('click', {
+    'bubbles': true,
+    'cancelable': true
+  });
+  var cb = document.getElementById('checkbox');
+  cb.dispatchEvent(event);
+  
+document.createEvent方法用来新建指定类型的事件。它所生成的Event实例，可以传入dispatchEvent方法。
+
+// 新建Event实例
+var event = document.createEvent('Event');
+
+// 事件的初始化
+event.initEvent('build', true, true);
+
+// 加上监听函数
+document.addEventListener('build', doSomething, false);
+
+// 触发事件
+document.dispatchEvent(event);
+
+事件类型	事件初始化方法
+UIEvents	event.initUIEvent
+MouseEvents	event.initMouseEvent
+MutationEvents	event.initMutationEvent
+HTMLEvents	event.initEvent
+Event	event.initEvent
+CustomEvent	event.initCustomEvent
+KeyboardEvent	event.initKeyEven
+
+事件对象的initEvent方法，用来初始化事件对象，还能向事件对象添加属性。该方法的参数必须是一个使用Document.createEvent()生成的Event实例，而且必须在dispatchEvent方法之前调用。
+
+initEvent方法可以接受四个参数。
+
+type：事件名称，格式为字符串。
+bubbles：事件是否应该冒泡，格式为布尔值。可以使用event.bubbles属性读取它的值。
+cancelable：事件是否能被取消，格式为布尔值。可以使用event.cancelable属性读取它的值。
+option：为事件对象指定额外的属性。

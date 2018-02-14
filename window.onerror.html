@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+
+	</head>
+
+	<body>
+		<!--浏览器脚本发生错误时，会触发window对象的error事件-->
+		<script type="text/javascript">
+			window.onerror = function(message, filename, lineo, colno, error) {
+				console.log("错误了！-> %s", error.stack);
+			}
+			//		由于历史原因，window的error事件的回调函数不接受错误对象作为参数，
+			//		而是一共可以接受五个参数，它们的含义依次如下。
+			//
+			//		出错信息
+			//		出错脚本的网址
+			//		行号
+			//		列号
+			//		错误对象
+
+			//		下面是一个例子，如果整个页面未捕获错误超过3个，就显示警告。
+			window.onerror = function(msg, url, line) {
+				if(onerror.num++ > onerror.max) {
+					alert('ERROR: ' + msg + '\n' + url + ':' + line);
+					return true;
+				}
+			}
+			onerror.max = 3;
+			onerror.num = 0;
+		</script>
+		<script src="js/error.js" type="text/javascript" charset="utf-8"></script>
+
+	</body>
+
+</html>

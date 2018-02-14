@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				height: 5000px;
+				width: 5000px;
+				visibility: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header"></div>
+		<button onclick="CLick()">MOVE</button>
+		<script type="text/javascript">
+			function CLick() {
+				//移动浏览器窗口到指定位置
+				window.moveTo(10, 20);
+				
+				//将窗口移动到一个相对位置
+				window.moveBy(50, 100);
+				
+				//滚动屏幕
+				window.scrollTo(500, 4000)
+				
+				//将网页移动指定距离
+				window.scrollBy(0, -window.innerHeight);
+			}
+		</script>
+	</body>
+
+</html>

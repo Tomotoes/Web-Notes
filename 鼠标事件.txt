@@ -1,0 +1,150 @@
+mousedown，	鼠标摁下
+mouseup，	鼠标释放
+mouseout，	鼠标离开（会冒泡）
+mouseleave，鼠标离开
+mouseover，  鼠标进入（在节点内部移动还会触发）
+mouseenter，鼠标进入
+mousemove	鼠标移动
+
+
+当用户在Element节点、document节点、window对象上单击鼠标（或者按下回车键）时，click事件触发。
+
+“鼠标单击”定义为，用户在同一个位置完成一次mousedown动作和mouseup动作。
+它们的触发顺序是：mousedown首先触发，mouseup接着触发，click最后触发。
+
+mouseup事件在释放按下的鼠标键时触发。
+
+mousedown事件在按下鼠标键时触发。
+
+mousemove事件当鼠标在一个节点内部移动时触发。当鼠标持续移动时，该事件会连续触发。为了避免性能问题，建议对该事件的监听函数做一些限定，比如限定一段时间内只能运行一次代码。
+
+mouseover事件和mouseenter事件，都是鼠标进入一个节点时触发。
+
+两者的区别是，mouseenter事件只触发一次，而只要鼠标在节点内部移动，mouseover事件会在子节点上触发多次。
+
+mouseout事件和mouseleave事件，都是鼠标离开一个节点时触发。
+
+两者的区别是，mouseout事件会冒泡，mouseleave事件不会。子节点的mouseout事件会冒泡到父节点，进而触发父节点的mouseout事件。mouseleave事件就没有这种效果，所以离开子节点时，不会触发父节点的监听函数。
+
+contextmenu事件在一个节点上点击鼠标右键时触发，或者按下“上下文菜单”键时触发。
+
+鼠标事件使用MouseEvent对象表示，它继承UIEvent对象和Event对象。浏览器提供一个MouseEvent构造函数，用于新建一个MouseEvent实例。
+
+event = new MouseEvent(typeArg, mouseEventInit);
+
+mouseEvent构造函数的第一个参数是事件名称（可能的值包括click、mousedown、mouseup、mouseover、mousemove、mouseout），第二个参数是一个事件初始化对象。该对象可以配置以下属性。
+
+screenX，设置鼠标相对于屏幕的水平坐标（但不会移动鼠标），默认为0，等同于MouseEvent.screenX属性。
+screenY，设置鼠标相对于屏幕的垂直坐标，默认为0，等同于MouseEvent.screenY属性。
+clientX，设置鼠标相对于窗口的水平坐标，默认为0，等同于MouseEvent.clientX属性。
+clientY，设置鼠标相对于窗口的垂直坐标，默认为0，等同于MouseEvent.clientY属性。
+ctrlKey，设置是否按下ctrl键，默认为false，等同于MouseEvent.ctrlKey属性。
+shiftKey，设置是否按下shift键，默认为false，等同于MouseEvent.shiftKey属性。
+altKey，设置是否按下alt键，默认为false，等同于MouseEvent.altKey属性。
+metaKey，设置是否按下meta键，默认为false，等同于MouseEvent.metaKey属性。
+button，设置按下了哪一个鼠标按键，默认为0。-1表示没有按键，0表示按下主键（通常是左键），1表示按下辅助键（通常是中间的键），2表示按下次要键（通常是右键）。
+buttons，设置按下了鼠标哪些键，是一个3个比特位的二进制值，默认为0。1表示按下主键（通常是左键），2表示按下次要键（通常是右键），4表示按下辅助键（通常是中间的键）。
+relatedTarget，设置一个Element节点，在mouseenter和mouseover事件时，表示鼠标刚刚离开的那个Element节点，在mouseout和mouseleave事件时，表示鼠标正在进入的那个Element节点。默认为null，等同于MouseEvent.relatedTarget属性。
+以下属性也是可配置的，都继承自UIEvent构造函数和Event构造函数。
+
+bubbles，布尔值，设置事件是否冒泡，默认为false，等同于Event.bubbles属性。
+cancelable，布尔值，设置事件是否可取消，默认为false，等同于Event.cancelable属性。
+view，设置事件的视图，一般是window或document.defaultView，等同于Event.view属性。
+detail，设置鼠标点击的次数，等同于Event.detail属性。
+下面是一个例子。
+
+function simulateClick() {
+  var event = new MouseEvent('click', {
+    'bubbles': true,
+    'cancelable': true
+  });
+  var cb = document.getElementById('checkbox');
+  cb.dispatchEvent(event);
+}
+上面代码生成一个鼠标点击事件，并触发该事件。
+
+以下属性返回一个布尔值，表示鼠标事件发生时，是否按下某个键。
+
+altKey属性：Alt 键
+ctrlKey属性：Ctrl 键
+metaKey属性：Meta 键（Mac键盘是一个四瓣的小花，Windows键盘是Windows键）
+shiftKey属性：Shift 键
+
+（1）button
+
+button属性返回一个数值，表示按下了鼠标哪个键。
+
+-1：没有按下键。
+0：按下主键（通常是左键）。
+1：按下辅助键（通常是中键或者滚轮键）。
+2：按下次键（通常是右键）。
+
+（2）buttons
+
+buttons属性返回一个3个比特位的值，表示同时按下了哪些键。它用来处理同时按下多个鼠标键的情况。
+
+1：二进制为001，表示按下左键。
+2：二进制为010，表示按下右键。
+4：二进制为100，表示按下中键或滚轮键。
+同时按下多个键的时候，每个按下的键对应的比特位都会有值。比如，同时按下左键和右键，会返回3（二进制为011）。
+
+（1）clientX，clientY
+
+clientX属性返回鼠标位置相对于浏览器窗口左上角的水平坐标，单位为像素，与页面是否横向滚动无关。
+
+clientY属性返回鼠标位置相对于浏览器窗口左上角的垂直坐标，单位为像素，与页面是否纵向滚动无关。
+
+（2）movementX，movementY
+
+movementX属性返回一个水平位移，单位为像素，表示当前位置与上一个mousemove事件之间的水平距离。在数值上，等于currentEvent.movementX = currentEvent.screenX - previousEvent.screenX。
+
+movementY属性返回一个垂直位移，单位为像素，表示当前位置与上一个mousemove事件之间的垂直距离。在数值上，等于currentEvent.movementY = currentEvent.screenY - previousEvent.screenY。
+
+（3）screenX，screenY
+
+screenX属性返回鼠标位置相对于屏幕左上角的水平坐标，单位为像素。
+
+screenY属性返回鼠标位置相对于屏幕左上角的垂直坐标，单位为像素。
+
+relatedTarget
+relatedTarget属性返回事件的次要相关节点。对于那些没有次要相关节点的事件，该属性返回null。
+
+下表列出不同事件的target属性和relatedTarget属性含义。
+
+事件名称	target属性	relatedTarget属性
+focusin	接受焦点的节点	丧失焦点的节点
+focusout	丧失焦点的节点	接受焦点的节点
+mouseenter	将要进入的节点	将要离开的节点
+mouseleave	将要离开的节点	将要进入的节点
+mouseout	将要离开的节点	将要进入的节点
+mouseover	将要进入的节点	将要离开的节点
+dragenter	将要进入的节点	将要离开的节点
+dragexit	将要离开的节点	将要进入的节点
+
+// HTML代码为
+// <div id="outer" style="height:50px;width:50px;border-width:1px solid black;">
+//   <div id="inner" style="height:25px;width:25px;border:1px solid black;"></div>
+// </div>
+
+var inner = document.getElementById("inner");
+
+inner.addEventListener("mouseover", function (){
+  console.log('进入' + event.target.id + " 离开" + event.relatedTarget.id);
+});
+inner.addEventListener("mouseenter", function (){
+  console.log('进入' + event.target.id + " 离开" + event.relatedTarget.id);
+});
+inner.addEventListener("mouseout", function (){
+  console.log('离开' + event.target.id + " 进入" + event.relatedTarget.id);
+});
+inner.addEventListener("mouseleave", function (){
+  console.log('离开' + event.target.id + " 进入" + event.relatedTarget.id);
+});
+
+// 鼠标从outer进入inner，输出
+// 进入inner 离开outer
+// 进入inner 离开outer
+
+// 鼠标从inner进入outer，输出
+// 离开inner 进入outer
+// 离开inner 进入outer

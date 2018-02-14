@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var getJSON = function(url) {
+				var promise = new Promise(function(resolve, reject) {
+					var client = new XMLHttpRequest();
+					client.open("GET", url);
+					client.onreadystatechange = handler;
+					client.responseType = "json";
+					client.setRequestHeader("Accept", "application/json");
+					client.send();
+
+					function handler() {
+						if(this.readyState !== 4) {
+							return;
+						}
+						if(this.status === 200) {
+							resolve(this.response);
+						} else {
+							reject(new Error(this.statusText));
+						}
+					};
+				});
+
+				return promise;
+			};
+
+			getJSON("/posts.json").then(function(json) {
+				console.log('Contents: ' + json);
+			}, function(error) {
+				console.error('出错了', error);
+			});
+
+			/*
+			getJSON是对 XMLHttpRequest 对象的封装，用于发出一个针对 JSON 数据的 HTTP 请求，
+			并且返回一个Promise对象。
+			需要注意的是，在getJSON内部，resolve函数和reject函数调用时，都带有参数。
+
+			如果调用resolve函数和reject函数时带有参数，那么它们的参数会被传递给回调函数。
+			reject函数的参数通常是Error对象的实例，表示抛出的错误；*/
+		</script>
+	</body>
+
+</html>

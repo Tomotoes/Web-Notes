@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+			//有关bind  刚才看了一下 资料
+			//bind IE6-8不支持
+			//bind 只是创建了个方法 并返回 并没有调用
+			//bind 就相当于 是 call，apply 的上一步操作 ，bind不会手动调用
+			//			function ThiA () {
+			//				this.Sex='A'
+			//				this.Show=function () {
+			//					console.log(this.Sex);
+			//				}
+			//			}
+			//			let A = new ThiA();
+			//			A.Show()
+			//			
+
+			//			
+			//			A.Show.call(B)
+
+			//			let B = {
+			//				Sex: 'B',
+			//				Show: function() {
+			//					console.log(this.Sex);
+			//				}
+			//			};
+			//			B.Show()//Show 被 B来调用 有关系
+
+			let B = {
+				Sex: 'B'
+			}
+
+			function Show() {
+				console.log(this.Sex);
+			}
+
+			Show.call(B) //Show 把 B来调用 咱俩之间没有 关系
+
+			//Show.call(B) 可以不可以 直接理解成 B.Show()
+
+			Show.bind(B)()
+
+			if(!('bind' in Function.prototype)) {
+				Function.prototype.bind = function() {
+					var fn = this;
+
+					var context = arguments[0];
+
+					var Arr = Array.prototype.slice.call(arguments, 1);
+
+					return function() {
+						return fn.apply(context, Arr);
+					}
+				}
+			}
+
+			//bind的妙用
+			var obj = {
+				times: [1, 2, 3],
+				print: function() {
+					this.times.forEach(function(n) {
+						console.log(this === window);
+					}.bind(this)); //这个时候 我们可以绑定 this  即this便不会指向全局对象 window
+				}
+			};
+
+			obj.print() //3个true
+		</script>
+	</body>
+
+</html>

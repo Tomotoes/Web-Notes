@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				top: 200px;
+				left: 200px;
+				position: absolute;
+				height: 300px;
+				width: 300px;
+				border: solid 5px yellow;
+				box-sizing: border-box;
+				background: radial-gradient(red, blue);
+			}
+		</style>
+	</head>
+
+	<body>xxx
+		<div id="header">DIV
+			<p>This is P</p>DIV</div>
+			<div id="ooo"></div>
+		<script type="text/javascript">
+			console.log(header.innerHTML) //DIV<p>This is P</p>DIV)
+
+			console.log(header.outerHTML) //<div id="header">DIV<p>This is P</p>DIV</div>
+
+			console.log(header.innerText) //DIV
+			//This is P
+			//DIV
+
+			console.log(header.outerText) //DIV
+			//This is P
+			//DIV
+
+			console.log(header.textContent) //DIVThis is PDIV
+
+			console.log(header.nodeValue) //null
+			console.log(header.value) //undefined
+
+			//header.innerHTML=''//<div id="header"></div>
+
+			//header.outerHTML=''//<body><script>xxxx连#header都给干没了
+
+			//header.innerText=''//<div id="header"></div>
+
+			//header.outerText=''//<body><script>xxxx连#header都给干没了
+
+			header.textContent = '' //<div id="header"></div>
+
+			//header.innerHTML = 'DIV<p>This is P</p>DIV'//能转义
+
+			//header.outerHTML='DIV<p>This is P</p>DIV'//div没了 能转义
+
+			//header.innerText='DIV<p>This is P</p>DIV'//无法转义
+
+			//header.outerText='DIV<p>This is P</p>DIV';//div没了 无法转义
+
+			header.textContent = '<p> This is P </p>'//无法转义
+			document.getElementById("ooo").textContent='<p>This is P</p>'
+			
+			/*
+			 * ok,我们来总结一下
+			 * 
+			 * innerHTML:读取元素的内部信息 包括 内部标签
+			 * 			  设置元素的内部信息 标签可以转义
+			 *			  识别注释		
+			 * 
+			 * outerHTML:读取元素自身 包括元素的内部 包括标签
+			 * 			 设置 元素即子节点 标签可以转义
+			 * 			 识别注释	
+			 * 
+			 * innerText:读取元素内部信息 不包括标签 只有文本节点
+			 * 			 设置元素内部信息 标签不转义
+			 * 			 不识别注释
+			 * 
+			 * outerText:读取元素内部信息,不包括标签 只有文本节点
+			 * 			 设置元素即子节点 标签不转义
+			 * 			 不识别注释
+			 * 
+			 * textContent:读取元素内部信息 不包括标签
+			 * 			      设置元素内部信息 标签不转义
+			 * 			      不识别注释
+			 * 
+			 * 结论:
+			 * 		inner控制内部 不包括本身     outer控制外部包括本身
+			 * 		xxxHTML
+			 * 		对标签的控制为 100% 能读取能设置  
+			 * 		
+			 * 		xxxText
+			 * 		对标签的控制为 0%	不能读取标签 只能读取文本 不能设置标签 只能设置文本 	
+			 * 
+			 * 		textContent
+			 * 		对标签的控制为0%   不能读取标签 只能读取文本 不能设置标签 只能设置文本 	
+			 */
+		</script>
+	</body>
+
+</html>

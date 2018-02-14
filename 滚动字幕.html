@@ -1,0 +1,34 @@
+<!--
+	滚动字幕属性详解
+	
+	1.direction（滚动方向）         ：left，right，up，bottom
+	2.behavior（滚动形式）           ：  scroll（连续滚动），slide（滑动一次），alternate（来回滚动）
+	3.loop（循环次数）	           ：   默认无限循环
+	4.scrollamount（滚动速度）  ：默认是6 值越大越快
+	5.scrolldelay（停顿时间）    ：默认是0 
+	6.onmouseover：this.stop() 当鼠标移上时 字幕停止
+	7.onmouseout：this.start() 当鼠标离开时 字幕开始
+	
+	8.valign（垂直对齐）：top，bottom，middle 默认为middle
+	9.align（水平对齐）：left，right，cener 默认是left
+	10.bgcolor（背景颜色）
+	11.hspace：元素到区域边界的水平距离
+	12.vspace：元素到区域边界的垂直距离
+	13.height/width
+-->
+
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<marquee behavior="alternate" direction="right" loop='1' scrollamount="90" scrolldelay="100" onmousemove="this.stop()">Majin</marquee>
+	</body>
+
+</html>

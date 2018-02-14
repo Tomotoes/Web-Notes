@@ -1,0 +1,44 @@
+<!--DOM的最小组成单位叫做节点（node）。文档的树形结构（DOM树），就是由各种不同类型的节点组成。每个节点可以看作是文档树的一片叶子。
+
+节点的类型有七种。
+
+Document：整个文档树的顶层节点
+DocumentType：doctype标签（比如<!DOCTYPE html>）
+Element：网页的各种HTML标签（比如<body>、<a>等）
+Attribute：网页元素的属性（比如class="right"）
+Text：标签之间或标签包含的文本
+Comment：注释
+DocumentFragment：文档的片段-->
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<style type="text/css">
+		#header{
+			height: 300px;
+			width: 300px;
+			position: absolute;
+			margin: 100px;
+			background: radial-gradient(gray,green);
+		}
+	</style>
+</head>
+<body>
+	<div id="header">DIV  <em>EMEM</em>   DIV</div>
+	<script type="text/javascript">
+		console.log(header.lastChild)//   DIV
+		console.log(header.lastElementChild)//<em>EMEM</em>
+		
+		//为什么会有如此大的差异呢
+		//上文提到 Node的类型包括很多种  其中 文本类型也是很重要的类型
+		//都是Node类型
+		//如果 我们想获取元素 只能 通过 lastElementChild  特定指出 Element!!!!  只是元素
+
+	</script>
+</body>
+</html>

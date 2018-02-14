@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<script src="js/jQuery.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function () {
+			if(localStorage.getItem("Username")!=null){
+				$("#Username").val(localStorage.getItem("Username"));
+				$("#Pwd").val(localStorage.getItem("Pwd"));
+			}
+		});
+		function Save () {
+			let Username=$("#Username").val();
+			let Pwd=$("#Pwd").val()
+			localStorage.setItem("Username",Username);
+			localStorage.setItem("Pwd",Pwd);
+		};
+		function Clear () {
+			localStorage.clear();
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="Username" value="" />
+	<input type="password" name="" id="Pwd" />
+	<input type="button" id="Save" value="保存" onclick="Save()" />
+	<input type="button" id="Clear" value="清除" onclick="Clear()"/>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!--
+	为了解决脚本文件 下载 阻塞网页渲染的问题
+	一个方法是加入defer属性。
+	另一个方法是加入async属性。
+	
+	defer的运行流程如下。
+	<script src="a.js" defer></script>
+	浏览器开始解析HTML网页
+	解析过程中，发现带有defer属性的script标签
+	浏览器继续往下解析HTML网页，同时并行下载script标签中的外部脚本
+	浏览器完成解析HTML网页，此时再执行下载的脚本
+	
+	async属性的作用是，使用另一个进程下载脚本，下载时不会阻塞渲染。
+	<script src="a.js" async></script>
+	浏览器开始解析HTML网页
+	解析过程中，发现带有async属性的script标签
+	浏览器继续往下解析HTML网页，同时并行下载script标签中的外部脚本
+	脚本下载完成，浏览器暂停解析HTML网页，开始执行下载的脚本
+	脚本执行完毕，浏览器恢复解析HTML网页
+	
+	个人推荐 defer
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript" defer="defer">
+			//脚本的动态加载
+			//动态嵌入还有一个地方需要注意。动态嵌入必须等待CSS文件加载完成后，才会去下载外部脚本文件。静态加载就不存在这个问题，script标签指定的外部脚本文件，都是与CSS文件同时并发下载的。
+			['a.js', 'b.js'].forEach(src => {
+				let script = document.createElement("script")
+				script.src = src
+
+				//这样 添加有一弊端
+				//动态生成的 script标签不会阻塞页面渲染。
+				//但是 问题在 这种方法无法保证脚本的执行顺序，哪个脚本文件先下载完成，就先执行哪个。
+
+				//如果想避免这个问题，可以设置async属性为false。
+				//可以保证b.js在a.js后面执行
+
+				script.async = false;
+
+				document.head.appendChild(script)
+			})
+
+			//我们可以把上面的写法，封装成一个函数。
+			(function() {
+				let Scripts = document.getElementsByTagName('script')[0];
+
+				function load(src) {
+
+					let Script = document.createElement("script");
+
+					Script.async = true;
+
+					Script.src = src;
+
+					Scripts.parentNode.insertBefore(Script, Scripts)
+				}
+
+				load('//apis.google.com/js/plusone.js');
+				load('//platform.twitter.com/widgets.js');
+				load('//s.thirdpartywidget.com/widget.js');
+
+			})();
+			//上面代码中，async属性设为true，是因为加载的脚本没有互相依赖关系。而且，这样就不会造成堵塞。
+		</script>
+	</body>
+
+</html>

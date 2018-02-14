@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			top:
+				for(var i = 0; i < 3; i++) {
+					for(var j = 0; j < 3; j++) {
+						if(i === 1 && j === 1) break top;
+						console.log('i=' + i + ', j=' + j);
+					}
+				}
+				//上面代码为一个双重循环区块，break命令后面加上了top标签（注意，top不用加引号），满足条件时，直接跳出双层循环。如果break语句后面不使用标签，则只能跳出内层循环，进入下一次的外层循环。
+		</script>
+	</body>
+
+</html>

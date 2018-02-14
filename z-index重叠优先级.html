@@ -1,0 +1,42 @@
+<!--
+	有关z-index：代表的是重叠部分的显示顺序，z-index越大 优先级越高
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			div {
+				height: 200px;
+				width: 200px;
+				position: absolute;
+			}
+			
+			#d1 {
+				background: red;
+				z-index: 3;
+			}
+			
+			#d2 {
+				background: blue;
+				z-index: 1;
+			}
+			
+			#d3 {
+				background: yellow;
+				z-index: 2;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+		<div id="d2"></div>
+		<div id="d3"></div>
+	</body>
+
+</html>

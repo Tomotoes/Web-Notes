@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<p id="Name">sad</p>
+		<div id="nameTag">张三</div>
+		<template id="nameTagTemplate">
+			<!--
+                                       	作者：1755811882@qq.com
+                                       	时间：2017-09-10
+                                       	描述：template简直就是一个宇宙 可存万物
+                                       -->
+			<style>
+				:host(:hover) {
+					box-shadow: 10px 10px 50px gray;
+				}
+				
+				.outer {
+					border: 2px solid brown;
+				}
+				
+				#Name {
+					color: red;
+				}
+			</style>
+			<div class="outer">
+				<div class="boilerplate">Hi! My name is</div>
+				<div class="name">Simon</div>
+			</div>
+			<script type="text/javascript">
+				//				alert(1);
+			</script>
+		</template>
+		<button onclick="Change()">Change</button>
+		<script type="text/javascript">
+			let shadow = document.getElementById("nameTag").createShadowRoot();
+			let template = document.getElementById("nameTagTemplate");
+
+			console.log(shadow.nodeType === template.content.nodeType) //true
+			//11 全是DOM片段document-fragment
+
+			//template 自带天生隐藏属性！
+			console.log(window.getComputedStyle(template).display); //none
+
+			template.content.children[1].firstElementChild.style.color = 'red';
+
+			shadow.appendChild(template.content.cloneNode(true));
+			/*可以看出 将template.content 复制到 shadow里面后 将无法改写！*/
+		</script>
+	</body>
+
+</html>

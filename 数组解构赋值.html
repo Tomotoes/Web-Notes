@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let [a,b,c]=[1,2,3]
+		
+		console.log(a)//1
+		console.log(b)//2
+		console.log(c)//3
+		
+		let [,,d]=[4,5,6]
+		console.log(d)//6
+		
+		let[e,...f]=[7,8,9,10]
+		console.log(e)//7
+		console.log(f)//[8,9,10]
+		
+		let[h,j,k=3]=[11,12]
+		
+		console.log(h)//11
+		console.log(j)//12
+		console.log(k)//3 如果数组 解构出k的值 那么k将会被重新赋值
+		
+		//字符串的解构赋值
+		let [q,w,o,r,t]='qwort'
+		console.log(q)//q
+		console.log(w)//w
+		console.log(o)//o
+		console.log(r)//r
+		console.log(t)//t
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!--
+alert()、prompt()、confirm()都是浏览器与用户互动的全局方法。它们会弹出不同的对话框，要求用户做出回应。
+
+需要注意的是，alert()、prompt()、confirm()这三个方法弹出的对话框，都是浏览器统一规定的式样，是无法定制的。
+
+alert方法弹出的对话框，只有一个“确定”按钮，往往用来通知用户某些信息。
+
+用户只有点击“确定”按钮，对话框才会消失。在对话框弹出期间，浏览器窗口处于冻结状态，如果不点“确定”按钮，用户什么也干不了。
+
+alert方法的参数只能是字符串，没法使用CSS样式，但是可以用\n指定换行。
+
+
+prompt方法弹出的对话框，在提示文字的下方，还有一个输入框，要求用户输入信息，并有“确定”和“取消”两个按钮。它往往用来获取用户输入的数据。
+
+PS:prompt有两个参数 第一个 输入框上面的提示信息    第二个 是输入框中的默认值
+
+并且 prompt 还会返回 输入框中的值
+
+confirm方法弹出的对话框，除了提示信息之外，只有“确定”和“取消”两个按钮，往往用来征询用户的意见。
+
+confirm方法返回一个布尔值，如果用户点击“确定”，则返回true；如果用户点击“取消”，则返回false。
+这三个方法都具有堵塞效应，一旦弹出对话框，整个页面就是暂停执行，等待用户做出反应。
+-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//alert的 \n
+		alert("你\n是\nSB?")//用户只能点 确定 确定自己shab
+		
+		while(!confirm("你\n是\nSB?"));//用户只能点 确定 确定自己shab 结束循环
+		
+		while(!confirm(a)){
+			var a = prompt("你\n是\nSB?","不是")
+		}
+		
+	</script>
+</body>
+</html>

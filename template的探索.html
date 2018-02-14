@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="div_header"><p slot="name_p">This is Slot</p></div>
+		<template>
+			<div id="header">This is Header</div>
+		</template>
+		<template>
+			<slot name="name_p"></slot>
+		</template>
+		<script type="text/javascript">
+			let template = document.querySelectorAll("template")[0];
+			template.content.firstElementChild.addEventListener('click', () => alert(1));
+			document.body.appendChild(template.content);
+			/*事实证明 外部可以影响模板 template的内部元素*/
+			let Shadow = div_header.attachShadow({mode:'open'});
+			Shadow.appendChild(document.querySelectorAll("template")[1].content);
+			/*查看上面的代码 
+			 在影子宿主原有的标签中  添加 slot属性 并赋值 value
+			 然后在template中 定义 slot标签 并把name赋值 value  
+			 然后 便实现了 完美映射 宿主内容
+			 
+			 
+			 另外在 W3C中 创建影子节点的方法是 element.attachShadow({mode:'open'})*/
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!--
+	DOM节点的style对象无法读写伪元素的样式，这时就要用到window对象的getComputedStyle方法
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#test:before {
+				content: 'Before';
+				color: #FF0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="test">The content.</div>
+		<script type="text/javascript">
+			alert(window.getComputedStyle(test, 'before').color)
+			alert(window.getComputedStyle(test, 'before').getPropertyValue('content'))
+		</script>
+	</body>
+
+</html>

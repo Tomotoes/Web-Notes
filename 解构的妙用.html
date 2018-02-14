@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//函数参数解构赋值
+			let Array = [
+				[1, 2],
+				[3, 4]
+			].map(([a, b]) => a + b);
+
+			Array.forEach(function(e) {
+				console.log(e) //输出3，7
+			})
+
+			//交换变量的值
+			let x = 1;
+			let y = 2;
+			[x, y] = [y, x]
+
+			console.log(x) //2
+			console.log(y) //1
+
+			//提取 JSON中的数据
+
+			let jsonData = {
+				id: 42,
+				status: "OK",
+				data: [867, 5309]
+			};
+
+			let {
+				id,
+				status,
+				data
+			} = jsonData
+
+			console.log(id)//42
+			console.log(status)//OK
+			console.log(data)//[867,5309]
+		</script>
+	</body>
+
+</html>

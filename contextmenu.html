@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//右键菜单事件 contextmenu
+			document.addEventListener('contextmenu',function () {
+				event.preventDefault();//阻止浏览器的默认行为，另外 event参数默认添加
+				console.log(event.button);//左键是0 中键是1 右键是2
+				console.log(event.clientX);
+				console.log(event.screenX);
+				console.log(event.offsetX);
+			})
+		</script>
+	</body>
+
+</html>

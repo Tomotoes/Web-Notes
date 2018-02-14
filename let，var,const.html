@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			
+			var a=[]
+			
+			for (var c=0;c<10;++c) {
+				a[c]=function () {
+					console.log(c)
+				}
+			}
+			
+			a[6]()//输出的是 10
+			
+			{
+				var n=0;
+				let m=0;
+			}
+			console.log(n)//输出0
+//			console.log(m)//m 没有定义
+			
+			function TestVar () {
+				var F=0;
+				let G=0;
+			}
+			TestVar()
+	//		console.log(F)//直接报错 F是 undefined
+	//		console.log(G)//直接报错 G是 undefined
+			
+			let  P;
+			var O;
+			var O;//没事
+//			let P;  直接报错 不能重复赋值
+//			const L;  直接报错Missing initializer in const declaration
+			
+			for(var j = 0; j < 10; j++) {
+				var a = 'a';
+			}
+
+			console.log(a); //输出 a
+			
+			console.log(j);//输出10
+			
+			for(var i = 0; i < 3; ++i) {
+				
+				//setTimeout(function () {
+				//		console.log(i)
+				//},1000)输出了 三个3  也就是说 每一次 循环 的i在 共享着同一个变量，很恐怖
+				
+				
+				console.log(i)//输出了 0，1，2
+			} 
+
+			console.log(i)//输出了 3,也就是说明 var在for循环中定义的 i  在外面还是可以使用
+			
+			for(let e = 0; e < 3; ++e) {
+				
+				setTimeout(function () {
+						console.log(e)
+				},1000)//输出了 0，1，2 从根本上 解决了 var 的BUG
+				
+				
+//				console.log(e)//输出了 0，1，2
+			} 
+
+			//console.log(e)//直接报错 undefined
+			
+			//const 定义的是常量		
+			const b = {
+				a: 'a'
+			}
+			b.a = 'b'
+			console.log(b.a) //谁说 const的变量不能改。。。
+			
+			/*
+			 * ok,做个总结
+			 * 
+			 * 只要 我一定义 var，那么被定义的变量 就在 此函数 此区域块 有效
+			 * 
+			 * 在for循环中定义 也会成为一个“全局变量” 尤其可怕
+			 * 
+			 * 还会动态的设置该变量的信息。。
+			 * 
+			 * 而 let则不同  它更像是 C++/java中的变量 
+			 * 
+			 * 让人用起来更放心  它的规范也更严格
+			 * 
+			 * 其中 var let 都是可以不初始化的
+			 * 
+			 * 而const 必须初始化  而且 值不能修改,但是不限于 object
+			 * 
+			 */
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<button onclick="" id='header'>Clickme</button>
+		<button onclick="" id='footer'>Clickme</button>
+		<button onclick="Click()">Clickme</button>
+		<script type="text/javascript">
+			header.addEventListener('click', () => {
+				console.log('This is First!');
+			})
+			header.addEventListener('click', () => {
+				console.log('This is First!');
+			})
+			header.addEventListener('click', () => {
+				console.log('This is First!');
+			})
+			footer.onclick = () => {
+				console.log('This is Second!');
+			}
+			footer.onclick = () => {
+				console.log('This is Second!');
+			}
+			footer.onclick = () => {
+				console.log('This is Second!');
+			}
+
+			function Click() {
+				console.log('This is Third!');
+			}
+
+			function Click() {
+				console.log('This is Third!');
+			}
+
+			function Click() {
+				console.log('This is Third!');
+			}
+
+			//经过实验 明白了 阮老师的话
+
+			//增加监听事件的方式有三种
+			
+			//onclick="Click()"  违反了HTML与JavaScript代码相分离的原则
+			//footer.onclick =funn ，同一个事件只能定义一个监听函数 如果定义两次 后一次定义会覆盖前一次
+			
+			//addEventListener是推荐的指定监听函数的方法
+			
+			//可以针对同一个事件，添加多个监听函数。
+
+			//能够指定在哪个阶段（捕获阶段还是冒泡阶段）触发回监听函数。
+
+			//除了DOM节点，还可以部署在window、XMLHttpRequest等对象上面。
+		</script>
+	</body>
+
+</html>

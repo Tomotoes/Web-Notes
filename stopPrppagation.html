@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				height: 200px;
+				width: 200px;
+				background-color: red;
+			}
+			
+			#body {
+				height: 100px;
+				width: 100px;
+				background-color: green;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">
+			<div id="body"></div>
+		</div>
+		<script type="text/javascript">
+			//如果希望事件到某个节点为止，不再传播，可以使用事件对象的stopPropagation方法。
+			//使用上面的代码以后，click事件在冒泡阶段到达<p>节点以后，就不再向上（父节点的方向）传播了。
+
+			let header = document.getElementById('header')
+			let body = document.getElementById('body');
+
+			header.addEventListener('click', function() {
+				console.log('Click Header');
+
+			})
+			body.addEventListener('click', function() {
+				//event.stopPropagation(); //防止 事件传播到header
+				console.log('Click Body');
+				event.stopImmediatePropagation(); 
+				//防止 事件传播到header 并且 防止下面的 body的click事件被调用
+			})
+			body.addEventListener('click', function() {
+				console.log('Click Body');
+			})
+		</script>
+	</body>
+
+</html>

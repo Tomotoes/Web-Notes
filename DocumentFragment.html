@@ -1,0 +1,64 @@
+<!--
+	之前 我们都是小打小闹 创建一个节点 增加一个节点,如果想一下 插入很多DOM节点呢
+	
+	这个时候 DocumentFragment 就出现了,下面看一下 阮老师的总结
+	
+DocumentFragment节点代表一个文档的片段，本身就是一个完整的DOM树形结构。它没有父节点，parentNode返回null，但是可以插入任意数量的子节点。它不属于当前文档，操作DocumentFragment节点，要比直接操作DOM树快.
+
+它一般用于构建一个DOM结构，然后插入当前文档。document.createDocumentFragment方法，以及浏览器原生的DocumentFragment构造函数，可以创建一个空的DocumentFragment节点。然后再使用DOM方法，向其添加子节点。
+
+注意，DocumentFragment节点本身不能被插入当前文档。当它作为appendChild()、insertBefore()、replaceChild()等方法的参数时，是它的所有子节点插入当前文档，而不是它自身。一旦DocumentFragment节点被添加进当前文档，它自身就变成了空节点（textContent属性为空字符串），可以被再次使用。如果想要保存DocumentFragment节点的内容，可以使用cloneNode方法。
+
+PS:另外 我刚才实验了一下 如果增加的节点 是在某个结构内的话 那么对 Child 的操作方式都是 剪切
+
+DocumentFragment节点对象没有自己的属性和方法，全部继承自Node节点和ParentNode接口。也就是说，DocumentFragment节点比Node节点多出以下四个属性。
+
+children：返回一个动态的HTMLCollection集合对象，包括当前DocumentFragment对象的所有子元素节点。
+firstElementChild：返回当前DocumentFragment对象的第一个子元素节点，如果没有则返回null。
+lastElementChild：返回当前DocumentFragment对象的最后一个子元素节点，如果没有则返回null。
+childElementCount：返回当前DocumentFragment对象的所有子元素数量。
+-->
+
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				width: 200px;
+				height: 200px;
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id='header'>
+			<p>This is Frist P</p>
+			<p>This is Second P</p>
+		</div>
+		<script type="text/javascript">
+			let DocFragment1 = new DocumentFragment()
+			let DocFragment2 = document.createDocumentFragment()
+			
+			DocFragment1.appendChild(document.createTextNode('majin'))		
+			
+			let li=document.createElement("li")
+			li.innerText='majin'
+			
+			DocFragment2.appendChild(li)
+			
+			header.appendChild(DocFragment1)
+//			header.appendChild(DocFragment2)
+			
+			confirm(DocFragment2.hasChildNodes('li'))//如果注释了上面的代码，true
+			//再一次 强有力的说明了 appendChild 的方式 是 剪切！！！
+			
+		</script>
+	</body>
+
+</html>

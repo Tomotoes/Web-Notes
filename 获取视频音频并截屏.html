@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<video></video>
+		<img src="">
+		<canvas style="display:none;"></canvas>
+		<script>
+			navigator.getUserMedia = navigator.getUserMedia ||
+				navigator.webkitGetUserMedia ||
+				navigator.mozGetUserMedia ||
+				navigator.msGetUserMedia;
+
+			if(navigator.getUserMedia) {
+				// 支持
+			} else {
+				// 不支持
+			}
+
+			var video = document.querySelector('video');
+			var canvas = document.querySelector('canvas');
+			var ctx = canvas.getContext('2d');
+			var localMediaStream = null;
+
+			/**/
+			function snapshot() {
+				if(localMediaStream) {
+					ctx.drawImage(video, 0, 0);
+					// “image/webp”对Chrome有效，
+					// 其他浏览器自动降为image/png
+					document.querySelector('img').src = canvas.toDataURL('image/webp');
+				}
+			}
+
+			video.addEventListener('click', snapshot, false);
+
+			navigator.getUserMedia({
+				//video: true
+				video: { //设置 显示的尺寸,默认就为true了
+					mandatory: {
+						maxWidth: 640,
+						maxHeight: 360
+					}
+				},
+				audio: true
+			}, onSuccess, errorCallback);
+
+			function onSuccess(stream) {
+				if(window.URL) {
+					video.src = window.URL.createObjectURL(stream);
+				} else {
+					video.src = stream;
+				}
+				localMediaStream = stream;
+				video.autoplay = true;
+				// 或者 video.play();
+			}
+
+			function errorCallback() {
+
+			}
+		</script>
+	</body>
+
+</html>

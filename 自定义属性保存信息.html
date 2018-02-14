@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			function GetData() {
+
+				var DIV = document.getElementById("DIV");
+				alert(DIV.getAttribute("data-name"));
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="DIV" data-name="majin"></div>
+		<br />
+		<button onclick="GetData()">GetData</button>
+	</body>
+
+</html>

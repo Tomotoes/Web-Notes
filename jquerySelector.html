@@ -1,0 +1,71 @@
+<!--
+	document.querySelector(xxx) 这个 xxx 就是 css的选择器！
+	document.querySelectorAll(xxx) 获取符合xxx条件的一组元素
+	
+	这时候你会好奇 为什么 document.querySelector这么灵活，而一直用document.getElementByXXX呢
+	
+	因为querySelector 不是动态获取的~
+	下面我会解释
+	
+	总结：
+		优点：会很灵活的获取数据
+		缺点：不能实时获取数据,不能获取伪元素 例如:first-letter
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script type="text/javascript">
+			window.onload = function() {
+				var Em1 = document.querySelector("#d1 em:nth-child(1)").style;
+				Em1.color = 'red';
+				var Em_Array = document.querySelectorAll("#d1 em");
+
+				//再次强调 一遍 此 x 是个索引！也可以当成 对象中的属性，效率低，不建议使用
+				//				for(var x in Em_Array) {
+				//					Em_Array[x].style.color = 'blue';
+				//				};
+				//
+
+				//这个方法就好比是 C#中的 foreach  很喜欢！
+				//				for(var x of Em_Array) {
+				//					x.style.color = 'red';
+				//					alert(x.style.color);
+				//				};
+
+				//Shit  谁说 lambda表达式 非要加 大括号了。。。
+				//这个forEach方法 中有三个参数 ： 当前对象 索引 数组本身,并且规定 这三个参数 必须全部添加
+				Em_Array.forEach((Now, Index, Array) => {
+					Now.style.color = 'yellow';
+					console.log(Array.length);
+					//					alert(Index);
+				});
+
+				var DG_Array = document.getElementById("d1").getElementsByTagName("em");
+
+				var Now_EM = document.createElement('em');
+				Now_EM.innerHTML = "This is No.6 EM";
+				document.getElementById("d1").appendChild(Now_EM);
+
+				//这就是差距。
+				alert(Em_Array.length); //5
+				alert(DG_Array.length); //6
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="d1">
+			<em>This is No.1 EM</em>
+			<em>This is No.2 EM</em>
+			<em>This is No.3 EM</em>
+			<em>This is No.4 EM</em>
+			<em>This is No.5 EM</em>
+		</div>
+	</body>
+
+</html>

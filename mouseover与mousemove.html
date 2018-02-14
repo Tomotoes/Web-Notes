@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<ul id="test">
+			<li>item 1</li>
+			<li>item 2</li>
+			<li>item 3</li>
+		</ul>
+		<script type="text/javascript">
+			var test = document.getElementById('test');
+
+			// 进入test节点以后，该事件只会触发一次
+			// event.target 是 ul 节点
+			test.addEventListener('mouseenter', function(event) {
+				event.target.style.color = 'red';
+				setTimeout(function() {
+					event.target.style.color = '';
+				}, 500);
+			}, false);
+
+			// 进入test节点以后，只要在子Element节点上移动，该事件会触发多次
+			// event.target 是 li 节点
+			test.addEventListener('mouseover', function(event) {
+				event.target.style.color = 'orange';
+				setTimeout(function() {
+					event.target.style.color = '';
+				}, 500);
+			}, false);
+		</script>
+	</body>
+
+</html>

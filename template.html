@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<template>
+			<style type="text/css">
+				:host {
+					background: radial-gradient(#222, #000);
+				}
+				
+				:host(:hover) {
+					background-color: black;
+				}
+			</style>
+			<span id="span">This is Template's Span</span>
+			<script type="text/javascript">
+				let Img = new Image();
+				Img.src = 'img/Small.jpg';
+				document.body.appendChild(Img);
+			</script>
+		</template>
+
+		<script type="text/javascript">
+			let template = document.querySelectorAll("template")[0];
+
+			alert(template.content.nodeName); /*#document-fragment*/
+
+			alert(template.content.children[1].textContent);
+			alert(document.getElementById("span").textContent);//无法操作DOM
+			/*也就是说 这是两个不同的世界 无法各自操作*/
+		</script>
+
+	</body>
+
+</html>

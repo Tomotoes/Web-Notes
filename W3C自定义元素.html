@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		let CustomElement = Object.create(HTMLButtonElement);
+		CustomElement.Show=()=>console.log('Show');
+		CustomElement.onclick=()=>alert(1);
+		
+		//事实证明  W3C  创建自定义元素的createElement的方法  还没有确定标准
+		let Button = document.createElement("button","CustomElement");
+		
+		Button.textContent="Click"
+		
+		document.body.appendChild(Button);
+	</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			console.dir(Promise);
+			
+			let promise = new Promise(function(a, b) {
+				console.log('Promise');
+				resolve();
+			}).then(() => {
+				console.log('resolved');
+			}, () => {
+				console.log('rejected');
+				reject();
+			}).then(() => {
+				console.log('resolved1');
+			}, () => {
+				console.log('rejected1');
+			}).then(() => {
+				console.log('End');
+				reject();
+			}).then(null, () => {
+				console.log(1);
+			}).then(null, () => console.log(2));
+			console.log('Middle');
+			/*
+			 * 为什么要这样设计。。。
+			 * new Promise()构造函数 接受一个函数作为参数
+			 * 该函数的两个默认参数（默认参数就是说明 可以不写 就像是 event那样）分别是 resolve,reject
+			 * (如果写明了两个参数 那么就会默认映射 resolve，reject)
+			 * 
+			 * 如果 我们在构造函数中的参数中（上文提到的一个函数），不去调用 resolve reject
+			 * 那么 then 是不会执行的    而 then是会自动执行的 默认执行的是 resolve
+			 * 
+			 * 好吧说下 then  
+			 * then接受两个函数作为参数，这两个函数分别对应着 resolve，reject
+			 * 其中第二个函数 reject可以不写
+			 * 
+			 * then的函数链中 默认调用的是 resolve函数  当然也可以手动设置 比如 reject()
+			 * 
+			 * 有个很重要的概念 补充一下
+			 * 
+			 * then方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行。
+			 * 
+			 */
+
+			function timeout(ms) {
+				return new Promise((resolve, reject) => {
+					setTimeout(resolve, ms, 'done');
+				});
+			}
+
+			timeout(100).then((value) => {
+				console.log(value);
+			});
+			/*解析一下 阮老师的样例*/
+			/*
+			 * timeout(100)===
+			 * new Promise((resolve, reject) => { setTimeout(resolve, 100, 'done'); })
+			 * 
+			 * 构造函数建立完成之后 会自动执行 构造函数中的那个参数  也就是下面的
+			 * (resolve, reject) => { setTimeout(resolve, 100, 'done'); }
+			 * 
+			 * 过了100毫秒后 自动执行  resolve('done')
+			 * 
+			 * 而我们的 resolve 正是 .then((value) => { console.log(value); })
+			 * 也就是 csl('done'); 
+			 */
+			
+			/*then方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行。*/
+			//console.clear();
+			let Promise_first = new Promise((resolve)=>{
+				console.log('start');
+				resolve();
+			}).then(()=>console.log('a'));
+			console.log('b');
+			/*start  b  rejected  a*/
+			/*其中 start 与 b是同级  start先执行完 然后在执行b
+			 rejected 与 a是同级 都是第一个 then！*/
+
+		</script>
+	</body>
+
+</html>

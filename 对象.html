@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//先声明一句 对象和构造函数 千差万别
+
+			//对象，是一种无序的数据集合，由若干个“键值对”（key-value）构成。
+
+			let p = {
+				o: "Hello",
+				f: function(x) {
+					return ++x;
+				}, //最后一个属性 加不加逗号 都无所谓
+			};
+
+			console.log(p.o);
+			console.log(p.f(1));
+
+			//对象的生成
+
+			//简洁写法
+			let o1 = {};
+
+			//使用构造函数
+			let o2 = new Object();
+
+			//在继承的场合下使用
+			let o3 = Object.create(Object.prototype);
+
+			//如果不同的变量名指向同一个对象，那么它们都是这个对象的引用，
+			//也就是说指向同一个内存地址。修改其中一个变量，会影响到其他所有变量。
+			let q = p;
+			q.o = 'Majin'
+			console.log(p.o); //Majin
+
+			//读取属性的第二种形式：[]
+			console.log(p['o']); //Majin
+
+			let A = {};
+			A.o = 'Hello'
+			//等价于 let A={o:'Hello'}
+
+			//查看一个对象的所有属性
+			console.log(Object.keys(p)); //["o", "f"]
+
+			//delete命令
+			delete p.o
+			console.log(Object.keys(p)); //f
+
+			//in 运算符 判断某个对象是否包含某个属性 对继承的属性也 return true
+			var o = {
+				p: 1
+			}
+			console.log('p' in o) //true
+
+			//for ... in 循环迭代对象
+			var obj = {
+				a: 1,
+				b: 2,
+				c: 3
+			};
+			
+			for(var prop in obj) {
+				console.log("obj." + prop + " = " + obj[prop]);
+			}
+
+			// Output:
+			// "obj.a = 1"
+			// "obj.b = 2"
+			// "obj.c = 3"
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var p1 = new Promise(function(resolve, reject) {
+				setTimeout(() => reject(new Error('fail')), 3000)
+			})
+
+			var p2 = new Promise(function(resolve, reject) {
+				setTimeout(() => resolve(p1), 1000)
+			})
+
+			p2.then(result => console.log(result))
+				.catch(error => console.log(error))
+			/*上面代码中，p1是一个Promise，3秒之后变为rejected。p2的状态在1秒之后改变，resolve方法返回的是p1。由于p2返回的是另一个 Promise，导致p2自己的状态无效了，由p1的状态决定p2的状态。所以，后面的then语句都变成针对后者（p1）。又过了2秒，p1变为rejected，导致触发catch方法指定的回调函数。*/
+
+			let a1 = new Promise((resolve, reject) => {
+				resolve();
+			});
+			let a2 = new Promise((resolve, reject) => {
+				resolve(a1);
+			}).then(() => {
+				console.log(1);
+			}, () => console.log(2));
+			/*当第二个Promise对象 的状态为 resolve时  一切的状态完全变成 第一个Promise对象的状态
+			 * 
+			 *当第二个Promise对象 的状态为 reject时  一切的状态完全变成 reject*/
+
+			/*注意，调用resolve或reject并不会终结 Promise 的参数函数的执行。*/
+			new Promise((resolve, reject) => {
+				resolve(1);
+				console.log(2);
+			}).then(r => {
+				console.log(r);
+			});
+			// 2
+			// 1
+			/*
+			 上面代码中，调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。*/
+
+			/*
+			 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外。
+
+new Promise((resolve, reject) => {
+  return resolve(1);
+  // 后面的语句不会执行
+  console.log(2);
+})*/
+		</script>
+	</body>
+
+</html>

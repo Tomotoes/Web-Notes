@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function Octr() {
+				this.Name = 'majin',
+					this.Sex = 'Man'
+			}
+			let A = new Octr();
+			Octr.prototype.Age = '19';
+
+			let B = Object.create(A);
+
+			console.log(B.Name); //majin
+			console.log(B.Age); //19
+			console.log(B.constructor === Octr); //true
+			console.log(Octr.prototype.toString()) //[object Object]
+
+			console.log(Octr.prototype.Name); //undefined
+			//实例对象 可以访问原型对象的数据 原型对象不能访问实例对象的数据
+
+			console.log('prototype' in B);
+			console.log('prototype' in Octr);
+
+			console.log(B.__proto__); //Octr {Name: "majin", Sex: "Man"}
+			console.log(B.__proto__ === Octr.prototype); //false
+
+			console.log(B instanceof Octr); //true
+			console.log(A instanceof Octr); //true
+
+			//B的构造函数 是 Octr  B的原型对象是谁 ？？？
+
+			console.log(B.__proto__ === A); //true   B的原型对象是A
+
+			//总结 B的原型对象是A 构造函数是 Octr   A的原型对象是 Octr.prototype 构造函数也是 Octr
+			console.log(A.__proto__ === Octr.prototype); //true
+
+			console.log('prototype' in A); //false
+
+			function Cotrr() {
+				this.Name = 'majin'
+			}
+			Cotrr.prototype.Show = 'Show';
+			let L = Object.create(Cotrr.prototype);
+
+			console.log(L.Name); //undefined
+			console.log(L.Show); //Show
+
+			console.log(L.__proto__ === Cotrr.prototype); //true
+			console.log(L.constructor);
+
+			function M1() {
+				this.hello = 'hello';
+			}
+			M1.prototype.Show = 'Show';
+
+			function S() {
+				M1.call(this);
+			}
+			S.prototype = new M1();
+
+			let Result = Object.create(new S());
+
+			console.log(Result.Show);//Show
+		</script>
+	</body>
+
+</html>

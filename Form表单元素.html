@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--表单主要用于收集用户的输入，送到服务器或者在前端处理。-->
+		<form name="myForm">
+			<label><input type="radio" name="method" value="1">1</label>
+			<label><input type="radio" name="method" value="2">2</label>
+			<label><input type="radio" name="method" value="3">3</label>
+		</form>
+		<script type="text/javascript">
+			myForm.method[1].parentElement.innerText; //2
+			document.forms.myForm.method[2].parentElement.textContent; //3
+			document.forms.myForm.elements.method.length; //3
+			myForm.elements[1].parentElement.textContent; //2
+
+			/*每个表单都有一个 elements的属性 代表的是 表单中的各个表单标签*/
+
+			/*其中表单的名字 id 都可以成为全局变量  和  document.forms 中的一个属性*/
+			/*其中表单中的控件的名字 id  都可以成为 表单中的一个属性  和  form.elements 中的属性*/
+
+			/*
+			Form对象还有两个属性， 可以指定事件的回调函数。
+
+			onsubmit： 提交表单前调用， 只要返回false， 就会取消提交。 
+					     可以在这个函数里面， 校验用户的输入。 该函数只会在用户提交表单时调用， 
+					     脚本调用submit() 方法是不会触发这个函数的。
+			
+			onreset： 重置表单前调用， 只要返回false， 就会取消表单重置。 
+					  该函数只能由真实的reset按钮触发， 脚本调用reset() 方法并不会触发这个函数。
+			
+			
+			
+			表单控件还有以下两个事件。
+
+			focus：得到焦点时触发
+			blur：失去焦点时触发
+			
+			*/
+		</script>
+	</body>
+
+</html>

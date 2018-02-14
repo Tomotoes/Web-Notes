@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//javaScript 原生提供Object对象（注意起首的O是大写），所有其他对象都继承自这个对象。
+			//Object本身也是一个构造函数，可以直接通过它来生成新对象。
+			//Object作为构造函数使用时，可以接受一个参数。
+			//如果该参数是一个对象，则直接返回这个对象；
+			//如果是一个原始类型的值，则返回该值对应的包装对象.
+
+			//所有对象的父亲 Object
+
+			//Object的构造方法
+			//注意，通过new Object()的写法生成新对象，与字面量的写法o = {}是等价的。
+			let o1 = {
+				a: 1
+			};
+			let o2 = new Object(o1);
+			console.log(o1 === o2); //true
+
+			//let o5 = new o1();// o1 is not a constructor
+
+			console.log(new Object(123) instanceof Number); //true
+
+			console.log(o1 instanceof Object); //true
+
+			//Object的部署方法
+
+			Object.prototype.print = o => console.log(o);
+			let o = new Object();
+			Object.print(o);
+			o.print(1);
+
+			//当使用 Object() 时
+			function Ctor() {
+				this.name = 'Ctor';
+				Color = 'Red' //这种声明是没有意义的   构造函数和实例 都读取不到
+			}
+
+			console.log(Ctor.name); //Ctor 也就是说明 构造函数 可以直接调用Ctor
+			console.log(new Ctor().name); //Ctor
+			console.log(Ctor.Color); //undefined
+			console.log(new Ctor().Color); //undefined
+
+			Ctor.prototype.Sex = '男';
+			let Ctor1 = Object(Ctor); //等价于 let Ctor1 = Ctor;
+			//let Ctor1 = Ctor;
+			console.log(Ctor === Object(Ctor)); //true
+			console.log(Ctor1.name); //Ctor
+			console.log(Ctor1.Sex); //undefined
+
+			console.log(typeof Ctor1); //function
+			console.log(Ctor1.toString()); //function Ctor() { this.name='Ctor'; }
+
+			//Object对象的静态方法
+
+			//【1】得到对象的属性
+
+			//Object.keys
+			//Object.getOwnPropertyNames
+
+			//一般用来遍历对象的属性。它们的参数都是一个对象，都返回一个数组，
+			//该数组的成员都是对象自身的（而不是继承的）所有属性名
+			//Object.keys方法只返回可枚举的属性，
+			//Object.getOwnPropertyNames方法还返回不可枚举的属性名。
+
+			var a = ["Hello", "World"];
+
+			Object.keys(a)
+			// ["0", "1"]
+
+			Object.getOwnPropertyNames(a)
+			// ["0", "1", "length"]
+
+			var o = {
+				p1: 123,
+				p2: 456
+			};
+
+			Object.keys(o)
+			// ["p1", "p2"]
+
+			Object.getOwnPropertyNames(o)
+			// ["p1", "p2"]
+
+			//一般情况下，几乎总是使用Object.keys方法，遍历数组的属性。
+
+			//【2】其他方法
+
+			//（1）对象属性模型的相关方法
+			//
+			//Object.getOwnPropertyDescriptor()：获取某个属性的attributes对象。
+			//Object.defineProperty()：通过attributes对象，定义某个属性。
+			//Object.defineProperties()：通过attributes对象，定义多个属性。
+			//Object.getOwnPropertyNames()：返回直接定义在某个对象上面的全部属性的名称。
+
+			//（2）控制对象状态的方法
+			//
+			//Object.preventExtensions()：防止对象扩展。
+			//Object.isExtensible()：判断对象是否可扩展。
+			//Object.seal()：禁止对象配置。
+			//Object.isSealed()：判断一个对象是否可配置。
+			//Object.freeze()：冻结一个对象。
+			//Object.isFrozen()：判断一个对象是否被冻结。
+
+			//（3）原型链相关方法
+			//
+			//Object.create()：该方法可以指定原型对象和属性，返回一个新的对象。
+			//Object.getPrototypeOf()：获取对象的Prototype对象。
+			//
+
+//			Object实例对象的方法， 主要有以下六个。
+//
+//			valueOf()： 返回当前对象对应的值。
+//			toString()： 返回当前对象对应的字符串形式。
+//			toLocaleString()： 返回当前对象对应的本地字符串形式。
+//			hasOwnProperty()： 判断某个属性是否为当前对象自身的属性， 还是继承自原型对象的属性。
+//			isPrototypeOf()： 判断当前对象是否为另一个对象的原型。
+//			propertyIsEnumerable()： 判断某个属性是否可枚举。
+
+			//下面将介绍一个十分有用的方法 toString
+			//不同数据类型的Object.prototype.toString方法返回值如下。
+			//
+			//数值：返回[object Number]。
+			//字符串：返回[object String]。
+			//布尔值：返回[object Boolean]。
+			//undefined：返回[object Undefined]。
+			//null：返回[object Null]。
+			//数组：返回[object Array]。
+			//arguments对象：返回[object Arguments]。
+			//函数：返回[object Function]。
+			//Error对象：返回[object Error]。
+			//Date对象：返回[object Date]。
+			//RegExp对象：返回[object RegExp]。
+			//其他对象：返回[object Object]。
+		</script>
+	</body>
+
+</html>

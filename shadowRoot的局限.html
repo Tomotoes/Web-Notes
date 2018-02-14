@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<img src="img/b.jpg" alt="" />
+		<script type="text/javascript">
+			let img = document.querySelectorAll("img")[0];
+			let Shadow = img.attachShadow({
+				mode: 'open'
+			});
+			Shadow.innerHTML = "majin";
+			/*This element does not support attachShadow*/
+		</script>
+	</body>
+
+</html>

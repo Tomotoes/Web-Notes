@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="nameTag">Old Div</div>
+		<div id="temp"></div>
+		<div id="foo"></div>
+		<template>
+			<style>
+				.outer {
+					color: red;
+				}
+			</style>
+			<div class="outer">This is outer!</div>
+		</template>
+		<script type="text/javascript">
+			/*我们必须理解一个概念 template.content 才是一个DOM片段 我们要对其进行操作*/
+
+			let template = document.querySelectorAll("template")[0];
+			document.body.appendChild(template.content.cloneNode(true));
+
+			let OldDiv = document.querySelectorAll("div")[0];
+			let Shadow = OldDiv.createShadowRoot();
+			Shadow.nodeName; //#document-fragment
+			/*到上行代码为止 事实证明 只要我在某一个元素下面 新建一个 createShadowRoot 
+			 * 那么原有的内容  也就是上例中的 This is outer 就会覆盖  
+			 * 想象一下 如果我建立一个 body中的ShadowRoot呢*/
+
+			temp.createShadowRoot().nodeType === template.content.nodeType;
+
+			/*没错 Shadow也是一个fragment片段*/
+			
+			
+			foo.shadow=document.createElement("p");
+			foo.shadow.textContent="This is foo's P";
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+
+		<style type="text/css">
+			div{
+				height: 100px;
+				width: 100px;
+				border: solid 1px red;
+				/*background-color: red;*/
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+//				var d = document.getElementById("d1");
+//				//没错 cssText 操作的居然是内联样式表。。。
+//				//现在我对这个cssText的理解就是 一个style.xxx的 大集合缩写
+//				d.style.cssText = 'background-color: blue;height: 600px;';
+//				
+//				d.style.cssText='';//可以直接清空
+				
+				var E=document.getElementById("d1").style;
+				E.cssText='background-color: blue;'+'height: 600px;';
+//				E+='width: 700px;'
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+	</body>
+
+</html>

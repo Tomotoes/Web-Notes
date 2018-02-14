@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			let syntheticEvent = new WheelEvent("syntheticEvent", {
+				"deltaX": 4,
+				"deltaMode": 0
+			});
+			document.addEventListener('wheel', () => console.log(1));//滚滚轮的时候 会触发该事件
+		</script>
+	</body>
+
+</html>

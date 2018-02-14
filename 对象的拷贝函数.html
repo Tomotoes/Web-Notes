@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function copyObject(orig) {
+				//以 复制对象的原型 为原型对象  保证了 除复制对象外的所有方法和属性均能被得到
+				var copy = Object.create(Object.getPrototypeOf(orig));
+				
+				copyOwnPropertiesFrom(copy, orig);
+				
+				return copy;
+			}
+
+			function copyOwnPropertiesFrom(target, source) {
+				Object
+					.getOwnPropertyNames(source)//获得目前拷贝对象的所有属性方法
+					
+					.forEach(function(propKey) {//遍历每个属性方法
+						
+						//得到每个属性方法 的属性描述对象
+						var desc = Object.getOwnPropertyDescriptor(source, propKey);
+						
+						//为当前对象设置 该属性方法 并同时设置 该属性的描述对象
+						Object.defineProperty(target, propKey, desc);
+					});
+				return target;//返回 复制对象的本身的 所有属性方法 以及 每个属性方法的属性描述对象
+			}
+		</script>
+	</body>
+
+</html>

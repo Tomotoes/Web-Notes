@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<div id="child"></div>
+		</div>
+		<script type="text/javascript">
+			//Element.match方法返回一个布尔值，表示当前元素是否匹配给定的CSS选择器。
+			console.assert(child.matches('#header div'), "我的父亲难道不是header嘛？")
+			console.assert(child.matches('#header'), "我的ID可不是header哦！")
+			console.assert(header.matches('body div'), '我不是body的儿子？？')
+
+			console.log(Element.prototype);
+
+			//该方法带有浏览器前缀，下面的函数可以兼容不同的浏览器，并且在浏览器不支持时，自行部署这个功能。
+			//			function matchesSelector(el, selector) {
+			//				var p = Element.prototype;
+			//				var f = p.matches ||
+			//					p.webkitMatchesSelector ||
+			//					p.mozMatchesSelector ||
+			//					p.msMatchesSelector ||
+			//					function(s) {
+			//						return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
+			//					};
+			//				return f.call(el, selector);
+			//			}
+
+			// 用法
+			matchesSelector(
+				document.getElementById('header'),
+				'#header'
+			)
+		</script>
+	</body>
+
+</html>

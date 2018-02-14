@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="header"></div>
+		<form action="" name="form"></form>
+		<div id="form"></div>
+		<script type="text/javascript">
+			/*由于历史原因，HTML元素的id属性的名字，会自动成为全局变量，指向该HTML元素。
+			 *如果已有同名全局变量，则id元素不会自动生成全局变量。*
+			 * 由于这种原因，默认的全局变量名（比如，history、location、navigator等），
+			 * 最好不要设为id属性的名字。*/
+
+			let header = 1;
+			console.log(header); //1
+
+			/*由于历史原因，以下HTML元素的name属性，也会成为全局变量。
+ <applet> <area> <embed> <form> <frame> <frameset> <iframe> <img> <object>*/
+			console.log(form[0]);//form
+			console.log(form[1]);//div
+			/*如果name属性同名的HTML元素不止一个，或者某个元素的id属性与另一个元素的name属性同名，
+			 * 这时全局变量会指向一个类似数组的对象。HTMLCollection的实例*/
+			
+			console.log(document.forms.form===form[0]);//true
+			console.log(document.form===form[0]);//true 自动生成全局变量
+			console.log();
+		</script>
+	</body>
+
+</html>

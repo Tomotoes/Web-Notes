@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="header">Click Me!</div>
+		<script type="text/javascript">
+			/*
+			 * 我们知道 addEventListener 这个是事件管理中的老大 可以为一个元素定义多个事件
+			 * 并且不会覆盖 ， 会连续调用 按照顺序调用定义的事件
+			 * 
+			 * 其中有什么办法 可以停止其他后续事件的调用呢
+			 * stopImmediatePropagation
+			 * 
+			 * 如果同一个节点对于同一个事件指定了多个监听函数，这些函数会根据添加的顺序依次调用。
+			 * 只要其中有一个监听函数调用了stopImmediatePropagation方法，
+			 * 其他的监听函数就不会再执行了。
+			 * 并且经过本人实验 如果调用了 stopImmediatePropagation 还会有 stopPropagation的效果
+			 * 也就是说 阻止事件冒泡！
+			 */
+
+			header.addEventListener('click', function(e) {
+				console.log('This is First Event!');
+				e.stopImmediatePropagation();
+			})
+			header.addEventListener('click', function() {
+				console.log('This is First Event!');
+			})
+			header.addEventListener('click', function() {
+				console.log('This is First Event!');
+			})
+		</script>
+	</body>
+
+</html>

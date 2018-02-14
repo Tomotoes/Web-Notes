@@ -1,0 +1,101 @@
+<!--
+	总之 响应式布局，就是根据不同的屏幕大小 来改变网站的界面大小
+	
+	注意修改的方法
+	@media screen and (min-width:xxpx) and (max-width:xxpx)
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+				font-family: "微软雅黑"
+			}
+			
+			#header {
+				margin: 0px auto;
+				border: solid 1px red;
+				height: 100px;
+			}
+			
+			#main {
+				margin: 10px auto;
+				height: 400px;
+			}
+			
+			#footer {
+				margin: 0px auto;
+				height: 100px;
+				border: solid 1px red;
+			}
+			
+			@media only screen and (min-width:900px) {
+				#header,
+				#footer {
+					width: 100px;
+				}
+				#main {
+					width: 800px;
+					height: 400px;
+				}
+				#main-left {
+					width: 200px;
+					height: 400px;
+					border: solid 1px red;
+					float: left;
+				}
+				#main-center {
+					width: 394px;
+					height: 400px;
+					border: solid 1px red;
+					float: left;
+				}
+				#main-right {
+					width: 200px;
+					height: 400px;
+					border: solid 1px red;
+					float: left;
+				}
+			}
+			
+			@media only screen and (min-width: 600px) and (max-width: 900px) {
+				#header,
+				#footer {
+					width: 600px;
+				}
+				#main {
+					width: 600px;
+					height: 400px;
+				}
+				#main-left {
+					width: 200px;
+					height: 400px;
+					border: solid 1px red;
+					float: left;
+				}
+				#main-center {
+					width: 396px;
+					height: 400px;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header">头部</div>
+		<div id="main">
+			<div id="main-left">主题-左边</div>
+			<div id="main-center">主题-中间</div>
+			<div id="main-right">主题-右边</div>
+		</div>
+		<div id="footer">尾部</div>
+	</body>
+
+</html>

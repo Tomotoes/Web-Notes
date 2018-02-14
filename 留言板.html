@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=`, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="js/jQuery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				if (localStorage.getItem("k_con")!=null) {
+					$("#dCon").html(localStorage.getItem("k_con"));
+					
+				}
+			})
+
+			function PostCon() {
+				var sCon = $("#trCon").val();
+				$("#dCon").append("<div>" + sCon + "</div>");
+				
+				localStorage.setItem("k_con",$("#dCon").html());
+
+			}
+			
+			function Clear () {
+				$("#dCon").html("");
+				localStorage.clear();
+			}
+		</script>
+	</head>
+
+	<body>
+		<textarea name="" rows="8" cols="30" id="trCon"></textarea>
+		<input type="button" id="" value="发表" onclick="PostCon()" />
+		<input type="button" id="" value="清除" onclick="Clear()"/>
+		<div id="dCon"></div>
+	</body>
+
+</html>

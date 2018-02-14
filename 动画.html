@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+
+		<input id="button" type="button" value="点击颜色变变变">
+
+		<script type="text/javascript">
+			var aliceTumbling = [{
+				transform: 'rotate(0) translate3D(-50%, -50%, 0)',
+				color: '#000'
+			}, {
+				color: '#431236',
+				offset: 0.333
+			}, {
+				transform: 'rotate(360deg) translate3D(-50%, -50%, 0)',
+				color: '#000'
+			}];
+			var aliceTiming = {
+				duration: 3000,
+				iterations: Infinity
+			}
+			document.getElementById("button").animate(aliceTumbling, aliceTiming);
+		</script>
+	</body>
+
+</html>

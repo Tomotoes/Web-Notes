@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			new Promise((resolve, reject) => {
+				resolve('Data_1');
+			}).then(value => value + '2').then(value => value + '3').then(value => console.log(value)) //Data_123
+			
+			/*第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。*/
+
+			/*
+			 Promise 实例具有then方法,
+			 也就是说，then方法是定义在原型对象Promise.prototype上的。
+			 它的作用是为 Promise 实例添加状态改变时的回调函数。
+			 
+			 前面说过，then方法的第一个参数是resolved状态的回调函数，
+			 				     第二个参数（可选）是rejected状态的回调函数。
+
+			then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）。
+			因此可以采用链式写法，即then方法后面再调用另一个then方法。*/
+			
+
+		</script>
+	</body>
+
+</html>

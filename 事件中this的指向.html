@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<p id="para">Hello</p>
+		<p id="parb">Hello</p>
+		<p id="parc">Hello</p>
+		<p id="pard">Hello</p>
+		<script type="text/javascript">
+			var id = 'doc';
+
+			function hello() {
+				console.log(this.id);
+			}
+
+			para.addEventListener('click', hello, false);
+
+			//猜一猜 上面的代码 会输出什么？？？ doc 还是 para
+			//结果是 para 
+			//阮：这是因为监听函数被“拷贝”成了 节点的一个属性，所以 this指向节点对象
+
+			//其余的两种监听事件函数 的this指向  和 this的调用时 的所在域  有很大的关系 
+
+			parb.onclick = hello; //this === Element
+
+			parc.onclick = function() { //this === Element
+				console.log(this.id);
+			}
+
+			pard.setAttribute('onclick', 'hello') //this === window
+
+			//总结一下
+
+			//以下写法的this对象都指向Element节点。
+			
+			// JavaScript代码
+			element.addEventListener('click', print, false)
+			element.onclick = print
+			element.onclick = function() {
+				console.log(this.id);
+			}
+
+			// HTML代码
+			//<element onclick="console.log(this.id)">
+
+			
+			
+			//以下写法的this对象，都指向全局对象。
+			
+			// JavaScript代码
+			element.onclick = function() {
+				doSomething()
+			};
+			element.setAttribute('onclick', 'doSomething()');
+
+			// HTML代码
+			//<element onclick = "doSomething()" >
+		</script>
+	</body>
+
+</html>

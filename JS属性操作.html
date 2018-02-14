@@ -1,0 +1,33 @@
+<!--JS的点 都可以替代成[]，但[]不可以替换成.，比如下面的例子，DIV.style.name=value;是不可以的-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#Majin {
+				width: 200px;
+				height: 200px;
+				background-color: red;
+			}
+		</style>
+		<script type="text/javascript">
+			function Change(name, value) {
+				var DIV=document.getElementById("Majin");
+				DIV.style[name]=value;
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="Majin"></div>
+		<br />
+		<button onclick="Change('height','300px')">ToHight</button>
+		<button onclick="Change( 'width', '300px')">ToWidth</button>
+		<button onclick="Change('background-color','green')">ToGreen</button>
+	</body>
+
+</html>

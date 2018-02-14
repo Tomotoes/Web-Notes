@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			let Str = "majin ai liulin";
+
+			console.log(Str[1]); //a
+
+			console.log(Str.charAt(1));
+
+			//字符串的长度无法改变
+			console.log(Str.length); //15
+
+			Str.length = 6;
+
+			console.log(Str); //majin ai liulin
+			console.log(Str.length); //15
+
+			//substr方法用于从原字符串取出子字符串并返回， 不改变原字符串。
+			//substr方法的第一个参数是子字符串的开始位置， 第二个参数是子字符串的长度。
+
+			'JavaScript'.substr(4, 6) // "Script"
+			
+
+			//split方法按照给定规则分割字符串， 返回一个由分割出来的子字符串组成的数组。
+
+			'a|b|c'.split('|') // ["a", "b", "c"]
+		</script>
+	</body>
+
+</html>

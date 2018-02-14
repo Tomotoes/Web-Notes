@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<button id='Btn_One'>ClickOne</button>
+		<button id='Btn_Two'>ClickTwo</button>
+		<button id='Btn_Three'>ClickThree</button>
+		<script type="text/javascript">
+			
+			Btn_One.addEventListener('mouseover', () => Btn_One.style.color = 'red')
+			Btn_Three.addEventListener('click', () => Btn_Three.style.color = 'red')
+			
+			let event = new Event('mouseover');
+			
+			Btn_Two.addEventListener('click', () => {
+				Btn_One.dispatchEvent(event);
+				Btn_Three.dispatchEvent(new Event('click'))
+			})
+			
+			//说实话 第一次看见这个事件方法 dispatchEvent
+			//现在慢慢理解了
+			
+			//事件 应该怎么人为触发呢？
+			//DOM提供了一个API  dispatchEvent！
+			
+			//Element.dispatch(new Event('事件类型'))
+			//就好像在调用某个节点的函数一样！舒服
+		</script>
+	</body>
+
+</html>

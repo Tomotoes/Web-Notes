@@ -1,0 +1,158 @@
+【readyState】
+readyState是一个只读属性，用一个整数和对应的常量，表示XMLHttpRequest请求当前所处的状态。
+
+0，对应常量UNSENT，表示XMLHttpRequest实例已经生成，但是open()方法还没有被调用。
+1，对应常量OPENED，表示send()方法还没有被调用，仍然可以使用setRequestHeader()，设定HTTP请求的头信息。
+2，对应常量HEADERS_RECEIVED，表示send()方法已经执行，并且头信息和状态码已经收到。
+3，对应常量LOADING，表示正在接收服务器传来的body部分的数据，如果responseType属性是text或者空字符串，responseText就会包含已经收到的部分信息。
+4，对应常量DONE，表示服务器数据已经完全接收，或者本次接收已经失败了。
+
+在通信过程中，每当发生状态变化的时候，readyState属性的值就会发生改变。
+这个值每一次变化，都会触发readyStateChange事件。
+【ps：我知道 为什么要一直判断 oAjax.readyState===4 了】
+
+--------------------------------------------------------------------------------------------
+
+【status】
+status属性为只读属性，表示本次请求所得到的HTTP状态码，它是一个整数。
+一般来说，如果通信成功的话，这个状态码是200。
+
+200, OK，访问正常
+301, Moved Permanently，永久移动
+302, Move temporarily，暂时移动
+304, Not Modified，未修改
+307, Temporary Redirect，暂时重定向
+401, Unauthorized，未授权
+403, Forbidden，禁止访问
+404, Not Found，未发现指定网址
+500, Internal Server Error，服务器发生错误
+
+--------------------------------------------------------------------------------------------
+
+【abort】
+使用abort()方法，终止XMLHttpRequest请求，但是 onreadystatechange回调函数也会被调用。
+
+ajax.open('GET', 'http://www.example.com/page.php', true);
+var ajaxAbortTimer = setTimeout(function() {
+  if (ajax) {
+    ajax.abort();
+    ajax = null;
+  }
+}, 5000);
+上面代码在发出5秒之后，终止一个AJAX请求。
+
+--------------------------------------------------------------------------------------------
+
+【responseType】
+responseType属性用来指定服务器返回数据（xhr.response）的类型。
+
+”“：字符串（默认值）
+“arraybuffer”：ArrayBuffer对象
+“blob”：Blob对象    				二进制大对象 Blod 常用于 图像之类的文件
+“document”：Document对象
+“json”：JSON对象
+“text”：字符串
+
+--------------------------------------------------------------------------------------------
+
+【responText】
+responseText属性返回从服务器接收到的字符串，该属性为只读。
+如果本次请求没有成功或者数据不完整，该属性就会等于null。
+
+如果服务器返回的数据格式是JSON，就可以使用responseText属性。
+
+var data = ajax.responseText;
+data = JSON.parse(data);
+
+【responseXML】
+responseXML属性返回从服务器接收到的Document对象，该属性为只读。
+如果本次请求没有成功，或者数据不完整，或者不能被解析为XML或HTML，该属性等于null。
+
+返回的数据会被直接解析为DOM对象。
+
+var data = ajax.responseXML;	也就是说 responseXML 就相当于 返回一个DOM片段
+var chapters = data.getElementsByTagName('chapter');
+
+--------------------------------------------------------------------------------------------
+
+【statusText】
+statusText属性为只读属性，返回一个字符串，表示服务器发送的状态提示。
+不同于status属性，该属性包含整个状态信息，比如”200 OK“。
+
+--------------------------------------------------------------------------------------------
+
+【timeout】
+timeout属性等于一个整数，表示多少毫秒后，如果请求仍然没有得到结果，就会自动终止。
+如果该属性等于0，就表示没有时间限制。
+
+--------------------------------------------------------------------------------------------
+
+【open】
+XMLHttpRequest对象的open方法用于指定发送HTTP请求的参数，它的使用格式如下，一共可以接受五个参数。
+
+method：表示HTTP动词，比如“GET”、“POST”、“PUT”和“DELETE”。
+url: 表示请求发送的网址。
+async: 格式为布尔值，默认为true，表示请求是否为异步。
+	      如果设为false，则send()方法只有等到收到服务器返回的结果，才会有返回值。
+user：表示用于认证的用户名，默认为空字符串。
+password：表示用于认证的密码，默认为空字符串。
+
+如果对使用过open()方法的请求，再次使用这个方法，等同于调用abort()。
+
+--------------------------------------------------------------------------------------------
+
+【send】
+void send();
+void send(ArrayBufferView data);
+void send(Blob data);
+void send(Document data);
+void send(String data);
+void send(FormData data);
+
+--------------------------------------------------------------------------------------------
+
+【setRequestHeader】
+setRequestHeader方法用于设置HTTP头信息。该方法必须在open()之后、send()之前调用。
+如果该方法多次调用，设定同一个字段，则每一次调用的值会被合并成一个单一的值发送。
+
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('Content-Length', JSON.stringify(data).length);
+xhr.send(JSON.stringify(data));
+上面代码首先设置头信息Content-Type，表示发送JSON格式的数据；
+然后设置Content-Length，表示数据长度；最后发送JSON数据。
+
+--------------------------------------------------------------------------------------------
+
+【事件】
+load事件表示服务器传来的数据接收完毕，error事件表示请求出错，abort事件表示请求被中断。
+abort、load和error这三个事件，会伴随一个loadend事件，表示请求结束，但不知道其是否成功。
+
+--------------------------------------------------------------------------------------------
+
+【progress】
+上传文件时，XMLHTTPRequest对象的upload属性有一个progress，会不断返回上传的进度。
+
+假定网页上有一个progress元素。
+<progress min="0" max="100" value="0">0% complete</progress>
+
+文件上传时，对upload属性指定progress事件回调函数，即可获得上传的进度。
+
+function upload(blobOrFile) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/server', true);
+  xhr.onload = function(e) { ... };
+
+  // Listen to the upload progress.
+  var progressBar = document.querySelector('progress');
+  xhr.upload.onprogress = function(e) {
+    if (e.lengthComputable) {
+      progressBar.value = (e.loaded / e.total) * 100;
+      progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
+    }
+  };
+
+  xhr.send(blobOrFile);
+}
+
+upload(new Blob(['hello world'], {type: 'text/plain'}));
+

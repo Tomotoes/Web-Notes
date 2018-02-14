@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="js/jQuery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				$("#d1").css("background-color", "red");
+				//他妈的，我就没见过 jQuery操作CSS样式表，设置了css后，发现，操作的居然是内联样式
+			}
+		</script>
+		<style type="text/css">
+			#d1{
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+	</body>
+
+</html>

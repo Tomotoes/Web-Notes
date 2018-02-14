@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//对象的简便写法
+			let Person = {
+				name: '张三',
+
+				//等同于hello: function ()...
+				hello() {
+					console.log('我的名字是', this, name);
+				}
+			};
+
+			Person.hello(); //我的名字是 {name: "张三", hello: ƒ} 
+
+			//参数的默认值
+			function Point(x = 0, y = 0) {
+				this.x = x;
+				this.y = y;
+			}
+
+			var p = new Point();
+			// p = { x:0, y:0 }
+
+			//数组推导
+			var a1 = [1, 2, 3, 4];
+			//			var a2 = [i * 2
+			//				for(i of a1)
+			//			];
+			a1.forEach(e => {
+				console.log(e);
+			})
+
+			//ES6提供了“类”（class）。此前，一般用构造函数模拟“类”。
+			class Language {
+				constructor(name, founder, year) {
+					this.name = name;
+					this.founder = founder;
+					this.year = year;
+				}
+
+				summary() {
+					return this.name + "由" + this.founder + "在" + this.year + "创造";
+				}
+			}
+
+			let A = new Language();
+			console.log(A.summary()); //如果构造函数 没有值的话  将是一群 undefined
+
+			let B = new Language('马进', '刘琳', 'Simon');
+			console.log(B.summary()) //马进由刘琳在Simon创造
+
+			//感觉好有趣  终于 让我有一种归属感了
+			
+
+			//ES6的class结构还允许使用extends关键字， 表示继承。
+			class MetaLanguage extends Language {
+				constructor(x, y, z, version) {
+					super(x, y, z);
+					this.version = version;
+				}
+				summary() {
+					//...
+					super.summary();
+				}
+			}
+			//上面代码的super方法， 表示调用父类的构造函数。
+			
+			//脚本之间的相互通信！！！
+			//module circle from 'circle';
+
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//console.log(A); //hahhah 报错了！！！  undefined
+
+			//怎么避免这种问题发生呢 ？？？
+
+			//我们都知道 null undefined 转换成 布尔值 都是false 所以我们 可以利用这一点
+
+			if(typeof A == 'undefined') {
+				console.log('A is not defined');
+			} else {
+				console.log('不可能输出这条语句');
+			}
+			
+			//看见了没有 我们可以用这种语法
+			// if (typeof X == 'undefined'){xxx}else{xxx}
+		</script>
+	</body>
+
+</html>

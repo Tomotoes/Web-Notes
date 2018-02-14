@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//先来一个典型的例子（类似数组的对象）
+
+			let Obj = {
+				0: 'a',
+				1: 'b',
+				2: 'c',
+				length: 3
+			};
+			console.log(Obj[0]);
+			console.log(Obj.length);
+			for(let i = 0; i < Obj.length; ++i) {
+				console.log(Obj[i]);
+			}
+
+			//ok,可当我们进行 其他数组操作时
+			//Obj.push('d')//TypeError:
+
+			//解决办法 将当前对象转换成数组
+			let A = Array.prototype.slice.call(Obj) //将 Obj放到 数组的原生方法slice里面
+			A.push('d');
+			
+			function Each () {
+				Array.prototype.forEach.call(arguments,e=>{
+					console.log(e);
+				})
+				
+				//有点懵 解析一下  还记的 forEach的参数嘛,也就是说 你后面的代码 正是传的参数
+				
+				[1,2,3,4,5].forEach(e=>{
+					console.log(e);
+				})
+			}
+			Each(1,2,3,4,5,6,8);
+			
+//ps：自执行 函数前 必须有分号！
+			//ok，说一下 这种类似数组的对象 有哪些
+			
+			//1.arguments
+			(function() {
+				console.assert(arguments instanceof Array, "arguments 并非数组")
+			})();
+			
+			//2.大多数DOM元素集
+			(function () {
+				console.assert(document.children instanceof Array,"大多数DOM元素集合并非数组")
+			})();
+			
+			(function () {
+				console.assert(document.getElementsByTagName('body') instanceof Array,
+							   "大多数DOM元素集合并非数组")
+			})();
+			//字符串
+			(function () {
+				console.assert('ABC' instanceof Array,"字符串并非数组")
+			})()
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				background: radial-gradient(#222, #000);
+			}
+			
+			:-webkit-full-screen {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+		requestFullscreen()			请求全屏
+		exitFullscreen()			退出全屏
+		
+		document.fullscreenElement	处在全屏的元素
+		document.fullscreenEnabled	当前文档是否可以全屏
+		
+		fullscreenchange			浏览器进入或离开全屏时触发
+		fullscreenerror				浏览器无法进入全屏时触发
+		
+		:full-screen				伪类
+	-->
+		<div id="header"></div>
+		<script type="text/javascript">
+			
+			function launchFullscreen(element) {
+				
+				if(element.requestFullscreen) {
+					element.requestFullscreen();
+				} else if(element.mozRequestFullScreen) {
+					element.mozRequestFullScreen();
+				} else if(element.msRequestFullscreen) {
+					element.msRequestFullscreen();
+				} else if(element.webkitRequestFullscreen) {
+					element.webkitRequestFullScreen();
+				
+				}
+			}
+
+			launchFullscreen(document.documentElement);
+
+			function exitFullscreen() {
+				
+				if(document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if(document.msExitFullscreen) {
+					document.msExitFullscreen();
+				} else if(document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if(document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				}
+				
+			}
+
+			exitFullscreen();
+
+			/*fullscreenElement属性返回正处于全屏状态的节点，当前没有节点处于全屏状态，则返回null。*/
+			var fullscreenElement =
+				document.fullscreenElement ||
+				document.mozFullScreenElement ||
+				document.webkitFullscreenElement;
+
+			//fullscreenEnabled属性返回一个布尔值， 表示当前文档是否可以切换到全屏状态。
+
+			var fullscreenEnabled =
+				document.fullscreenEnabled ||
+				document.mozFullScreenEnabled ||
+				document.webkitFullscreenEnabled ||
+				document.msFullscreenEnabled;
+
+			if(fullscreenEnabled) {
+				videoElement.requestFullScreen();
+			} else {
+				console.log('浏览器当前不能全屏');
+			}
+
+//			fullscreenchange事件： 浏览器进入或离开全屏时触发。
+//
+//			fullscreenerror事件： 浏览器无法进入全屏时触发， 可能是技术原因， 也可能是用户拒绝。
+
+			document.addEventListener("fullscreenchange", function(event) {
+				if(document.fullscreenElement) {
+					console.log('进入全屏');
+				} else {
+					console.log('退出全屏');
+				}
+			});
+			
+			/*全屏状态下，大多数浏览器的CSS支持:full-screen伪类，只有IE11支持:fullscreen伪类。使用这个伪类，可以对全屏状态设置单独的CSS属性。*/
+		</script>
+	</body>
+
+</html>

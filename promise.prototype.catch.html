@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!--
+		Promise.prototype.catch方法是.then(null, rejection)的别名，
+		用于指定发生错误时的回调函数。
+		-->
+		<script type="text/javascript">
+			var promise = new Promise(function(resolve, reject) {
+				throw new Error('test');
+			});
+			promise.catch(function(error) {
+				console.log(error);
+			});
+			// Error: test
+
+			/*等价于*/
+
+			var promise_o = new Promise(function(reslove, reject) {
+				try {
+					throw new Error('text_o');
+				} catch(e) {
+					reject(e);
+				}
+			}).then(null, error => console.log(error));
+
+			new Promise(() => {
+				reject();
+			}).catch(() => {
+				console.log('a');
+				reject();
+			}).then(null, () => console.log('b'))
+
+			//			new Promise(()=>{
+			//				reject();
+			//			}).then(null,()=>{
+			//				console.log('a');
+			//				reject();
+			//			}).then(()=>console.log('b'),()=>console.log('c'));
+
+			/*reject resolve 是 默认参数 可以不写  在then 函数链中  不要使用 resolve 因为 它会自动 调用resolve
+			 当然是 你在没有提前 声明 reject的前提下  在构造函数中 需要手动调用一个方法*/
+
+			/*
+			 * 如果Promise状态已经变成resolved，再抛出错误是无效的。*/
+
+			var promise = new Promise(function(resolve, reject) {
+				resolve('ok');
+				throw new Error('test');
+			});
+			promise
+				.then(function(value) {
+					console.log(value)
+				})
+				.catch(function(error) {
+					console.log(error)
+				});
+			/* ok
+			上面代码中，Promise 在resolve语句后面，再抛出错误，不会被捕获，等于没有抛出。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。
+						 */
+
+			/*Promise 对象的错误具有“ 冒泡” 性质， 会一直向后传递， 直到被捕获为止。 
+			 * 也就是说， 错误总是会被下一个catch语句捕获。*/
+
+			//			getJSON('/post/1.json').then(function(post) {
+			//				return getJSON(post.commentURL);
+			//			}).then(function(comments) {
+			//				// some code
+			//			}).catch(function(error) {
+			//				// 处理前面三个Promise产生的错误
+			//			});
+			/*上面代码中， 一共有三个Promise对象： 一个由getJSON产生， 两个由then产生。
+			 * 它们之中任何一个抛出的错误， 都会被最后一个catch捕获。*/
+
+			/*Promise 对象的错误具有“ 冒泡” 性质*/
+			new Promise((resolve, reject) => {
+					reject('Error');
+				}).then(() => {
+					console.log(1);
+				})
+				.catch(value => console.log(value)); //Error
+			/*Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。*/
+			/*也就是说 reject总是会被下一个 catch语句捕获*/
+
+			/*一般来说，不要在then方法里面定义Reject状态的回调函数（即then的第二个参数），总是使用catch方法。*/
+			/*因为 catch可以捕获前面then方法执行中的错误，也更接近同步的写法（try/catch）。
+			 * 因此，建议总是使用catch方法，而不使用then方法的第二个参数。*/
+
+			/*
+			 跟传统的try/catch代码块不同的是，如果没有使用catch方法指定错误处理的回调函数，
+			 Promise对象抛出的错误不会传递到外层代码，即不会有任何反应。
+			 
+			 可是 catch 还可以补错！
+			 */
+
+			var someAsyncThing = function() {
+				return new Promise(function(resolve, reject) {
+					// 下面一行会报错，因为x没有声明
+					resolve(x + 2);
+				});
+			};
+
+			someAsyncThing()
+				.catch(function(error) {
+					console.log('oh no', error);
+				})
+				.then(function() {
+					console.log('carry on');
+				});
+			// oh no [ReferenceError: x is not defined]
+			// carry on
+			
+			/*执行完 catch，reject  都会返回一个全新的  promise实例  并且该实例的状态是  resolve*/
+		</script>
+	</body>
+
+</html>

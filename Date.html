@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			let oDate = new Date();
+			
+			//oDate.setDate(31);//如果给的日期超过当前月份最大的日期 它就会自动往下一个月进位
+			//这个setDate的方法 是用于当前月份  
+			//如果 当前月份最多是30天  然后 setDate(31) 它就会 月份自动进1    并且日期变成1号
+			
+			//一定要注意 getMonth() 后面要加1  不然月份总是少1的
+			
+			//oDate.setDate(oDate.getDate()+n);
+			
+			alert(oDate.getDate());//得到目前的日期  单位是号    意思就是 今天是几号
+			
+			oDate.setDate(oDate.getDate()+n);//意思就是 在今天日期的基础上 添加n天！
+		</script>
+	</body>
+
+</html>

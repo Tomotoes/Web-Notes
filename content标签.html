@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div class="pokeman">胖丁
+			<p>HAHA</p>
+		</div>
+		<template class="pokeman_template">
+			<style type="text/css">
+				::content {
+					color: red;
+				}
+			</style>
+			<h1>一只野生的
+			<content></content>
+			出现了！</h1>
+		</template>
+		<script type="text/javascript">
+			let host = document.querySelectorAll(".pokeman")[0];
+			let root = host.createShadowRoot();
+			let template = document.querySelectorAll(".pokeman_template")[0];
+			root.appendChild(document.importNode(template.content, true));
+
+			/*
+			 * 在之前的认识中，我们用影子根里面的内容完全替换了影子宿主里面的内容。
+			 * 但这种奇技淫巧在实际开发中没什么用。
+			 * 真正有用的是我们可以从影子宿主中获取内容，并使用影子根中的结构将这些内容呈现。
+			 * 想要引用影子宿主里面的内容，我们需要采用一个新的标签—— <content> 标签。
+			 * 
+			 * 刚才自己调试 发现 content中是这样的    ->#text   -><p>
+			 * 当我点击   ->#text  会自动跳到胖丁   -><p> 会自动跳动<p>
+			 * 
+			 * 也就是说 content标签 里面包含的是  宿主节点的内容的引用！
+			 * 当页面编译时  自动把宿主节点的内容  引用过来！
+			 * 
+			 */
+		</script>
+		<h1>
+			<p>ppppp</p>
+			<b>bbbbb</b>
+			<p class='threep'>ooooo</p>
+		</h1>
+		<template>
+			b:
+			<content select="b"></content>
+			P:
+			<content select=""></content>
+		</template>
+		<script type="text/javascript">
+			let H = document.querySelectorAll("h1")[0];
+			
+			let H_Shadow = H.createShadowRoot();
+			H_Shadow.appendChild(document.querySelectorAll("template")[1].content.cloneNode(true));
+			/*其中 select=""  或者不写 select属性  或者写 select="*"  代表的是通配  ，
+			 * 通配的结果是  会将剩余宿主节点所有的内容全部映射过来   
+			 * 更严重的结果是  余下的content将无法读取内容
+			 * 
+			 你可能想知道 select中的语法是什么 值该怎么写
+			 select的语法 就按照选择器的语法 去写！
+			 如果 宿主内容有class  那么我就写 个  .className 如此
+			 */
+		</script>
+	</body>
+
+</html>

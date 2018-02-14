@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//new命令的作用，就是执行构造函数，返回一个实例对象。
+
+			let Ctor = function() {
+				this.price = 1000;
+			};
+
+			let v = new Ctor();
+			console.log(v.price);
+
+			//new命令本身就可以执行构造函数，所以后面的构造函数可以带括号，也可以不带括号。
+			let c = new Ctor;
+			console.log(c.price);
+
+			//new 命令原理
+			//创建一个空对象， 作为将要返回的对象实例
+			//将这个空对象的原型， 指向构造函数的prototype属性
+			//将这个空对象赋值给函数内部的this关键字
+			//开始执行构造函数内部的代码
+
+			//如果构造函数内部有return语句，而且return后面跟着一个对象，其他值不会考虑
+			//new命令会返回return语句指定的对象；否则，就会不管return语句，返回this对象。
+
+			function CCtor() {
+				this.C = '123';
+				return 1000;
+			}
+			let R = new CCtor();
+			console.log(R.C); //123
+
+			function TheNew() {
+				this.Name = 'liulin';
+				return {
+					Name: 'majin',
+					Sex: 'nan'
+				}
+			}
+			console.log(new TheNew().Name); //majin
+
+			//new 工作流程
+			function _new( /* 构造函数 */ constructor, /* 构造函数参数 */ param1) {
+
+				// 将 arguments 对象转为数组
+				var args = [].slice.call(arguments);
+
+				// 取出构造函数
+				var constructor = args.shift();
+
+				// 创建一个空对象，继承构造函数的 prototype 属性
+				var context = Object.create(constructor.prototype);
+
+				// 执行构造函数
+				var result = constructor.apply(context, args);
+
+				// 如果返回结果是对象，就直接返回，则返回 context 对象
+				return(typeof result === 'object' && result != null) ? result : context;
+			}
+
+			//函数内部可以使用new.target属性。
+			//如果当前函数是new命令调用，new.target指向当前函数，否则为undefined。
+			function f() {
+				console.log(new.target === f);
+			}
+
+			f() // false
+			new f() // true
+		</script>
+	</body>
+
+</html>

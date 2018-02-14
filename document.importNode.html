@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="header">
+			<p>This is Document.importNode!</p>
+		</div>
+		<script type="text/javascript">
+			/*let CopyNode = document.importNode(CopiedNode,true); true表明拷贝子节点*/
+			let P = document.importNode(header.firstElementChild, true);
+			
+			document.body.appendChild(P);
+		</script>
+	</body>
+
+</html>

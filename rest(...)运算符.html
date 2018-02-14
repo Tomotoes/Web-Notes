@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			//说实话  第一眼看到它  我想起了 C#的参数数组 params
+
+			function add(...values) {
+				let Sum = 0;
+				values.forEach(e => {
+					Sum += e;
+				})
+				return Sum;
+			}
+			console.log(add(1, 2, 3, 4)); //10
+
+
+			//将数组转为参数序列
+			function f(s1, s2, s3, s4, s5) {
+				console.log(s1 + s2 + s3 + s4 + s5);
+			}
+
+			var a = ["a2", "a3", "a4", "a5"];
+
+			f("a1", ...a)
+			// a1a2a3a4a5
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!--
+clientHight/Width：可见部分的大小 只包括padding
+
+clientTop/Left： 边框的大小
+
+scrollHeight/Width 元素的大小 只包括padding
+
+scrollTop/Left 元素可以滚动的距离
+
+offsetHeight/Width：元素的实际大小 包括padding，border
+
+offsetTop/Left：相对offsetParent的 垂直/水平位移
+-->
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#header {
+				width: 2000px;
+				height: 2000px;
+				/*border: solid 5px red;
+			margin: 100px;*/
+				background: radial-gradient(#222, #000);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="header"></div>
+		<script type="text/javascript">
+			//Element.clientLeft属性等于元素节点左边框（left border）的宽度，Element.clientTop属性等于网页元素顶部边框的宽度，单位为像素。
+			console.log(header.clientTop) //返回的是 border-top-width  T
+
+			console.log(header.clientLeft) //返回的是 border-left-width  T
+
+			//Element.clientHeight属性返回元素节点可见部分的高度，Element.clientWidth属性返回元素节点可见部分的宽度。所谓“可见部分”，指的是不包括溢出（overflow）的大小，只返回该元素在容器中占据的大小，对于有滚动条的元素来说，它们等于滚动条围起来的区域大小。这两个属性的值包括Padding、但不包括滚动条、边框和Margin，单位为像素。这两个属性可以计算得到，等于元素的CSS高度（或宽度）加上CSS的Padding，减去滚动条（如果存在）。
+			console.log(header.clientWidth) //包括padding的2000,宽度  F
+
+			console.log(header.clientHeight) //包括padding的2000，高度  F
+
+			console.log("%c" + window.innerHeight, "color:red;") //744
+
+			console.log("%c" + window.innerWidth, "color:red;") //1536
+
+			//Element.scrollHeight属性返回某个网页元素的总高度，Element.scrollWidth属性返回总宽度，可以理解成元素在垂直和水平两个方向上可以滚动的距离。它们都包括由于溢出容器而无法显示在网页上的那部分高度或宽度。这两个属性是只读属性。它们返回的是整个元素的高度或宽度，包括由于存在滚动条而不可见的部分。默认情况下，它们包括Padding，但不包括Border和Margin。如果内容正好适合它的容器，没有溢出，那么Element.scrollHeight和Element.clientHeight是相等的，scrollWidth属性与clientWidth属性是相等的。如果存在溢出，那么scrollHeight属性大于clientHeight属性，scrollWidth属性大于clientWidth属性。
+
+			console.log(header.scrollHeight) //2000 T
+			console.log(header.scrollWidth) //2000  T
+
+			//Element.scrollLeft属性表示网页元素的水平滚动条向右侧滚动的像素数量，Element.scrollTop属性表示网页元素的垂直滚动条向下滚动的像素数量。对于那些没有滚动条的网页元素，这两个属性总是等于0。两个属性都可读写，设置该属性的值，会导致浏览器将指定元素自动滚动到相应的位置。
+			console.log(header.scrollTop) //0   F
+			console.log(header.scrollLeft) //0  F
+
+			//Element.offsetHeight属性返回元素的垂直高度，Element.offsetWidth属性返回水平宽度。offsetHeight可以理解成元素左下角距离左上角的位移，offsetWidth是元素右上角距离左上角的位移。它们的单位为像素，都是只读。这两个属性值包括Padding和Border、以及滚动条。这也意味着，如果不存在内容溢出，Element.offsetHeight只比Element.clientHeight多了边框的高度。整张网页的高度，可以在document.documentElement和document.body上读取。
+			console.log(header.offsetHeight); //200
+			console.log(header.offsetWidth); //2000
+
+			//Element.offsetLeft返回当前元素左上角相对于Element.offsetParent节点的水平位移，Element.offsetTop返回垂直位移，单位为像素。通常，这两个值是指相对于父节点的位移。
+			console.log(header.offsetTop); //8
+			console.log(header.offsetLeft); //8
+
+//我将仔细 解析一下 下面的代码  
+//先说下 offset 与 scroll的区别  都代表的是 元素的实际大小 只不过前者包括 border 后者不包括
+//而没有 border 所以下面的值 都是相等的
+//可为什么 documentElement 比 body 就大 16呢
+//在下面的代码中 我们求得了 网页元素的视口坐标  header.getBoundingClientRect().top()==8
+//而这个网页视口又是什么？ 正是body的外边距！   body { display: block; margin: 8px;}
+//8，16，  16，8 你有没有想到什么
+//没错 16==2*8==body的top 加上 body的bottom 或者是 left 和 right！
+//documentElement 和 body 又是什么关系呢？
+//不言而喻 父子关系 documentElement 是 body的亲爹！
+
+			console.log(document.documentElement.offsetHeight) //2016 包括border
+			console.log(document.documentElement.scrollHeight) //2016 不包括border
+			console.log(document.body.offsetHeight) //2000
+			console.log(document.body.scrollHeight) //2000
+
+			console.log(window.innerHeight) // 包括滚动条 742
+			console.log(document.documentElement.clientHeight) // 不包括滚动条 725
+
+			// 视口宽度
+			console.log(window.innerWidth) // 包括滚动条 1536
+			console.log(document.documentElement.clientWidth) // 不包括滚动条 1519
+
+			// 网页元素左上角的视口横坐标 也就是 body的外边距 margin
+			console.log(header.getBoundingClientRect().left) //8
+
+			// 网页元素左上角的视口纵坐标
+			console.log(header.getBoundingClientRect().top) //8
+
+			//网页目前滚动的距离，可以从document.documentElement节点上得到。
+
+			// 网页滚动的水平距离
+			console.log(document.documentElement.scrollLeft) //0
+
+			// 网页滚动的垂直距离
+			console.log(document.documentElement.scrollTop) //0
+
+			//某个网页元素距离网页左上角的坐标，使用视口坐标加上网页滚动距离。
+
+			// 网页元素左上角的网页横坐标
+			console.log(header.getBoundingClientRect().left + document.documentElement.scrollLeft) //8
+
+			// 网页元素左上角的网页纵坐标
+			console.log(header.getBoundingClientRect().top + document.documentElement.scrollTop) //7.800...
+		</script>
+	</body>
+
+</html>

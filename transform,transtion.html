@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			* {
+				padding: 0px;
+				margin: 0px;
+				font-family: "微软雅黑";
+			}
+			
+			#d1 {
+				width: 150px;
+				height: 150px;
+				border: solid 2px red;
+				background-color: #fc9;
+				position: absolute;
+				top: 200px;
+				left: 200px;
+			}
+			
+			#Transform {
+				transform: rotate(-30deg)/*rotate(xxdeg):顺时针旋转*/
+				scale(2)/*放大的倍数*/
+				translate(20px, 30px)/*位移(垂直位移，水平位移)*/
+				skew(10deg, 20deg)/*倾斜角度（水平，垂直）*/
+				;
+			}
+			
+			#d1:hover {
+				transform: rotate(90deg) scale(2) skew(80deg);
+				transition: transform 5s ease;
+				/*解释一下 transition 就是为了过渡而生  这里我们只是定义了一个transform 如果有多个 那就改成 all*/
+				/*1s 就是过渡的时间    ease 是过渡方式：匀速*/
+				/*现在说明一下 ease-in 和  ease-out*/
+				/*ease-in：最后快 开头慢；	ease-out：开头快 最后慢*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+	</body>
+
+</html>

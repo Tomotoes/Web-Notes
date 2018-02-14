@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			console.log(parseInt('123abc'))//123
+			console.log(Number('123abc'));//NaN
+			//Number函数将字符串转为数值，要比parseInt函数严格很多。
+			//基本上，只要有一个字符无法转成数值，整个字符串就会被转为NaN。
+			
+			console.log(String("123"))
+			
+			console.log(Boolean(0));//false
+			//它的转换规则相对简单：除了以下六个值的转换结果为false，其他的值全部为true。
+			//undefined
+			//null
+			//-0
+			//0或+0
+			//NaN
+			//''（空字符串）
+		</script>
+	</body>
+
+</html>

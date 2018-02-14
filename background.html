@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<style type="text/css">
+			#d1 {
+				height: 900px;
+				width: 900px;
+				/*哈哈哈，这句代码 吊吧 别着急 我来给你解析*/
+				/*background: blue url("img/Small.jpg") no-repeat fixed 100px 200px;*/
+				background-color: blue;
+				/* 背景颜色 */
+				background-image: url("img/Small.jpg");
+				/* 背景图片 */
+				background-repeat: no-repeat;
+				/* 背景图片不重复 */
+				background-attachment: fixed;
+				/* 背景图片固定定位，就算当屏幕滚动时，图片的位置不变 */
+				background-position-x: 100px;
+				/* 背景图片距离父元素 的left */
+				background-position-y: 200px;
+				/* 背景图片距离父元素的top */
+				background: blue url("img/Small.jpg") no-repeat fixed 100px 200px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="d1"></div>
+	</body>
+
+</html>

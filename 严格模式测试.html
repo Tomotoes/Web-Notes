@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			'use strict'
+
+			//1.对 只读属性 不可设置
+			let Str = "asdsad";
+			//Str.length = 5;
+
+			//2.全局变量都必须先 声明在使用
+			//f=5;
+			let f = 5;
+			console.log(f);
+
+			//3.禁止this关键字 指向全局  所以自动变成了 undefined
+			function Q() {
+				console.log(this === undefined);
+			}
+			Q() // true
+
+			//4.无法删除变量  怎么说呢 之前删除不报错  严格模式就报错咯！
+			var x;
+			//delete x;
+
+			//5).arguments不再追踪参数的变化
+
+			//6).非函数代码块不得声明函数
+
+			//7).使用这些词作为变量名将会报错。
+
+			//implements, interface,
+			//let, package, private, protected, public, static, yield。
+			
+			//let interface=5;
+		</script>
+	</body>
+
+</html>
